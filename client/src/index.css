@@ -1,13 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color-scheme: light;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --primary-color: #1cb0f6;
+  --secondary-color: #a1b7c1;
+  --button-font-size: 14px;
+}
+
+.primary-btn {
+  font-family: Roboto;
+  font-size: var(--button-font-size);
+  color: white;
+  background-color: var(--primary-color);
+  width: 106px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.primary-btn:hover {
+  filter: brightness(90%);
+}
+
+.secondary-btn {
+  font-family: Roboto;
+  font-size: var(--button-font-size);
+  color: black;
+  background-color: white;
+  width: 106px;
+  height: 40px;
+  border-style: solid;
+  border-color: var(--secondary-color);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.secondary-btn:hover {
+  filter: brightness(90%);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1.5px solid var(--secondary-color);
+
+  padding-bottom: 15px;
+}
+
+.right-side-nav {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 12px;
+  width: 350px;
+}
+
+.right-side-nav button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.logo p {
+  color: var(--primary-color);
 }
