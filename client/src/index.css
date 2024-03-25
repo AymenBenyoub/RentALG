@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Doppio+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Secular+One&display=swap");
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -55,7 +56,6 @@ nav {
   display: flex;
   justify-content: space-between;
   border-bottom: 1.5px solid var(--secondary-color);
-
   padding-bottom: 15px;
 }
 
@@ -63,7 +63,7 @@ nav {
   display: flex;
   justify-content: flex-start;
   margin-top: 12px;
-  width: 350px;
+  width: 300px;
 }
 
 .right-side-nav button {
@@ -72,5 +72,35 @@ nav {
 }
 
 .logo p {
+  font-family: Doppio One;
   color: var(--primary-color);
+  margin-left: 25px;
+  transform: translate(0%, 17%);
+}
+.SearchSection {
+  height: 140px;
+
+  display: flex;
+  align-items: center;
+}
+.SearchSection p {
+  font-family: Secular One;
+  font-size: 20px;
+  margin-left: 50px;
+}
+.SearchSection input {
+  margin-left: 30px;
+  width: 500px;
+  padding: 9px;
+  border: 1.6px solid var(--secondary-color);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.SearchSection input:focus {
+  outline-style: outset;
+  outline-color: var(--secondary-color);
+}
+main {
+  border: 2px solid red;
+  height: 200px;
 }
