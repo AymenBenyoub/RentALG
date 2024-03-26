@@ -16,7 +16,15 @@
   --secondary-color: #a1b7c1;
   --button-font-size: 14px;
 }
-
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+body {
+  margin: 0;
+  height: 100%;
+}
 .primary-btn {
   font-family: Roboto;
   font-size: var(--button-font-size);
@@ -38,7 +46,7 @@
   font-family: Roboto;
   font-size: var(--button-font-size);
   color: black;
-  background-color: white;
+  background-color: var(--secondary-color);
   width: 106px;
   height: 40px;
   border-style: solid;
@@ -56,7 +64,7 @@ nav {
   display: flex;
   justify-content: space-between;
   border-bottom: 1.5px solid var(--secondary-color);
-  padding-bottom: 15px;
+  padding-bottom: 7px;
 }
 
 .right-side-nav {
@@ -76,6 +84,9 @@ nav {
   color: var(--primary-color);
   margin-left: 25px;
   transform: translate(0%, 17%);
+}
+.logo-link {
+  text-decoration: none;
 }
 .SearchSection {
   height: 140px;
@@ -102,5 +113,75 @@ nav {
 }
 main {
   border: 2px solid red;
-  height: 200px;
+  padding: 20px;
+  min-height: fit-content;
+  background-color: rgb(210, 231, 231);
+  margin: 0px 30px 0px 30px;
+}
+footer {
+  margin-top: auto;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: fit-content;
+}
+footer p {
+  font-family: Doppio One;
+  color: black;
+  margin-right: 0px;
+}
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+}
+.openModal {
+  font-family: sans-serif;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 80%;
+}
+.modals-container {
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.footer-icons {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 30px;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
 }
