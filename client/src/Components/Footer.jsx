@@ -15,7 +15,7 @@ function Footer() {
       <div className="modals-container">
         <TextModal modalTitle={"Terms"} modalContent={TOS} />
 
-        <TextModal modalTitle={"About"} modalContent={"FUCK YOU! 🖕🖕🤬😡"} />
+        <TextModal modalTitle={"About"} modalContent={"😀😀😀"} />
 
         <div className="footer-icons">
           <FaFacebook />
