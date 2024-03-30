@@ -4,6 +4,7 @@ import ImageCarousel from "../Components/ImageCarousel";
 import mus from "../Components/pics/mus.jpg";
 import horse from "../Components/pics/horse.jpg";
 import xd from "../Components/pics/xd.jpg";
+import BookingBill from "../Components/BookingBill";
 function listingDetails() {
   const images = [mus, horse, xd];
   return (
@@ -18,7 +19,9 @@ function listingDetails() {
           <div className="details">
             <h3>General Information</h3>
           </div>
-          <div className="bill"></div>
+          <div className="bill">
+            <BookingBill />
+          </div>
         </div>
       </div>{" "}
       <Footer />

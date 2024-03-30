@@ -373,3 +373,95 @@ footer p {
     margin-left: 30px;
   }
 }
+.listing-details-container {
+  display: flex;
+  justify-content: space-between;
+}
+.checkout {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 400px;
+  margin: 40px 100px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  * {
+    margin-bottom: 7.5px;
+  }
+}
+
+.reservation-summary,
+.breakdown {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.reservation-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Vertically align labels and inputs */
+}
+
+.check-in,
+.check-out {
+  font-weight: lighter;
+  color: #999;
+  margin-right: 10px;
+}
+
+.check-in-date,
+.check-out-date {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+}
+
+.guests,
+.number-of-guests {
+  color: #999;
+}
+
+.reserve {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 44px;
+}
+
+.disclaimer {
+  font-size: 12px;
+  text-align: center;
+  color: #ccc;
+  margin-top: 10px;
+}
+
+.breakdown .cleaning-fee,
+.breakdown .rentalg-service-fee,
+.breakdown .total-before-taxes {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.breakdown .nightly-rate {
+  display: flex;
+}
+.breakdown .total {
+  font-weight: bold;
+  margin-left: auto;
+}
+
+.cleaning-fee-amount,
+.rentalg-service-fee-amount,
+.total-before-taxes-amount {
+  font-weight: bold;
+}

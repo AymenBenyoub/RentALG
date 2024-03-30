@@ -1,16 +1,20 @@
 /* eslint-disable react/prop-types */
-function PrimaryButton({ text }) {
+function PrimaryButton({ text, style }) {
   return (
     <>
-      <button className="primary-btn">{text}</button>
+      <button className="primary-btn" style={style}>
+        {text}
+      </button>
     </>
   );
 }
 
-function SecondaryButton({ text }) {
+function SecondaryButton({ text, style }) {
   return (
     <>
-      <button className="secondary-btn">{text}</button>
+      <button className="secondary-btn" style={style}>
+        {text}
+      </button>
     </>
   );
 }

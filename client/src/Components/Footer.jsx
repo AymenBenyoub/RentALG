@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import TextModal from "../Components/TextModal";
-import { TOS } from "../static data/TOS";
+import { TOS } from "../data/TOS";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 function Footer() {
   return (
