@@ -4,7 +4,7 @@ import { PrimaryButton, SecondaryButton } from "../Components/Buttons";
 export default function Header() {
   return (
     <nav>
-      <Link to="/" className="logo-link">
+      <Link to="/" className="link-decoration">
         <div className="logo">
           <p>RentALG</p>
         </div>

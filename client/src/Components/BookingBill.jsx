@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { PrimaryButton } from "./Buttons";
 const BookingBill = () => {
-  const [checkInDate, setCheckInDate] = useState(new Date(2024, 3, 1)); // April 1, 2024 (month starts at 0)
-  const [checkOutDate, setCheckOutDate] = useState(new Date(2024, 3, 5)); // April 6, 2024
-  //   const [guests, setGuests] = useState(1);
+  const [checkInDate, setCheckInDate] = useState(new Date(2024, 3, 1));
+  const [checkOutDate, setCheckOutDate] = useState(new Date(2024, 3, 5));
 
   const handleCheckInChange = (event) => {
     const selectedDate = new Date(event.target.value);
     if (selectedDate.getTime() <= checkOutDate.getTime()) {
       setCheckInDate(selectedDate);
     } else {
-      // Prevent state update for invalid check-in date
-      event.target.value = checkInDate.toISOString().substring(0, 10); // Reset input value
+      event.target.value = checkInDate.toISOString().substring(0, 10);
     }
   };
 
@@ -20,8 +18,7 @@ const BookingBill = () => {
     if (selectedDate.getTime() >= checkInDate.getTime()) {
       setCheckOutDate(selectedDate);
     } else {
-      // Prevent state update for invalid check-out date
-      event.target.value = checkOutDate.toISOString().substring(0, 10); // Reset input value
+      event.target.value = checkOutDate.toISOString().substring(0, 10);
     }
   };
 
@@ -80,14 +77,11 @@ const BookingBill = () => {
       </div>
       <div className="breakdown">
         <div className="nightly-rate">
-          <span>$124</span> night
-          <span>x {nights} nights</span>
-          <span className="total">= $ {124 * nights}</span>
+          <span>$124 </span>
+          <span>&nbsp;x {nights} nights</span>
+          <span className="total"> $ {124 * nights}</span>
         </div>
-        <div className="cleaning-fee">
-          Cleaning fee
-          <span className="cleaning-fee-amount">$15</span>
-        </div>
+
         <div className="rentalg-service-fee">
           RentALG service fee
           <span className="rentalg-service-fee-amount">$90</span>

@@ -7,7 +7,7 @@ function Footer() {
     <footer>
       <Link
         to="/"
-        className="logo-link"
+        className="link-decoration"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       >
         <p>RentALG</p>
