@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import mus from "./pics/mus.jpg";
+import unknown from "./pics/Untitled.png";
 const Avatar = ({ size }) => {
   return (
     <div
@@ -11,7 +11,7 @@ const Avatar = ({ size }) => {
       }}
     >
       <img
-        src={mus}
+        src={unknown}
         style={{ width: "100%", height: "100%", objectFit: "cover" }}
       />
     </div>

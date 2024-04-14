@@ -1,9 +1,13 @@
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import ImageCarousel from "../Components/ImageCarousel";
-import mus from "../Components/pics/mus.jpg";
-import horse from "../Components/pics/horse.jpg";
-import xd from "../Components/pics/xd.jpg";
+
+import p1 from "../Components/pics/1.webp";
+import p2 from "../Components/pics/2.webp";
+import p3 from "../Components/pics/3.webp";
+import p4 from "../Components/pics/4.webp";
+import p5 from "../Components/pics/5.webp";
+import p6 from "../Components/pics/6.webp";
 import BookingBill from "../Components/BookingBill";
 import { FaLocationDot } from "react-icons/fa6";
 import AmenitiesList from "../Components/AmenitiesList";
@@ -11,7 +15,7 @@ import Avatar from "../Components/Avatar";
 import { Link } from "react-router-dom";
 import ReviewsList from "../Components/ReviewsList";
 function listingDetails() {
-  const images = [mus, horse, xd];
+  const images = [p1, p2, p3, p4, p5, p6];
   return (
     <>
       <Header />

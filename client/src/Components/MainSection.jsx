@@ -17,7 +17,8 @@ export default function MainSection() {
         Explore top listings
       </p>
       <main>
-        <HouseCard />
+        <HouseCard /> <HouseCard /> <HouseCard /> <HouseCard /> <HouseCard />{" "}
+        <HouseCard /> <HouseCard />
       </main>
     </>
   );
