@@ -35,7 +35,6 @@ exports.register = async (req, res) => {
         .status(201)
         .json({ message: "User created successfully", userId, token });
     } finally {
-      // Release connection back to the pool
       connection.release();
     }
   } catch (error) {

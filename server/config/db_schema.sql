@@ -35,7 +35,8 @@ CREATE TABLE IF NOT EXISTS reservations (
 
 CREATE TABLE IF NOT EXISTS reviews (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    rating DECIMAL(3, 2) NOT NULL,
+    rating ENUM('1','2','3','4','5') NOT NULL,
+    review_text TEXT,
     reviewer_id INTEGER NOT NULL,
     accommodation_id INTEGER NOT NULL,
     FOREIGN KEY (reviewer_id) REFERENCES users(id),
@@ -48,7 +49,7 @@ CREATE TABLE IF NOT EXISTS reports(
     report_text TEXT,
     reporting_user INTEGER NOT NULL,
     reported_accommodation INTEGER,
-    reported_user INTEGER NOT NULL,
+    reported_user INTEGER ,
     FOREIGN KEY (reporting_user) REFERENCES users(id),
     FOREIGN KEY (reported_accommodation) REFERENCES accommodations(id),
     FOREIGN KEY (reported_user) REFERENCES users(id)
