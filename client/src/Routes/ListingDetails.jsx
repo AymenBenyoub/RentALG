@@ -14,7 +14,7 @@ import AmenitiesList from "../Components/AmenitiesList";
 import Avatar from "../Components/Avatar";
 import { Link } from "react-router-dom";
 import ReviewsList from "../Components/ReviewsList";
-function listingDetails() {
+function ListingDetails() {
   const images = [p1, p2, p3, p4, p5, p6];
   return (
     <>
@@ -50,7 +50,7 @@ function listingDetails() {
             <div className="listing-host-avatar">
               <Avatar size={50} />
               <Link to="" className="link-decoration">
-                <span>Hosted by DUMBASS</span>
+                <span>Hosted by mohammed</span>
               </Link>
             </div>
             <div>
@@ -69,4 +69,4 @@ function listingDetails() {
   );
 }
 
-export default listingDetails;
+export default ListingDetails;
