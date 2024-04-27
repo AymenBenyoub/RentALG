@@ -1,4 +1,4 @@
-button {
+/* button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -28,8 +28,8 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
-.centered-container {
+} */
+/* .centered-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -42,7 +42,6 @@ button:focus-visible {
   transition: opacity 0.5s ease;
 }
 
-/* Style for the form container */
 .form-container {
   max-width: 400px;
   padding: 20px;
@@ -51,13 +50,11 @@ button:focus-visible {
   background-color: #f9f9f9;
 }
 
-/* Style for form headings */
 h2 {
   margin-top: 0;
   text-align: center;
 }
 
-/* Style for form fields */
 label {
   display: block;
   margin-bottom: 5px;
@@ -99,7 +96,6 @@ button[type="submit"]:hover {
   background-color: #007bff;
 }
 
-/* Center the toggle button */
 .toggle-btn-container {
   text-align: center;
   margin-top: 10px;
@@ -129,4 +125,4 @@ button[type="submit"]:hover {
 }
 .loginEmail {
   margin-left: -300px;
-}
+} */

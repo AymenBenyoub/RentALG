@@ -1,29 +1,44 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import styles from "../styles/login-signup.module.css";
+import { Link, useHistory } from "react-router-dom";
+import "../styles/login-signup.css";
 
-const Login = () => {
+const Login = async () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-
-  // Function to handle login form submission
-  const handleLoginSubmit = (event) => {
+  const [error, setError] = useState("");
+  const history = useHistory();
+  const handleLoginSubmit = async (event) => {
     event.preventDefault();
-    // Add your login logic here
-    console.log("Login Email:", loginEmail);
-    console.log("Login Password:", loginPassword);
-    // Reset login fields after submission
-    setLoginEmail("");
-    setLoginPassword("");
+    try {
+      const response = await fetch("http://localhost:3000/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: loginEmail,
+          password: loginPassword,
+        }),
+      });
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error);
+      }
+      console.log("Login successful");
+      history.push("/");
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
-    <div className={styles.centeredContainer}>
+    <div className="centered-container">
       <>
         <h2>Login</h2>
+        {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleLoginSubmit}>
           <div>
-            <label className={styles.emailLogin} htmlFor="loginEmail">
+            <label className="emailLogin" htmlFor="loginEmail">
               Email:
             </label>
             <input
@@ -36,26 +51,35 @@ const Login = () => {
             />
           </div>
           <div>
-            <label className={styles.pwdLogin} htmlFor="loginPassword">
+            <label className="pwdLogin" htmlFor="loginPassword">
               Password:
             </label>
             <input
               type="password"
               id="loginPassword"
-              name="name"
+              name="password"
               value={loginPassword}
               onChange={(e) => setLoginPassword(e.target.value)}
               required
             />
           </div>
-          <button type="submit">Login</button>
+          <button
+            type="submit"
+            style={{
+              backgroundColor: "var(--primary-color",
+              border: "none",
+              borderRadius: "5px",
+            }}
+          >
+            Login
+          </button>
         </form>
       </>
 
-      <p className={styles.account}>
+      <p className="account">
         <p>Don&apos;t have an account?</p>
-        <Link to="/signup">
-          <p className={styles.change}>Sign up</p>
+        <Link to="/signup" className="link-decoration">
+          <p className="change">Sign up</p>
         </Link>
       </p>
     </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import styles from "../styles/login-signup.module.css";
+import "../styles/login-signup.css";
 
 function Signup() {
   const [signupFirstName, setSignupFirstName] = useState("");
@@ -9,15 +9,38 @@ function Signup() {
   const [signupPassword, setSignupPassword] = useState("");
   const [signupPhoneNumber, setSignupPhoneNumber] = useState("");
 
-  const handleSignupSubmit = (event) => {
+  const handleSignupSubmit = async (event) => {
     event.preventDefault();
-    // Add your signup logic here
+    try {
+      const response = await fetch("http://localhost:3000/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          first_name: signupFirstName,
+          last_name: signupLastName,
+          email: signupEmail,
+          password: signupPassword,
+          phone_number: signupPhoneNumber,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Signup request failed");
+      }
+
+      console.log("Signup successful");
+    } catch (error) {
+      // Handle signup error
+      console.error("Signup error:", error);
+    }
+
     console.log("Signup First Name:", signupFirstName);
     console.log("Signup Last Name:", signupLastName);
     console.log("Signup Email:", signupEmail);
     console.log("Signup Password:", signupPassword);
     console.log("Signup Phone Number:", signupPhoneNumber);
-    // Reset signup fields after submission
     setSignupFirstName("");
     setSignupLastName("");
     setSignupEmail("");
@@ -27,76 +50,89 @@ function Signup() {
 
   return (
     <>
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSignupSubmit}>
-        <div>
-          <label className={styles.fnSignup} htmlFor="signupFirstName">
-            First Name:
-          </label>
-          <input
-            type="text"
-            id="signupFirstName"
-            value={signupFirstName}
-            onChange={(e) => setSignupFirstName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label className={styles.lnSignup} htmlFor="signupLastName">
-            Last Name:
-          </label>
-          <input
-            type="text"
-            id="signupLastName"
-            value={signupLastName}
-            onChange={(e) => setSignupLastName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label className={styles.emailSignup} htmlFor="signupEmail">
-            Email:
-          </label>
-          <input
-            type="email"
-            id="signupEmail"
-            value={signupEmail}
-            onChange={(e) => setSignupEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label className={styles.pwdSignup} htmlFor="signupPassword">
-            Password:
-          </label>
-          <input
-            type="password"
-            id="signupPassword"
-            value={signupPassword}
-            onChange={(e) => setSignupPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label className={styles.pnSignup} htmlFor="signupPhoneNumber">
-            Phone Number:
-          </label>
-          <input
-            type="tel"
-            id="signupPhoneNumber"
-            value={signupPhoneNumber}
-            onChange={(e) => setSignupPhoneNumber(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Sign Up</button>
-      </form>
-      <p className={styles.account}>
-        <p>already have an account?</p>
-        <Link to="/login">
-          <p className={styles.change}>Login</p>
-        </Link>
-      </p>
+      <div className="centered-container">
+        <h2>Sign Up</h2>
+        <form onSubmit={handleSignupSubmit}>
+          <div>
+            <label className="fnSignup" htmlFor="signupFirstName">
+              First Name:
+            </label>
+            <input
+              type="text"
+              id="signupFirstName"
+              className="name-input"
+              value={signupFirstName}
+              onChange={(e) => setSignupFirstName(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label className="lnSignup" htmlFor="signupLastName">
+              Last Name:
+            </label>
+            <input
+              type="text"
+              id="signupLastName"
+              className="name-input"
+              value={signupLastName}
+              onChange={(e) => setSignupLastName(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label className="emailSignup" htmlFor="signupEmail">
+              Email:
+            </label>
+            <input
+              type="email"
+              id="signupEmail"
+              value={signupEmail}
+              onChange={(e) => setSignupEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label className="pwdSignup" htmlFor="signupPassword">
+              Password:
+            </label>
+            <input
+              type="password"
+              id="signupPassword"
+              value={signupPassword}
+              onChange={(e) => setSignupPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label className="pnSignup" htmlFor="signupPhoneNumber">
+              Phone Number:
+            </label>
+            <input
+              type="tel"
+              id="signupPhoneNumber"
+              value={signupPhoneNumber}
+              onChange={(e) => setSignupPhoneNumber(e.target.value)}
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            style={{
+              backgroundColor: "var(--primary-color",
+              border: "none",
+              borderRadius: "5px",
+            }}
+          >
+            Sign Up
+          </button>
+        </form>
+        <p className="account">
+          <p>already have an account?</p>
+          <Link to="/login" className="link-decoration">
+            <p className="change">Login</p>
+          </Link>
+        </p>
+      </div>
     </>
   );
 }

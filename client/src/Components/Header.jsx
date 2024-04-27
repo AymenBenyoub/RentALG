@@ -11,8 +11,12 @@ export default function Header() {
       </Link>
 
       <div className="right-side-nav">
-        <SecondaryButton text="Login" />
-        <PrimaryButton text="Sign up" />
+        <Link to="/login">
+          <SecondaryButton text="Login" />
+        </Link>
+        <Link to="/signup">
+          <PrimaryButton text="Sign up" />
+        </Link>
       </div>
     </nav>
   );
