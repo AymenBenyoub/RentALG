@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/login-signup.css";
 
-const Login = async () => {
+const Login = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-  const [error, setError] = useState("");
-  const history = useHistory();
+  const [error, setError] = useState(""); // State to store error message
+  const navigate = useNavigate();
+
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -22,12 +23,13 @@ const Login = async () => {
       });
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.error);
+        setError(data.error); // Set error message
+        return; // Exit function if there's an error
       }
       console.log("Login successful");
-      history.push("/");
+      navigate("/");
     } catch (error) {
-      setError(error.message);
+      console.log(error.message);
     }
   };
 
@@ -35,7 +37,7 @@ const Login = async () => {
     <div className="centered-container">
       <>
         <h2>Login</h2>
-        {error && <p className="error-message">{error}</p>}
+
         <form onSubmit={handleLoginSubmit}>
           <div>
             <label className="emailLogin" htmlFor="loginEmail">
@@ -46,7 +48,10 @@ const Login = async () => {
               id="loginEmail"
               name="email"
               value={loginEmail}
-              onChange={(e) => setLoginEmail(e.target.value)}
+              onChange={(e) => {
+                setLoginEmail(e.target.value);
+                setError(""); // Clear error when input changes
+              }}
               required
             />
           </div>
@@ -59,7 +64,10 @@ const Login = async () => {
               id="loginPassword"
               name="password"
               value={loginPassword}
-              onChange={(e) => setLoginPassword(e.target.value)}
+              onChange={(e) => {
+                setLoginPassword(e.target.value);
+                setError(""); // Clear error when input changes
+              }}
               required
             />
           </div>
@@ -73,6 +81,8 @@ const Login = async () => {
           >
             Login
           </button>
+          {/* Display error message if it exists */}
+          {error && <p style={{ color: "red" }}>{error}</p>}
         </form>
       </>
 
