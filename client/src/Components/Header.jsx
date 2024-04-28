@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
-import { PrimaryButton, SecondaryButton } from "../Components/Buttons";
+import UserDropDown from "./UserDropDown";
+import { SecondaryButton } from "./Buttons";
+// import { PrimaryButton, SecondaryButton } from "../Components/Buttons";
 
 export default function Header() {
   return (
@@ -9,15 +11,23 @@ export default function Header() {
           <p>RentALG</p>
         </div>
       </Link>
-
-      <div className="right-side-nav">
+      <div className="right-side-nav2">
+        <Link to="/host">
+          <SecondaryButton
+            text="Host your property"
+            style={{ width: "160px", marginTop: "-2px" }}
+          />
+        </Link>
+        <UserDropDown />
+      </div>
+      {/* <div className="right-side-nav">
         <Link to="/login">
           <SecondaryButton text="Login" />
         </Link>
         <Link to="/signup">
           <PrimaryButton text="Sign up" />
         </Link>
-      </div>
+      </div> */}
     </nav>
   );
 }

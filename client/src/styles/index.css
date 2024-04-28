@@ -661,3 +661,55 @@ button[type="submit"]:hover {
 .loginEmail {
   margin-left: -300px;
 }
+.dropdown-menu-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 3px 20px 3px 15px;
+
+  border: solid 0.85px var(--secondary-color);
+  border-radius: 25px;
+  width: 75px;
+  height: 35px;
+  cursor: pointer;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu {
+  width: 150px;
+  position: absolute;
+  top: 40px;
+  left: -100%;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.dropdown-menu-icon {
+  margin: 5px 0 0 5px;
+}
+.dropdown-menu ul {
+  width: 100%;
+  list-style-type: none;
+  padding: 0;
+}
+
+.dropdown-menu li {
+  padding-bottom: 5px;
+  width: 100%;
+  margin-bottom: 15px;
+  border-bottom: solid 0.5px var(--secondary-color);
+  transition: filter 0.2s ease;
+}
+.dropdown-menu li:hover {
+  filter: brightness(80%);
+}
+.right-side-nav2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  width: 300px;
+}
