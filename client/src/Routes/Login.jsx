@@ -36,7 +36,7 @@ const Login = () => {
   return (
     <div className="centered-container">
       <>
-        <h2>Login</h2>
+        <h2 style={{ marginTop: "0px", textAlign: "center" }}>Login</h2>
 
         <form onSubmit={handleLoginSubmit}>
           <div>

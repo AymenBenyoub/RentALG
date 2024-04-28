@@ -51,7 +51,7 @@ function Signup() {
   return (
     <>
       <div className="centered-container">
-        <h2>Sign Up</h2>
+        <h2 style={{ marginTop: "0px", textAlign: "center" }}>Sign Up</h2>
         <form onSubmit={handleSignupSubmit}>
           <div>
             <label className="fnSignup" htmlFor="signupFirstName">
