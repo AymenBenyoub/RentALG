@@ -52,28 +52,6 @@ const BookingBill = () => {
             onChange={handleCheckOutChange}
           />
         </div>
-        <div className="guests">GUESTS</div>
-        {/* <div className="number-of-guests">
-          <button
-            className="guest-control"
-            onClick={() => setGuests(guests - 1)}
-          >
-            -
-          </button>
-          <input
-            type="number"
-            className="guest-input"
-            value={guests}
-            onChange={handleGuestChange}
-            min={1}
-          />
-          <button
-            className="guest-control"
-            onClick={() => setGuests(guests + 1)}
-          >
-            +
-          </button>
-        </div> */}
       </div>
       <div className="breakdown">
         <div className="nightly-rate">

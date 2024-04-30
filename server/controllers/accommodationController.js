@@ -30,6 +30,8 @@ exports.createAccommodation = async (req, res) => {
       price_per_night,
       max_guests,
       location,
+      payment_method,
+      amenities,
     } = req.body;
 
     if (!req.files || req.files.length === 0) {
@@ -38,8 +40,18 @@ exports.createAccommodation = async (req, res) => {
     }
 
     const pictures = req.files.map((file) => file.filename);
+    const amenityList = Object.entries(amenities).reduce(
+      (acc, [key, value]) => {
+        if (value) {
+          acc.push(key);
+        }
+        return acc;
+      },
+      []
+    );
+
     const [result] = await connection.query(
-      "INSERT INTO accommodations (host_id, accommodation_type, title, description, price_per_night, max_guests, pictures,location) VALUES (?, ?, ?, ?, ?, ?, ?,?)",
+      "INSERT INTO accommodations (host_id, accommodation_type, title, description, price_per_night, max_guests, pictures, location, payment_method, amenities) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         host_id,
         accommodation_type,
@@ -49,6 +61,8 @@ exports.createAccommodation = async (req, res) => {
         max_guests,
         JSON.stringify(pictures),
         location,
+        payment_method, // Insert the payment_method into the database
+        JSON.stringify(amenityList), // Convert amenity list to JSON string
       ]
     );
 
@@ -59,6 +73,66 @@ exports.createAccommodation = async (req, res) => {
     });
   } catch (error) {
     console.error("Error creating accommodation:", error);
+    res.status(500).json({ error: "Internal server error" });
+  } finally {
+    if (connection) {
+      connection.release();
+    }
+  }
+};
+
+exports.updateAccommodation = async (req, res) => {
+  let connection;
+  try {
+    connection = await db.getConnection();
+    const { id } = req.params;
+    const {
+      accommodation_type,
+      title,
+      description,
+      price_per_night,
+      max_guests,
+      location,
+      payment_method, // Assuming this field is confirmed to be either "ccp" or "credit_card"
+      amenities, // Assuming amenities is an object with amenity names as keys and boolean values
+    } = req.body;
+
+    // Check if files were uploaded
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ error: "No files uploaded" });
+    }
+
+    // Extract filenames or paths from uploaded files
+    const pictures = req.files.map((file) => file.filename);
+    const amenityList = Object.entries(amenities).reduce(
+      (acc, [key, value]) => {
+        if (value) {
+          acc.push(key);
+        }
+        return acc;
+      },
+      []
+    );
+
+    await connection.query(
+      "UPDATE accommodations SET accommodation_type = ?, title = ?, description = ?, price_per_night = ?, max_guests = ?, pictures = ? , location = ?, payment_method = ?, amenities = ? WHERE id = ?",
+      [
+        accommodation_type,
+        title,
+        description,
+        price_per_night,
+        max_guests,
+        JSON.stringify(pictures),
+        location,
+        payment_method, // Update the payment_method in the database
+        JSON.stringify(amenityList), // Convert amenity list to JSON string
+        id,
+      ]
+    );
+
+    res.status(200).json({ message: "Accommodation updated successfully" });
+  } catch (error) {
+    console.error("Error updating accommodation:", error);
     res.status(500).json({ error: "Internal server error" });
   } finally {
     if (connection) {
@@ -84,6 +158,7 @@ exports.getAccommodationById = async (req, res) => {
 
     const accommodation = rows[0];
     accommodation.pictures = JSON.parse(accommodation.pictures);
+    accommodation.amenities = JSON.parse(accommodation.amenities); // Parse amenities JSON string
     res.status(200).json(accommodation);
   } catch (error) {
     console.error("Error fetching accommodation:", error);
@@ -103,6 +178,7 @@ exports.getAllAccommodations = async (req, res) => {
 
     rows.forEach((accommodation) => {
       accommodation.pictures = JSON.parse(accommodation.pictures);
+      accommodation.amenities = JSON.parse(accommodation.amenities); // Parse amenities JSON string
     });
 
     res.status(200).json(rows);
@@ -116,52 +192,6 @@ exports.getAllAccommodations = async (req, res) => {
   }
 };
 
-exports.updateAccommodation = async (req, res) => {
-  let connection;
-  try {
-    connection = await db.getConnection();
-    const { id } = req.params;
-    const {
-      accommodation_type,
-      title,
-      description,
-      price_per_night,
-      max_guests,
-      location,
-    } = req.body;
-
-    // Check if files were uploaded
-    if (!req.files || req.files.length === 0) {
-      return res.status(400).json({ error: "No files uploaded" });
-    }
-
-    // Extract filenames or paths from uploaded files
-    const pictures = req.files.map((file) => file.filename);
-
-    await connection.query(
-      "UPDATE accommodations SET accommodation_type = ?, title = ?, description = ?, price_per_night = ?, max_guests = ?, pictures = ? , location = ? WHERE id = ?",
-      [
-        accommodation_type,
-        title,
-        description,
-        price_per_night,
-        max_guests,
-        JSON.stringify(pictures),
-        location,
-        id,
-      ]
-    );
-
-    res.status(200).json({ message: "Accommodation updated successfully" });
-  } catch (error) {
-    console.error("Error updating accommodation:", error);
-    res.status(500).json({ error: "Internal server error" });
-  } finally {
-    if (connection) {
-      connection.release();
-    }
-  }
-};
 exports.getAccommodationsByUser = async (req, res) => {
   let connection;
   try {
@@ -181,6 +211,7 @@ exports.getAccommodationsByUser = async (req, res) => {
 
     rows.forEach((accommodation) => {
       accommodation.pictures = JSON.parse(accommodation.pictures);
+      accommodation.amenities = JSON.parse(accommodation.amenities); // Parse amenities JSON string
     });
 
     res.status(200).json(rows);

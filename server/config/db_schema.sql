@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS accommodations (
     price_per_night DECIMAL(10, 2) NOT NULL,
     max_guests TINYINT(2) NOT NULL,
     pictures VARCHAR(255) NOT NULL,
+    amenities json not null,
     FOREIGN KEY (host_id) REFERENCES users(id)
 );
 

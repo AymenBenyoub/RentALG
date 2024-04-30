@@ -29,9 +29,7 @@ function UserDropDown() {
             <li>
               <Link className="link-decoration">My bookings</Link>
             </li>
-            <li>
-              <Link className="link-decoration">My listings</Link>
-            </li>
+
             <li>
               <Link className="link-decoration">Logout</Link>
             </li>
