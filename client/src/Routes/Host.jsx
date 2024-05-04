@@ -1,5 +1,7 @@
 import { useState, useRef } from "react";
-import "../styles/HostForm.css"; // Import CSS file for styling
+import { useNavigate } from "react-router-dom";
+
+import "../styles/HostForm.css";
 import houseIcon from "../assets/house_icon.jpeg";
 import sharedroom_Icon from "../assets/sharedroom_icon.png";
 import roomIcon from "../assets/room_icon.jpeg";
@@ -7,7 +9,7 @@ import virement1 from "../assets/virement1.jpeg";
 import carte1 from "../assets/carte1.jpeg";
 
 function Host() {
-  const [formData, setFormData] = useState({
+  const [formValues, setformValues] = useState({
     accommodation_type: "",
     location: "",
     max_guests: 1,
@@ -28,33 +30,33 @@ function Host() {
     payment_type: "",
   });
 
-  const [numGuests, setNumGuests] = useState(1);
-
+  const [max_guests, setmax_guests] = useState(1);
+  const navigate = useNavigate();
   const incrementGuests = () => {
-    setFormData((prevData) => ({
+    setformValues((prevData) => ({
       ...prevData,
       max_guests: prevData.max_guests + 1,
     }));
   };
 
   const decrementGuests = () => {
-    if (formData.max_guests > 1) {
-      setFormData((prevData) => ({
+    if (formValues.max_guests > 1) {
+      setformValues((prevData) => ({
         ...prevData,
         max_guests: prevData.max_guests - 1,
       }));
     }
   };
 
-  const [selectedpictures, setSelectedpictures] = useState([]);
+  const [pictures, setpictures] = useState([]);
   const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-    setSelectedpictures(files);
-    setFormData((prevData) => ({
+    setpictures(files);
+    setformValues((prevData) => ({
       ...prevData,
-      selectedpictures: files,
+      pictures: files,
     }));
   };
 
@@ -75,15 +77,15 @@ function Host() {
     if (numericValue < minprice_per_night) {
       newValue = minprice_per_night.toString();
     }
-    setFormData({ ...formData, price_per_night: newValue });
+    setformValues({ ...formValues, price_per_night: newValue });
   };
 
   const handleaccommodation_typeChange = (type) => {
-    setFormData({ ...formData, accommodation_type: type });
+    setformValues({ ...formValues, accommodation_type: type });
   };
 
   const toggleFeature = (feature) => {
-    setFormData((prevData) => ({
+    setformValues((prevData) => ({
       ...prevData,
       amenities: {
         ...prevData.amenities,
@@ -93,30 +95,53 @@ function Host() {
   };
 
   const handlepayment_type = (method) => {
-    setFormData({ ...formData, payment_type: method });
+    setformValues({ ...formValues, payment_type: method });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
+      const formData = {
+        host_id: 1,
+        accommodation_type: formValues.accommodation_type,
+        title: formValues.title,
+        description: formValues.description,
+        price_per_night: formValues.price_per_night,
+        max_guests: formValues.max_guests,
+        location: formValues.location,
+        payment_method: formValues.payment_type,
+        amenities: Object.fromEntries(
+          Object.entries(formValues.amenities).filter(([key, value]) => value)
+        ),
+      };
+
+      const formValuesObj = new FormData();
+      formValuesObj.append("formData", JSON.stringify(formData));
+
+      for (const picture of pictures) {
+        formValuesObj.append("pictures", picture);
+      }
+      // const headers = {
+      //   "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
+      // };
       const response = await fetch(
         "http://localhost:3000/api/accommodations/create",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+          // headers: headers,
+          body: formValuesObj,
         }
       );
-      console.log(formData);
+      console.log(formValuesObj);
       if (!response.ok) {
         throw new Error("Failed to create accommodation");
       }
+
       const data = await response.json();
       console.log("Accommodation created successfully:", data);
-      // Reset form data
-      setFormData({
+
+      setformValues({
         accommodation_type: "",
         location: "",
         max_guests: 1,
@@ -136,23 +161,23 @@ function Host() {
         price_per_night: "",
         payment_type: "",
       });
-      setSelectedpictures([]);
+      setpictures([]);
+      navigate("/");
     } catch (error) {
       console.error("Error creating accommodation:", error);
     }
   };
-
   const isFormValid = () => {
     return (
-      formData.accommodation_type &&
-      formData.location &&
-      formData.max_guests &&
-      formData.title &&
-      formData.description &&
-      Object.values(formData.amenities).some((value) => value) &&
-      selectedpictures.length > 0 &&
-      formData.price_per_night &&
-      formData.payment_type
+      formValues.accommodation_type &&
+      formValues.location &&
+      formValues.max_guests &&
+      formValues.title &&
+      formValues.description &&
+      Object.values(formValues.amenities).some((value) => value) &&
+      pictures.length > 0 &&
+      formValues.price_per_night &&
+      formValues.payment_type
     );
   };
   return (
@@ -174,7 +199,7 @@ function Host() {
           <button
             type="button"
             className={`listing-button ${
-              formData.accommodation_type === "House" ? "active" : ""
+              formValues.accommodation_type === "House" ? "active" : ""
             }`}
             onClick={() => handleaccommodation_typeChange("House")}
             required
@@ -185,7 +210,7 @@ function Host() {
           <button
             type="button"
             className={`listing-button ${
-              formData.accommodation_type === "Shared room" ? "active" : ""
+              formValues.accommodation_type === "Shared room" ? "active" : ""
             }`}
             onClick={() => handleaccommodation_typeChange("Shared room")}
             required
@@ -196,7 +221,7 @@ function Host() {
           <button
             type="button"
             className={`listing-button ${
-              formData.accommodation_type === "Room" ? "active" : ""
+              formValues.accommodation_type === "Room" ? "active" : ""
             }`}
             onClick={() => handleaccommodation_typeChange("Room")}
             required
@@ -234,9 +259,9 @@ function Host() {
             id="location"
             name="location"
             placeholder="Enter location"
-            value={formData.location}
+            value={formValues.location}
             onChange={(e) =>
-              setFormData({ ...formData, location: e.target.value })
+              setformValues({ ...formValues, location: e.target.value })
             }
             required
           />
@@ -261,7 +286,7 @@ function Host() {
                 borderRadius: "8px",
               }}
             >
-              {numGuests}
+              {max_guests}
             </span>
             <button className="incguests" onClick={incrementGuests}>
               +
@@ -294,7 +319,7 @@ function Host() {
           <label>
             <input
               type="checkbox"
-              checked={formData.amenities.wifi}
+              checked={formValues.amenities.wifi}
               onChange={() => toggleFeature("wifi")}
             />
             <p>Wifi</p>
@@ -302,7 +327,7 @@ function Host() {
           <label>
             <input
               type="checkbox"
-              checked={formData.amenities.kitchen}
+              checked={formValues.amenities.kitchen}
               onChange={() => toggleFeature("kitchen")}
             />
             <p>Kitchen</p>
@@ -310,7 +335,7 @@ function Host() {
           <label>
             <input
               type="checkbox"
-              checked={formData.amenities.gym}
+              checked={formValues.amenities.gym}
               onChange={() => toggleFeature("gym")}
             />
             <p>Gym</p>
@@ -320,7 +345,7 @@ function Host() {
           <label>
             <input
               type="checkbox"
-              checked={formData.amenities.bbqGrill}
+              checked={formValues.amenities.bbqGrill}
               onChange={() => toggleFeature("bbqGrill")}
             />
             <p>BBQ Grill</p>
@@ -328,7 +353,7 @@ function Host() {
           <label>
             <input
               type="checkbox"
-              checked={formData.amenities.bathtub}
+              checked={formValues.amenities.bathtub}
               onChange={() => toggleFeature("bathtub")}
             />
             <p>Bath tub</p>
@@ -336,7 +361,7 @@ function Host() {
           <label>
             <input
               type="checkbox"
-              checked={formData.amenities.tv}
+              checked={formValues.amenities.tv}
               onChange={() => toggleFeature("tv")}
             />
             <p>TV</p>
@@ -346,7 +371,7 @@ function Host() {
           <label>
             <input
               type="checkbox"
-              checked={formData.amenities.garage}
+              checked={formValues.amenities.garage}
               onChange={() => toggleFeature("garage")}
             />
             <p>Garage</p>
@@ -354,7 +379,7 @@ function Host() {
           <label>
             <input
               type="checkbox"
-              checked={formData.amenities.pool}
+              checked={formValues.amenities.pool}
               onChange={() => toggleFeature("pool")}
             />
             <p>Pool</p>
@@ -362,7 +387,7 @@ function Host() {
           <label>
             <input
               type="checkbox"
-              checked={formData.amenities.beachView}
+              checked={formValues.amenities.beachView}
               onChange={() => toggleFeature("beachView")}
             />
             <p>Beach view</p>
@@ -399,7 +424,7 @@ function Host() {
           />
           <br />
           <br />
-          {selectedpictures.map((file, index) => (
+          {pictures.map((file, index) => (
             <div className="index" key={index}>
               <img
                 src={URL.createObjectURL(file)}
@@ -440,8 +465,10 @@ function Host() {
         <textarea
           rows={5}
           style={{ marginLeft: "100px", height: "150px" }}
-          value={formData.title}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          value={formValues.title}
+          onChange={(e) =>
+            setformValues({ ...formValues, title: e.target.value })
+          }
           required
         />
         <h2>Create your description.</h2>
@@ -459,9 +486,9 @@ function Host() {
           className="text2"
           rows={5}
           style={{ marginLeft: "100px", height: "250px" }}
-          value={formData.description}
+          value={formValues.description}
           onChange={(e) =>
-            setFormData({ ...formData, description: e.target.value })
+            setformValues({ ...formValues, description: e.target.value })
           }
           required
         />
@@ -498,7 +525,7 @@ function Host() {
             inputMode="numeric"
             type="text"
             id="price_per_night"
-            value={formData.price_per_night}
+            value={formValues.price_per_night}
             onChange={handleprice_per_nightChange}
             min="1000"
             max="1000000"
@@ -531,7 +558,7 @@ function Host() {
             type="button"
             onClick={() => handlepayment_type("ccp")}
             className={
-              formData.payment_type === "paypal"
+              formValues.payment_type === "paypal"
                 ? "payment-button active"
                 : "payment-button"
             }
@@ -553,7 +580,7 @@ function Host() {
             type="button"
             onClick={() => handlepayment_type("credit_card")}
             className={
-              formData.payment_type === "credit_card"
+              formValues.payment_type === "credit_card"
                 ? "payment-button active"
                 : "payment-button"
             }

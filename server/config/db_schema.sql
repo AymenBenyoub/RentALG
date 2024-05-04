@@ -56,25 +56,4 @@ CREATE TABLE IF NOT EXISTS reports(
     FOREIGN KEY (reported_user) REFERENCES users(id)
 );
 
-CREATE TABLE IF NOT EXISTS amenities (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL
-);
 
-CREATE TABLE IF NOT EXISTS accommodation_amenities (
-    accommodation_id INTEGER,
-    amenity_id INTEGER,
-    PRIMARY KEY (accommodation_id, amenity_id),
-    FOREIGN KEY (accommodation_id) REFERENCES accommodations(id),
-    FOREIGN KEY (amenity_id) REFERENCES amenities(id)
-);
-
-INSERT INTO amenities(name) VALUES('Wifi');
-INSERT INTO amenities(name) VALUES('Kitchen');
-INSERT INTO amenities(name) VALUES('Gym');
-INSERT INTO amenities(name) VALUES('Bath tub');
-INSERT INTO amenities(name) VALUES('TV');
-INSERT INTO amenities(name) VALUES('Sauna');
-INSERT INTO amenities(name) VALUES('Pool');
-INSERT INTO amenities(name) VALUES('Beach view');
-INSERT INTO amenities(name) VALUES('BBQ grill');

@@ -1,27 +1,11 @@
-const multer = require("multer");
-const path = require("path");
 const db = require("../config/database");
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/accommodations");
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    const ext = path.extname(file.originalname);
-    cb(null, uniqueSuffix + ext);
-  },
-});
-
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 10 * 1024 * 1024 },
-});
 
 exports.createAccommodation = async (req, res) => {
   let connection;
+
   try {
     connection = await db.getConnection();
+
     const {
       host_id,
       accommodation_type,
@@ -32,26 +16,17 @@ exports.createAccommodation = async (req, res) => {
       location,
       payment_method,
       amenities,
-    } = req.body;
-
-    if (!req.files || req.files.length === 0) {
+    } = JSON.parse(req.body.formData);
+    if (req.files.length === 0) {
+      res.status(400).JSON({ error: "no files found" });
       console.log("req.files:", req.files);
-      return res.status(400).json({ error: "No files uploaded" });
     }
+    const pictures = req.files.map((file) => file.path.replace(/\\/g, "/"));
 
-    const pictures = req.files.map((file) => file.filename);
-    const amenityList = Object.entries(amenities).reduce(
-      (acc, [key, value]) => {
-        if (value) {
-          acc.push(key);
-        }
-        return acc;
-      },
-      []
-    );
+    const amenityList = Object.keys(amenities);
 
     const [result] = await connection.query(
-      "INSERT INTO accommodations (host_id, accommodation_type, title, description, price_per_night, max_guests, pictures, location, payment_method, amenities) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO accommodations ( host_id, accommodation_type,title, description, price_per_night, max_guests, pictures, location, payment_type, amenities) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)",
       [
         host_id,
         accommodation_type,
@@ -61,8 +36,8 @@ exports.createAccommodation = async (req, res) => {
         max_guests,
         JSON.stringify(pictures),
         location,
-        payment_method, // Insert the payment_method into the database
-        JSON.stringify(amenityList), // Convert amenity list to JSON string
+        payment_method,
+        JSON.stringify(amenityList),
       ]
     );
 
@@ -71,6 +46,7 @@ exports.createAccommodation = async (req, res) => {
       message: "Accommodation created successfully",
       accommodationId,
     });
+    console.log("Accommodation created successfully");
   } catch (error) {
     console.error("Error creating accommodation:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -80,7 +56,6 @@ exports.createAccommodation = async (req, res) => {
     }
   }
 };
-
 exports.updateAccommodation = async (req, res) => {
   let connection;
   try {
@@ -93,26 +68,25 @@ exports.updateAccommodation = async (req, res) => {
       price_per_night,
       max_guests,
       location,
-      payment_method, // Assuming this field is confirmed to be either "ccp" or "credit_card"
-      amenities, // Assuming amenities is an object with amenity names as keys and boolean values
+      payment_method,
+      amenities,
     } = req.body;
 
-    // Check if files were uploaded
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ error: "No files uploaded" });
     }
 
-    // Extract filenames or paths from uploaded files
     const pictures = req.files.map((file) => file.filename);
-    const amenityList = Object.entries(amenities).reduce(
-      (acc, [key, value]) => {
-        if (value) {
-          acc.push(key);
-        }
-        return acc;
-      },
-      []
-    );
+    const amenityList = JSON.parse(amenities);
+    // const amenityList = Object.entries(amenities).reduce(
+    //   (acc, [key, value]) => {
+    //     if (value) {
+    //       acc.push(key);
+    //     }
+    //     return acc;
+    //   },
+    //   []
+    // );
 
     await connection.query(
       "UPDATE accommodations SET accommodation_type = ?, title = ?, description = ?, price_per_night = ?, max_guests = ?, pictures = ? , location = ?, payment_method = ?, amenities = ? WHERE id = ?",
@@ -124,8 +98,8 @@ exports.updateAccommodation = async (req, res) => {
         max_guests,
         JSON.stringify(pictures),
         location,
-        payment_method, // Update the payment_method in the database
-        JSON.stringify(amenityList), // Convert amenity list to JSON string
+        payment_method,
+        JSON.stringify(amenityList),
         id,
       ]
     );
@@ -157,8 +131,12 @@ exports.getAccommodationById = async (req, res) => {
     }
 
     const accommodation = rows[0];
-    accommodation.pictures = JSON.parse(accommodation.pictures);
-    accommodation.amenities = JSON.parse(accommodation.amenities); // Parse amenities JSON string
+    try {
+      accommodation.pictures = JSON.parse(accommodation.pictures);
+      accommodation.amenities = JSON.parse(accommodation.amenities);
+    } catch (e) {
+      console.log(e.message);
+    }
     res.status(200).json(accommodation);
   } catch (error) {
     console.error("Error fetching accommodation:", error);
@@ -175,11 +153,14 @@ exports.getAllAccommodations = async (req, res) => {
   try {
     connection = await db.getConnection();
     const [rows] = await connection.query("SELECT * FROM accommodations");
-
-    rows.forEach((accommodation) => {
-      accommodation.pictures = JSON.parse(accommodation.pictures);
-      accommodation.amenities = JSON.parse(accommodation.amenities); // Parse amenities JSON string
-    });
+    // try {
+    //   rows.forEach((accommodation) => {
+    //     accommodation.pictures = JSON.parse(accommodation.pictures);
+    //     accommodation.amenities = JSON.parse(accommodation.amenities);
+    //   });
+    // } catch (e) {
+    //   console.error("error parsing json: ", e);
+    // }
 
     res.status(200).json(rows);
   } catch (error) {
@@ -208,11 +189,14 @@ exports.getAccommodationsByUser = async (req, res) => {
         .status(404)
         .json({ error: "Accommodations not found for this user" });
     }
-
-    rows.forEach((accommodation) => {
-      accommodation.pictures = JSON.parse(accommodation.pictures);
-      accommodation.amenities = JSON.parse(accommodation.amenities); // Parse amenities JSON string
-    });
+    try {
+      rows.forEach((accommodation) => {
+        accommodation.pictures = JSON.parse(accommodation.pictures);
+        accommodation.amenities = JSON.parse(accommodation.amenities);
+      });
+    } catch (e) {
+      console.log(e.message);
+    }
 
     res.status(200).json(rows);
   } catch (error) {

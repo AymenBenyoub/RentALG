@@ -1,12 +1,18 @@
-import p1 from "./pics/1.webp";
-export default function HouseCard() {
+/* eslint-disable react/prop-types */
+
+export default function HouseCard({ title, guests, price, thumbnail }) {
+  const parsedThumbnail = thumbnail ? JSON.parse(thumbnail)[0] : null;
+  console.log("thumbnail value:", parsedThumbnail);
   return (
     <div className="house-card">
-      <img src={p1} alt="RETARD" className="house-image" />
+      <img
+        src={`http://localhost:3000/${parsedThumbnail}`}
+        className="house-image"
+      />
       <div className="house-details">
-        <h2 className="house-title">Appartement in Oran</h2>
-        <p className="house-location">3 guests</p>
-        <p className="house-price">6500 DZD per night</p>
+        <h2 className="house-title">{title}</h2>
+        <p className="house-location">{guests} guests</p>
+        <p className="house-price">{price}DA</p>
       </div>
     </div>
   );

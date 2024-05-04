@@ -5,7 +5,7 @@ import "../styles/login-signup.css";
 const Login = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-  const [error, setError] = useState(""); // State to store error message
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLoginSubmit = async (event) => {
@@ -23,8 +23,8 @@ const Login = () => {
       });
       if (!response.ok) {
         const data = await response.json();
-        setError(data.error); // Set error message
-        return; // Exit function if there's an error
+        setError(data.error);
+        return;
       }
       console.log("Login successful");
       navigate("/");
@@ -50,7 +50,7 @@ const Login = () => {
               value={loginEmail}
               onChange={(e) => {
                 setLoginEmail(e.target.value);
-                setError(""); // Clear error when input changes
+                setError("");
               }}
               required
             />
@@ -66,7 +66,7 @@ const Login = () => {
               value={loginPassword}
               onChange={(e) => {
                 setLoginPassword(e.target.value);
-                setError(""); // Clear error when input changes
+                setError("");
               }}
               required
             />
@@ -81,7 +81,7 @@ const Login = () => {
           >
             Login
           </button>
-          {/* Display error message if it exists */}
+
           {error && <p style={{ color: "red" }}>{error}</p>}
         </form>
       </>
