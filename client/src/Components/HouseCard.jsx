@@ -2,7 +2,7 @@
 
 export default function HouseCard({ title, guests, price, thumbnail }) {
   const parsedThumbnail = thumbnail ? JSON.parse(thumbnail)[0] : null;
-  console.log("thumbnail value:", parsedThumbnail);
+
   return (
     <div className="house-card">
       <img

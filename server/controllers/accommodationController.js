@@ -131,12 +131,12 @@ exports.getAccommodationById = async (req, res) => {
     }
 
     const accommodation = rows[0];
-    try {
-      accommodation.pictures = JSON.parse(accommodation.pictures);
-      accommodation.amenities = JSON.parse(accommodation.amenities);
-    } catch (e) {
-      console.log(e.message);
-    }
+    // try {
+    //   accommodation.pictures = JSON.parse(accommodation.pictures);
+    //   accommodation.amenities = JSON.parse(accommodation.amenities);
+    // } catch (e) {
+    //   console.log(e.message);
+    // }
     res.status(200).json(accommodation);
   } catch (error) {
     console.error("Error fetching accommodation:", error);

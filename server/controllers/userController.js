@@ -89,3 +89,29 @@ exports.login = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+exports.getUserById = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const connection = await db.getConnection();
+
+    try {
+      const [rows] = await connection.query(
+        "SELECT id, first_name, last_name, email, phone_number FROM users WHERE id = ?",
+        [userId]
+      );
+
+      if (rows.length === 0) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      const user = rows[0];
+      res.status(200).json(user);
+    } finally {
+      connection.release();
+    }
+  } catch (error) {
+    console.error("Error fetching user by ID:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};

@@ -2,10 +2,11 @@ import HouseCard from "./HouseCard";
 import CheckboxDropdown from "./CheckBoxDropDown";
 import GuestInput from "./GuestInput";
 import TextInput from "./TextInput";
-import { useEffect, useState } from "react"; // Import useState hook
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 export default function MainSection() {
-  const [accommodations, setAccommodations] = useState([]); // Define accommodations state
-
+  const [accommodations, setAccommodations] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchAccommodations = async () => {
       try {
@@ -39,13 +40,17 @@ export default function MainSection() {
       </p>
       <main>
         {accommodations.map((accommodation) => (
-          <HouseCard
+          <div
             key={accommodation.id}
-            title={accommodation.title}
-            guests={accommodation.max_guests}
-            price={accommodation.price_per_night}
-            thumbnail={accommodation.pictures}
-          />
+            onClick={() => navigate(`/listings/${accommodation.id}`)}
+          >
+            <HouseCard
+              title={accommodation.title}
+              guests={accommodation.max_guests}
+              price={accommodation.price_per_night}
+              thumbnail={accommodation.pictures}
+            />
+          </div>
         ))}
       </main>
     </>

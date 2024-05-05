@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import unknown from "./pics/Untitled.png";
+import unknown from "../data/Untitled.png";
 const Avatar = ({ size }) => {
   return (
     <div
