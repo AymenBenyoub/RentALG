@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "../styles/login-signup.css";
-
+import { UserContext } from "../context/UserContext";
 function Signup() {
   const [signupFirstName, setSignupFirstName] = useState("");
   const [signupLastName, setSignupLastName] = useState("");
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
   const [signupPhoneNumber, setSignupPhoneNumber] = useState("");
-
+  const { user, login } = useContext(UserContext);
   const handleSignupSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -29,10 +29,12 @@ function Signup() {
       if (!response.ok) {
         throw new Error("Signup request failed");
       }
-
+      const responseData = await response.json();
+      const token = responseData.token;
+      localStorage.setItem("jwtToken", token);
+      login({ ...user, token });
       console.log("Signup successful");
     } catch (error) {
-      // Handle signup error
       console.error("Signup error:", error);
     }
 

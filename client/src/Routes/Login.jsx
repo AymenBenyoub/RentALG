@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/login-signup.css";
-
+import { UserContext } from "../context/UserContext";
 const Login = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
+  const { login, user } = useContext(UserContext);
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -26,6 +26,11 @@ const Login = () => {
         setError(data.error);
         return;
       }
+      const responseData = await response.json();
+      const token = responseData.token;
+      localStorage.setItem("jwtToken", token);
+      login({ ...user, token });
+
       console.log("Login successful");
       navigate("/");
     } catch (error) {

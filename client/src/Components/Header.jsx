@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import UserDropDown from "./UserDropDown";
 import { SecondaryButton } from "./Buttons";
+import { UserContext } from "../context/UserContext";
+import { useContext } from "react";
 // import { PrimaryButton, SecondaryButton } from "../Components/Buttons";
 
 export default function Header() {
+  const { user } = useContext(UserContext);
   return (
     <nav>
       <Link to="/" className="link-decoration">
@@ -20,6 +23,7 @@ export default function Header() {
         </Link>
         <UserDropDown />
       </div>
+
       {/* <div className="right-side-nav">
         <Link to="/login">
           <SecondaryButton text="Login" />
