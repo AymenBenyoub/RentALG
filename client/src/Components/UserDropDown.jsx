@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Avatar from "./Avatar";
-function UserDropDown() {
+function UserDropDown({ logout }) {
   const [showMenu, setShowMenu] = useState(false);
 
   const toggleMenu = () => {
@@ -31,7 +32,9 @@ function UserDropDown() {
             </li>
 
             <li>
-              <Link className="link-decoration">Logout</Link>
+              <Link className="link-decoration" onClick={logout}>
+                Logout
+              </Link>
             </li>
           </ul>
         </div>

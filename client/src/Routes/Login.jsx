@@ -28,8 +28,9 @@ const Login = () => {
       }
       const responseData = await response.json();
       const token = responseData.token;
+      const uid = responseData.userId;
       localStorage.setItem("jwtToken", token);
-      login({ ...user, token });
+      login({ ...user, uid, token });
 
       console.log("Login successful");
       navigate("/");

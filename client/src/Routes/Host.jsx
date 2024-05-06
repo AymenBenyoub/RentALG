@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../styles/HostForm.css";
@@ -7,7 +7,7 @@ import sharedroom_Icon from "../assets/sharedroom_icon.png";
 import roomIcon from "../assets/room_icon.jpeg";
 import virement1 from "../assets/virement1.jpeg";
 import carte1 from "../assets/carte1.jpeg";
-
+import { UserContext } from "../context/UserContext";
 function Host() {
   const [formValues, setformValues] = useState({
     accommodation_type: "",
@@ -29,7 +29,7 @@ function Host() {
     price_per_night: "",
     payment_type: "",
   });
-
+  const { user } = useContext(UserContext);
   const [max_guests, setmax_guests] = useState(1);
   const navigate = useNavigate();
   const incrementGuests = () => {
@@ -103,7 +103,7 @@ function Host() {
 
     try {
       const formData = {
-        host_id: 1,
+        host_id: user.uid,
         accommodation_type: formValues.accommodation_type,
         title: formValues.title,
         description: formValues.description,

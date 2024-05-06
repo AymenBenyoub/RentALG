@@ -10,10 +10,12 @@ import Avatar from "../Components/Avatar";
 import { Link } from "react-router-dom";
 import ReviewsList from "../Components/ReviewsList";
 import { useEffect, useState } from "react";
+// import { UserContext } from "../context/UserContext";
 function ListingDetails() {
   const [listingInfo, setListingInfo] = useState(null);
   const [reviews, setReviews] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [owner, setOwner] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
@@ -51,6 +53,25 @@ function ListingDetails() {
     };
     fetchReviews();
   }, [id]);
+  useEffect(() => {
+    const fetchOwner = async () => {
+      if (listingInfo) {
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/users/${listingInfo.host_id}`
+          );
+          if (!response.ok)
+            throw new Error("Couldn't fetch owner: Network error");
+          const fetchedOwner = await response.json();
+          setOwner(fetchedOwner);
+        } catch (error) {
+          console.error("Couldn't fetch owner:", error);
+        }
+      }
+    };
+    fetchOwner();
+  }, [listingInfo, id]);
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -78,10 +99,16 @@ function ListingDetails() {
               <FaLocationDot /> {listingInfo.location}
             </div>
             <div className="listing-host-avatar">
-              <Avatar size={50} />
-              <Link to="" className="link-decoration">
-                <span>Hosted by mohammed</span>
-              </Link>
+              {owner && (
+                <>
+                  <Avatar size={50} />
+                  <Link to="" className="link-decoration">
+                    <span>
+                      Hosted by {owner.first_name + " " + owner.last_name}
+                    </span>
+                  </Link>
+                </>
+              )}
             </div>
             <div>
               <h3>Reviews</h3>

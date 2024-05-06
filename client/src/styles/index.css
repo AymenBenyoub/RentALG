@@ -78,7 +78,8 @@ nav {
 .right-side-nav {
   display: flex;
   justify-content: flex-start;
-  margin-top: 12px;
+  align-self: flex-end;
+  margin-bottom: 4px;
   width: 300px;
   button {
     margin-left: 10px;
