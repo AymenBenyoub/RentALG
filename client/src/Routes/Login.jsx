@@ -40,64 +40,67 @@ const Login = () => {
   };
 
   return (
-    <div className="centered-container">
-      <>
-        <h2 style={{ marginTop: "0px", textAlign: "center" }}>Login</h2>
+    <div className="form-page-background">
+      <div className="centered-container">
+        <>
+          <h2 style={{ marginTop: "0px", textAlign: "center" }}>Login</h2>
 
-        <form onSubmit={handleLoginSubmit}>
-          <div>
-            <label className="emailLogin" htmlFor="loginEmail">
-              Email:
-            </label>
-            <input
-              type="email"
-              id="loginEmail"
-              name="email"
-              value={loginEmail}
-              onChange={(e) => {
-                setLoginEmail(e.target.value);
-                setError("");
+          <form onSubmit={handleLoginSubmit}>
+            <div>
+              <label className="emailLogin" htmlFor="loginEmail">
+                Email:
+              </label>
+              <input
+                type="email"
+                id="loginEmail"
+                name="email"
+                value={loginEmail}
+                onChange={(e) => {
+                  setLoginEmail(e.target.value);
+                  setError("");
+                }}
+                required
+              />
+            </div>
+            <div>
+              <label className="pwdLogin" htmlFor="loginPassword">
+                Password:
+              </label>
+              <input
+                type="password"
+                id="loginPassword"
+                name="password"
+                value={loginPassword}
+                onChange={(e) => {
+                  setLoginPassword(e.target.value);
+                  setError("");
+                }}
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              style={{
+                backgroundColor: "var(--primary-color",
+                border: "none",
+                borderRadius: "5px",
+                height: "40px",
               }}
-              required
-            />
-          </div>
-          <div>
-            <label className="pwdLogin" htmlFor="loginPassword">
-              Password:
-            </label>
-            <input
-              type="password"
-              id="loginPassword"
-              name="password"
-              value={loginPassword}
-              onChange={(e) => {
-                setLoginPassword(e.target.value);
-                setError("");
-              }}
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            style={{
-              backgroundColor: "var(--primary-color",
-              border: "none",
-              borderRadius: "5px",
-            }}
-          >
-            Login
-          </button>
+            >
+              Login
+            </button>
 
-          {error && <p style={{ color: "red" }}>{error}</p>}
-        </form>
-      </>
+            {error && <p style={{ color: "red" }}>{error}</p>}
+          </form>
+        </>
 
-      <p className="account">
-        <p>Don&apos;t have an account?</p>
-        <Link to="/signup" className="link-decoration">
-          <p className="change">Sign up</p>
-        </Link>
-      </p>
+        <p className="account">
+          <p>Don&apos;t have an account?</p>
+          <Link to="/signup" className="link-decoration">
+            <p className="change">Sign up</p>
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };

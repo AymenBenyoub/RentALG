@@ -20,7 +20,11 @@ export default function Header() {
             <Link to="/host">
               <SecondaryButton
                 text="Host your property"
-                style={{ width: "160px", marginTop: "-2px" }}
+                style={{
+                  width: "160px",
+                  marginTop: "-2px",
+                  border: "0.5px solid",
+                }}
               />
             </Link>
             <UserDropDown logout={logout} />
@@ -36,10 +40,13 @@ export default function Header() {
           </Link>
           <div className="right-side-nav">
             <Link to="/login">
-              <SecondaryButton text="Login" />
+              <SecondaryButton text="Login" style={{ border: "0.5px solid" }} />
             </Link>
             <Link to="/signup">
-              <SecondaryButton text="Sign up" />
+              <SecondaryButton
+                text="Sign up"
+                style={{ border: "0.5px solid" }}
+              />
             </Link>
           </div>
         </>

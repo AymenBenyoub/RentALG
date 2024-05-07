@@ -92,7 +92,6 @@ exports.login = async (req, res) => {
 exports.getUserById = async (req, res) => {
   try {
     const userId = req.params.id;
-    console.log(userId);
 
     const connection = await db.getConnection();
 

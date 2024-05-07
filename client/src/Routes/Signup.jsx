@@ -55,88 +55,91 @@ function Signup() {
 
   return (
     <>
-      <div className="centered-container">
-        <h2 style={{ marginTop: "0px", textAlign: "center" }}>Sign Up</h2>
-        <form onSubmit={handleSignupSubmit}>
-          <div>
-            <label className="fnSignup" htmlFor="signupFirstName">
-              First Name:
-            </label>
-            <input
-              type="text"
-              id="signupFirstName"
-              className="name-input"
-              value={signupFirstName}
-              onChange={(e) => setSignupFirstName(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label className="lnSignup" htmlFor="signupLastName">
-              Last Name:
-            </label>
-            <input
-              type="text"
-              id="signupLastName"
-              className="name-input"
-              value={signupLastName}
-              onChange={(e) => setSignupLastName(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label className="emailSignup" htmlFor="signupEmail">
-              Email:
-            </label>
-            <input
-              type="email"
-              id="signupEmail"
-              value={signupEmail}
-              onChange={(e) => setSignupEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label className="pwdSignup" htmlFor="signupPassword">
-              Password:
-            </label>
-            <input
-              type="password"
-              id="signupPassword"
-              value={signupPassword}
-              onChange={(e) => setSignupPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label className="pnSignup" htmlFor="signupPhoneNumber">
-              Phone Number:
-            </label>
-            <input
-              type="tel"
-              id="signupPhoneNumber"
-              value={signupPhoneNumber}
-              onChange={(e) => setSignupPhoneNumber(e.target.value)}
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            style={{
-              backgroundColor: "var(--primary-color",
-              border: "none",
-              borderRadius: "5px",
-            }}
-          >
-            Sign Up
-          </button>
-        </form>
-        <p className="account">
-          <p>already have an account?</p>
-          <Link to="/login" className="link-decoration">
-            <p className="change">Login</p>
-          </Link>
-        </p>
+      <div className="form-page-background">
+        <div className="centered-container">
+          <h2 style={{ marginTop: "0px", textAlign: "center" }}>Sign Up</h2>
+          <form onSubmit={handleSignupSubmit}>
+            <div>
+              <label className="fnSignup" htmlFor="signupFirstName">
+                First Name:
+              </label>
+              <input
+                type="text"
+                id="signupFirstName"
+                className="name-input"
+                value={signupFirstName}
+                onChange={(e) => setSignupFirstName(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label className="lnSignup" htmlFor="signupLastName">
+                Last Name:
+              </label>
+              <input
+                type="text"
+                id="signupLastName"
+                className="name-input"
+                value={signupLastName}
+                onChange={(e) => setSignupLastName(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label className="emailSignup" htmlFor="signupEmail">
+                Email:
+              </label>
+              <input
+                type="email"
+                id="signupEmail"
+                value={signupEmail}
+                onChange={(e) => setSignupEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label className="pwdSignup" htmlFor="signupPassword">
+                Password:
+              </label>
+              <input
+                type="password"
+                id="signupPassword"
+                value={signupPassword}
+                onChange={(e) => setSignupPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label className="pnSignup" htmlFor="signupPhoneNumber">
+                Phone Number:
+              </label>
+              <input
+                type="tel"
+                id="signupPhoneNumber"
+                value={signupPhoneNumber}
+                onChange={(e) => setSignupPhoneNumber(e.target.value)}
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              style={{
+                backgroundColor: "var(--primary-color",
+                border: "none",
+                borderRadius: "5px",
+                height: "40px",
+              }}
+            >
+              Sign Up
+            </button>
+          </form>
+          <p className="account">
+            <p>already have an account?</p>
+            <Link to="/login" className="link-decoration">
+              <p className="change">Login</p>
+            </Link>
+          </p>
+        </div>
       </div>
     </>
   );

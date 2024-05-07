@@ -12,7 +12,7 @@ export default function HouseCard({ title, guests, price, thumbnail }) {
       <div className="house-details">
         <h2 className="house-title">{title}</h2>
         <p className="house-location">{guests} guests</p>
-        <p className="house-price">{price}DA</p>
+        <p className="house-price">{price} DA</p>
       </div>
     </div>
   );
