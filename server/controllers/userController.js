@@ -115,3 +115,34 @@ exports.getUserById = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+exports.getCurrentUser = async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.userId;
+
+    const connection = await db.getConnection();
+    try {
+      const [rows] = await connection.query(
+        "SELECT id, first_name, last_name, email, phone_number FROM users WHERE id = ?",
+        [userId]
+      );
+
+      if (rows.length === 0) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      const user = rows[0];
+      res.status(200).json(user);
+    } finally {
+      connection.release();
+    }
+  } catch (error) {
+    console.error("Error fetching current user:", error);
+    if (error.name === "JsonWebTokenError") {
+      return res.status(401).json({ error: "Invalid token" });
+    }
+    res.status(500).json({ error: "Internal server error" });
+  }
+};

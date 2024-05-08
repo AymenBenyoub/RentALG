@@ -2,7 +2,8 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import ImageCarousel from "../Components/ImageCarousel";
 import { useParams } from "react-router-dom";
-
+import Reporting from "../Components/Reporting";
+import Review from "../Components/Review";
 import BookingBill from "../Components/BookingBill";
 import { FaLocationDot } from "react-icons/fa6";
 import AmenitiesList from "../Components/AmenitiesList";
@@ -107,11 +108,13 @@ function ListingDetails() {
                       Hosted by {owner.first_name + " " + owner.last_name}
                     </span>
                   </Link>
+                  <Reporting />
                 </>
               )}
             </div>
             <div>
               <h3>Reviews</h3>
+              <Review />
               {reviews && reviews.length > 0 ? (
                 <ReviewsList reviews={reviews} />
               ) : (

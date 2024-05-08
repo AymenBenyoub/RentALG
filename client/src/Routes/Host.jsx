@@ -1,4 +1,4 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../styles/HostForm.css";
@@ -8,6 +8,7 @@ import roomIcon from "../assets/room_icon.jpeg";
 import virement1 from "../assets/virement1.jpeg";
 import carte1 from "../assets/carte1.jpeg";
 import { UserContext } from "../context/UserContext";
+
 function Host() {
   const [formValues, setformValues] = useState({
     accommodation_type: "",
@@ -32,20 +33,28 @@ function Host() {
   const { user } = useContext(UserContext);
   const [max_guests, setmax_guests] = useState(1);
   const navigate = useNavigate();
-  const incrementGuests = () => {
+  const guestInputRef = useRef(null); // Reference to the max_guests input field
+
+  const incrementGuests = (e) => {
+    e.preventDefault(); // Prevent default form submission
     setformValues((prevData) => ({
       ...prevData,
       max_guests: prevData.max_guests + 1,
     }));
+    setmax_guests((prevValue) => prevValue + 1);
+    guestInputRef.current.focus(); // Focus on the max_guests input field
   };
 
-  const decrementGuests = () => {
+  const decrementGuests = (e) => {
+    e.preventDefault(); // Prevent default form submission
     if (formValues.max_guests > 1) {
       setformValues((prevData) => ({
         ...prevData,
         max_guests: prevData.max_guests - 1,
       }));
+      setmax_guests((prevValue) => prevValue - 1);
     }
+    guestInputRef.current.focus(); // Focus on the max_guests input field
   };
 
   const [pictures, setpictures] = useState([]);
@@ -103,7 +112,7 @@ function Host() {
 
     try {
       const formData = {
-        host_id: user.uid,
+        host_id: user.id,
         accommodation_type: formValues.accommodation_type,
         title: formValues.title,
         description: formValues.description,
@@ -112,6 +121,7 @@ function Host() {
         location: formValues.location,
         payment_method: formValues.payment_type,
         amenities: Object.fromEntries(
+          // eslint-disable-next-line no-unused-vars
           Object.entries(formValues.amenities).filter(([key, value]) => value)
         ),
       };
@@ -180,6 +190,11 @@ function Host() {
       formValues.payment_type
     );
   };
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
   return (
     <div>
       <div className="first_step">
@@ -601,7 +616,7 @@ function Host() {
         <br />
         <button
           type="submit"
-          className="submit-btn"
+          className="listing-submit-button"
           disabled={!isFormValid()}
           style={{
             backgroundColor: isFormValid() ? "#007bff" : "#6c757d",

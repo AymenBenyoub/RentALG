@@ -473,10 +473,11 @@ footer p {
   border-radius: 5px;
   background-color: #f9f9f9;
   width: 200px;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 .review-list {
   font-family: Arial, sans-serif;
+  padding-top: 20px;
 }
 
 .review-container {
@@ -671,7 +672,7 @@ input[type="tel"] {
 .pnSignup {
   margin-left: -31px;
 }
-button[type="submit"] {
+.loginButton {
   margin: -5px;
   margin-left: 2px;
   width: 100%;
@@ -683,7 +684,7 @@ button[type="submit"] {
   cursor: pointer;
 }
 
-button[type="submit"]:hover {
+.loginButton:hover {
   background-color: #007bff;
 }
 
@@ -771,4 +772,190 @@ button[type="submit"]:hover {
   align-items: center;
   margin-top: 12px;
   width: 300px;
+}
+.review-input-container {
+  padding-bottom: 20px;
+  /* border-bottom: solid 1px var(--secondary-color); */
+}
+.review-button {
+  position: relative;
+}
+.starReview {
+  width: 45px;
+  height: 45px;
+  margin-top: 30px;
+  background-size: contain;
+  border: none;
+  flex-direction: column;
+  cursor: pointer;
+  background-image: url(../assets/star.png);
+  background-color: transparent;
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.starReview:hover {
+  background-image: url(../assets/gold.star.png);
+}
+
+.starReview.active {
+  background-image: url(../assets/gold.star.png);
+}
+.review-btns-container {
+  display: flex;
+}
+.review {
+  width: 650px;
+}
+.reviewtext {
+  width: 650px;
+  height: 35px;
+  border: 0px;
+  background-color: transparent;
+  outline: none;
+}
+
+.review-text {
+  width: 100%;
+  height: 20%;
+  border-bottom: 1px ridge cadetblue;
+  background-color: transparent;
+}
+
+.submit-btn {
+  width: 120px;
+  height: 35px;
+  background-color: transparent;
+  border: 1px solid cadetblue;
+  border-radius: 40px;
+  position: relative;
+  overflow: hidden;
+  left: 64%;
+  bottom: 5px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  width: 120px;
+  height: 35px;
+  background-color: transparent;
+  border: 1px solid cadetblue;
+  border-radius: 40px;
+  position: relative;
+  overflow: hidden;
+  left: 61%;
+  bottom: 5px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: cadetblue;
+}
+.cancel-btn:hover {
+  background-color: cadetblue;
+}
+
+.why {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 35px;
+}
+
+.ReportOptions {
+  text-align: left;
+  height: 38px;
+  width: 100%;
+  padding: 10px 0 0 10px;
+  /* border-radius: 22px; */
+  border-bottom: 1px solid var(--secondary-color);
+  cursor: pointer;
+}
+
+.cancel {
+  width: 120px;
+  height: 35px;
+  color: black;
+  float: right;
+  font-size: 19px;
+  cursor: pointer;
+  margin-top: 30px;
+  border-radius: 40px;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 74%;
+  left: 50%;
+}
+
+.cancel:hover,
+.cancul:focus {
+  text-decoration: none;
+  background-color: var(--primary-color);
+}
+
+.submit {
+  width: 120px;
+  height: 35px;
+  color: black;
+  float: right;
+  font-size: 19px;
+  cursor: pointer;
+  margin-top: 30px;
+  border-radius: 40px;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 74%;
+  left: 60%;
+}
+
+.submit:hover,
+.submit:focus {
+  text-decoration: none;
+  background-color: var(--primary-color);
+}
+
+.modall-content {
+  background-color: rgba(255, 255, 255, 0.918);
+  padding: 20px;
+  border-radius: 5px;
+  width: 38%;
+  height: 72%;
+}
+.reporting-btn {
+  width: 45px;
+  height: 45px;
+  position: relative;
+  left: 200%;
+  background-size: contain;
+  border: none;
+  flex-direction: column;
+  cursor: pointer;
+  background-image: url(../assets/danger.png);
+  background-color: transparent;
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.reporting-btn:hover {
+  background-size: 90%;
+}
+.report-checkbox {
+  width: 90%;
+  height: 25px;
+
+  padding: 6px;
+  position: relative;
+  left: 1.5%;
+  margin: 3px;
+
+  cursor: pointer;
+  border-bottom: 1px ridge cadetblue;
+  display: inline-block;
+}
+.report-checkbox > input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  position: sticky;
+  left: 65%;
 }

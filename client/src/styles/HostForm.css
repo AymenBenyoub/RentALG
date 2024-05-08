@@ -224,20 +224,22 @@ textarea {
 .payment-button.active {
   border-color: black;
 }
-button[type="submit"] {
+.listing-submit-button {
+  text-align: center;
   background-color: rgb(0, 0, 0);
   border: 2px solid transparent;
   border-radius: 8px;
   width: 250px;
   height: 60px;
-  cursor: pointer; /* Remove cursor hover effect */
+  cursor: pointer;
   flex-direction: column;
   margin-right: -270px;
   margin-top: 50px;
   transition: 0.3s ease;
-  border-color: gray;
+  /* border-color: gray; */
   margin-left: 470px;
-  padding: 0.6em 1.2em;
+  padding-top: 20px;
+  /* padding: 0.6em 1.2em; */
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;

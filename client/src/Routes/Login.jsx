@@ -28,9 +28,9 @@ const Login = () => {
       }
       const responseData = await response.json();
       const token = responseData.token;
-      const uid = responseData.userId;
+      const id = responseData.userId;
       localStorage.setItem("jwtToken", token);
-      login({ ...user, uid, token });
+      login({ ...user, id, token });
 
       console.log("Login successful");
       navigate("/");
@@ -86,6 +86,7 @@ const Login = () => {
                 borderRadius: "5px",
                 height: "40px",
               }}
+              className="loginButton"
             >
               Login
             </button>

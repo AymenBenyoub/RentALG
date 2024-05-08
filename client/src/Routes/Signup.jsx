@@ -129,6 +129,7 @@ function Signup() {
                 borderRadius: "5px",
                 height: "40px",
               }}
+              className="loginButton"
             >
               Sign Up
             </button>
