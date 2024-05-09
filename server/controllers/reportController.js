@@ -1,34 +1,6 @@
 const db = require("../config/database");
 
-// Create a new report for a user
-exports.createUserReport = async (req, res) => {
-  let connection;
-  try {
-    connection = await db.getConnection();
-    const { report_reason, report_text, reporting_user, reported_user } =
-      req.body;
-
-    const [result] = await connection.query(
-      "INSERT INTO reports (report_reason, report_text, reporting_user, reported_user) VALUES (?, ?, ?, ?)",
-      [report_reason, report_text, reporting_user, reported_user]
-    );
-
-    const reportId = result.insertId;
-    res
-      .status(201)
-      .json({ message: "User report created successfully", reportId });
-  } catch (error) {
-    console.error("Error creating user report:", error);
-    res.status(500).json({ error: "Internal server error" });
-  } finally {
-    if (connection) {
-      connection.release();
-    }
-  }
-};
-
-// Create a new report for an accommodation
-exports.createAccommodationReport = async (req, res) => {
+exports.createReport = async (req, res) => {
   let connection;
   try {
     connection = await db.getConnection();
@@ -36,20 +8,25 @@ exports.createAccommodationReport = async (req, res) => {
       report_reason,
       report_text,
       reporting_user,
+      reported_user,
       reported_accommodation,
     } = req.body;
 
     const [result] = await connection.query(
-      "INSERT INTO reports (report_reason, report_text, reporting_user, reported_accommodation) VALUES (?, ?, ?, ?)",
-      [report_reason, report_text, reporting_user, reported_accommodation]
+      "INSERT INTO reports (report_reason, report_text, reporting_user, reported_user,reported_accommodation) VALUES (?, ?, ?, ?,?)",
+      [
+        report_reason,
+        report_text,
+        reporting_user,
+        reported_user,
+        reported_accommodation,
+      ]
     );
 
     const reportId = result.insertId;
-    res
-      .status(201)
-      .json({ message: "Accommodation report created successfully", reportId });
+    res.status(201).json({ message: "report created successfully", reportId });
   } catch (error) {
-    console.error("Error creating accommodation report:", error);
+    console.error("Error creating report:", error);
     res.status(500).json({ error: "Internal server error" });
   } finally {
     if (connection) {
@@ -57,6 +34,36 @@ exports.createAccommodationReport = async (req, res) => {
     }
   }
 };
+
+// exports.createAccommodationReport = async (req, res) => {
+//   let connection;
+//   try {
+//     connection = await db.getConnection();
+//     const {
+//       report_reason,
+//       report_text,
+//       reporting_user,
+//       reported_accommodation,
+//     } = req.body;
+
+//     const [result] = await connection.query(
+//       "INSERT INTO reports (report_reason, report_text, reporting_user, reported_accommodation) VALUES (?, ?, ?, ?)",
+//       [report_reason, report_text, reporting_user, reported_accommodation]
+//     );
+
+//     const reportId = result.insertId;
+//     res
+//       .status(201)
+//       .json({ message: "Accommodation report created successfully", reportId });
+//   } catch (error) {
+//     console.error("Error creating accommodation report:", error);
+//     res.status(500).json({ error: "Internal server error" });
+//   } finally {
+//     if (connection) {
+//       connection.release();
+//     }
+//   }
+// };
 
 // Get all reports
 exports.getAllReports = async (req, res) => {

@@ -1,6 +1,31 @@
-.listing-button-container {
-  display: flexbox;
+:root {
+  --primary-color: #1cb0f6;
+  --secondary-color: #a1b7c1;
 }
+.host-form {
+  display: flex;
+  flex-direction: column;
+  padding: 100px;
+  border: solid;
+  background: linear-gradient(
+    to left,
+    var(--primary-color)-50%,
+    var(--secondary-color) 50%
+  );
+}
+.host-form-content-wrapper {
+  padding-top: 20px;
+  border: solid 2px grey;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+.listing-types {
+  display: flex;
+  margin-left: 150px;
+}
+/* .listing-button-container {
+  display: flexbox;
+} */
 
 .listing-button {
   background-color: rgb(255, 255, 255);
@@ -10,9 +35,9 @@
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  margin-right: -270px;
+  /* margin-right: -270px; */
   transition: 0.3s ease;
-  margin-left: 350px;
+  margin-left: 100px;
   border-color: #b9afaf;
   padding: 0.6em 1.2em;
   font-size: 1em;
@@ -62,11 +87,10 @@ h2 {
   color: black;
   margin: -5px;
   margin-left: 50px;
-  text-decoration: underline;
 }
 
 .first_step p {
-  margin-left: 45px;
+  margin-left: 75px;
   font-size: 18px;
   color: black;
 }
@@ -76,11 +100,42 @@ h2 {
   margin: 25px;
   margin-left: 50px;
 }
+.location {
+  display: flex;
+}
+.amenities {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 20px 0px 0px 0px;
+}
+.amenities label {
+  align-items: center;
+}
+.amenities input {
+  background-color: #fff;
+}
+.amenities input {
+  width: 25px;
+  height: 25px;
+
+  cursor: pointer;
+}
 .amenities p {
-  font-size: 18px;
-  margin-left: -50px;
+  font-size: 15px;
+  margin-left: 5px;
+  text-align: center;
+}
+.amenities p {
+  font-size: 15px;
+
   color: black;
-  font-weight: 1000;
+  font-weight: 600;
+}
+.amenitiy {
+  display: flex;
+  justify-content: center;
+  margin-left: 100px;
 }
 .guests {
   background-color: gray;
@@ -128,28 +183,8 @@ h2 {
   font-size: 35px;
   color: black;
   margin-left: 50px;
-  text-decoration: underline;
 }
-.amenities label {
-  align-items: center;
-}
-.amenities input {
-  background-color: #fff;
-}
-.amenities input {
-  margin: 10px;
-  width: 25px;
-  height: 25px;
-  flex-direction: column;
-  cursor: pointer;
-  display: inline-flex;
-  margin-left: -200px;
-}
-.amenities p {
-  font-size: 15px;
-  margin-left: 5px;
-  text-align: center;
-}
+
 .index {
   flex-direction: column;
   display: inline-flex;
@@ -182,8 +217,8 @@ textarea {
   color: #000000;
   border: none;
   outline: none;
-  height: 210px;
-  font-size: 90px;
+  height: 80px;
+  font-size: 50px;
   width: 28%;
   margin-left: 350px;
   text-align: center;
@@ -192,7 +227,7 @@ textarea {
   background-color: white;
   border: 2px solid transparent;
   border-radius: 8px;
-  width: 500px;
+  width: 250px;
   height: 100px;
   cursor: pointer; /* Remove cursor hover effect */
   flex-direction: column;
@@ -209,8 +244,8 @@ textarea {
 .paymentMeth img {
   width: 45px;
   height: 40px;
-  margin-top: -45px;
-  margin-left: 410px;
+  margin-top: -47.5px;
+  margin-left: 170px;
 }
 .payment-button img {
   transform: scale(1.1);

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-
+import { useState, useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 function ButtonWithAttribute({ attribute, onClick, isActive }) {
   return (
     <button
@@ -12,11 +13,12 @@ function ButtonWithAttribute({ attribute, onClick, isActive }) {
   );
 }
 
-function Review() {
+function Review({ accommodationId }) {
   const [clickedAttributeValue, setClickedAttributeValue] = useState(null);
   const [showCheckBoxList1, setShowCheckBoxList1] = useState(false);
   const [numberOfAttributes, setNumberOfAttributes] = useState(0);
-
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
   const toggleCheckBoxList1 = () => {
     setShowCheckBoxList1(true);
   };
@@ -30,7 +32,7 @@ function Review() {
 
   const handleClick = (attributeValue) => {
     setClickedAttributeValue(attributeValue);
-    setNumberOfAttributes((prev) => parseInt(attributeValue));
+    setNumberOfAttributes(() => parseInt(attributeValue));
   };
 
   const [text, setText] = useState("");
@@ -38,15 +40,36 @@ function Review() {
     setText(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/reviews`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          rating: clickedAttributeValue,
+          reviewer_id: user.id,
+          accommodation_id: accommodationId,
+          review_text: text,
+        }),
+      });
+      if (!response.ok) {
+        console.error("error creating review: NETWORK ERROR");
+      }
+      console.log("created review successfully");
+    } catch (error) {
+      console.log("error creating review: ", error);
+    }
 
     setClickedAttributeValue(null);
     setText("");
   };
 
   return (
-    <div onSubmit={handleSubmit} className="review-input-container">
+    <div className="review-input-container">
       <div className="review-text" onClick={toggleCheckBoxList1}>
         <label htmlFor="text"></label>
         <input
@@ -54,6 +77,7 @@ function Review() {
           className="reviewtext"
           value={text}
           onChange={handleTextChange}
+          disabled={!user}
           placeholder="Type your review..."
         />
       </div>
@@ -70,9 +94,6 @@ function Review() {
             isActive={parseInt(clickedAttributeValue) >= value}
           />
         ))}
-        {clickedAttributeValue && (
-          <p>Clicked button attribute value: {clickedAttributeValue}</p>
-        )}
       </div>
 
       {showCheckBoxList1 && (
@@ -84,7 +105,10 @@ function Review() {
             className="submit-btn"
             type="submit"
             disabled={!clickedAttributeValue || !text}
-            onClick={closeModal}
+            onClick={(e) => {
+              handleSubmit(e);
+              closeModal(e);
+            }}
           >
             Send
           </button>

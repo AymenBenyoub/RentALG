@@ -28,7 +28,6 @@ export default function Header() {
               />
             </Link>
             <UserDropDown logout={logout} />
-            {console.log(user)}
           </div>
         </>
       ) : (

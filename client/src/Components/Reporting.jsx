@@ -1,51 +1,84 @@
-import { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState, useContext } from "react";
 import Modal from "react-modal";
+import { UserContext } from "../context/UserContext";
 
-const Reporting = () => {
+// eslint-disable-next-line no-unused-vars
+const Reporting = ({ accommodationId, host_id }) => {
   const [showCheckBoxList1, setShowCheckBoxList1] = useState(false);
   const [showCheckBoxList2, setShowCheckBoxList2] = useState(false);
   const [showCheckBoxList3, setShowCheckBoxList3] = useState(false);
+  const [clickedDivId, setClickedDivId] = useState(null);
+  const [text, setText] = useState("");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { user } = useContext(UserContext);
+
+  const ReportOptions = {
+    1.1: "misleading",
+    1.2: "unclean",
+    1.3: "unsafe",
+    2.1: "unresponsive",
+    2.2: "disrespectful",
+    2.3: "illegal activity",
+    3: "other",
+  };
+
   const toggleCheckBoxList1 = () => {
     setShowCheckBoxList1(!showCheckBoxList1);
-
     setShowCheckBoxList2(false);
     setShowCheckBoxList3(false);
   };
 
   const toggleCheckBoxList2 = () => {
     setShowCheckBoxList2(!showCheckBoxList2);
-
     setShowCheckBoxList1(false);
     setShowCheckBoxList3(false);
   };
+
   const toggleCheckBoxList3 = () => {
     setShowCheckBoxList3(!showCheckBoxList3);
-
     setShowCheckBoxList2(false);
     setShowCheckBoxList1(false);
   };
-
-  const [clickedDivId, setClickedDivId] = useState(null);
 
   const handleDivClick = (event) => {
     const clickedId = event.target.id;
     setClickedDivId(clickedId);
   };
 
-  const [text, setText] = useState("");
   const handleTextChange = (e) => {
     setText(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    openModal();
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/reports`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          report_reason: ReportOptions[clickedDivId],
+          report_text: text,
+          reporting_user: user.id,
+          reported_accommodation: accommodationId,
+          reported_user: host_id,
+        }),
+      });
+
+      if (!response.ok) {
+        console.error("Couldn't submit report: NETWORK ERROR");
+      } else {
+        console.log("Report successfully submitted");
+      }
+    } catch (error) {
+      console.error("error submitting report", error);
+    }
+    closeModal();
   };
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
   const openModal = () => {
-    setModalIsOpen(true);
+    if (user) {
+      setModalIsOpen(true);
+    }
   };
 
   const closeModal = () => {
@@ -54,12 +87,12 @@ const Reporting = () => {
     setShowCheckBoxList2(false);
     setShowCheckBoxList3(false);
     setShowCheckBoxList1(false);
+    setText("");
   };
+
   return (
-    <div onSubmit={handleSubmit}>
-      <form>
-        <button className="reporting-btn"></button>
-      </form>
+    <div>
+      <button className="reporting-btn" onClick={openModal}></button>
 
       <Modal
         isOpen={modalIsOpen}
@@ -76,35 +109,19 @@ const Reporting = () => {
             </div>
             {showCheckBoxList1 && (
               <div>
-                <label className="report-checkbox">
-                  Misleading or inaccurate information
-                  <input
-                    type="checkbox"
-                    id="1.1"
-                    onClick={handleDivClick}
-                    checked={clickedDivId === "1.1"}
-                  />
-                </label>
-                <br />
-                <label className="report-checkbox">
-                  It has cleanliness or maintenance problems
-                  <input
-                    type="checkbox"
-                    id="1.2"
-                    onClick={handleDivClick}
-                    checked={clickedDivId === "1.2"}
-                  />
-                </label>
-                <br />
-                <label className="report-checkbox">
-                  Unsafe living conditions
-                  <input
-                    type="checkbox"
-                    id="1.3"
-                    onClick={handleDivClick}
-                    checked={clickedDivId === "1.3"}
-                  />
-                </label>
+                {Object.entries(ReportOptions)
+                  .filter(([id]) => id.startsWith("1"))
+                  .map(([id, option]) => (
+                    <label key={id} className="report-checkbox">
+                      {option}
+                      <input
+                        type="checkbox"
+                        id={id}
+                        onClick={handleDivClick}
+                        checked={clickedDivId === id}
+                      />
+                    </label>
+                  ))}
               </div>
             )}
 
@@ -113,35 +130,19 @@ const Reporting = () => {
             </div>
             {showCheckBoxList2 && (
               <div>
-                <label className="report-checkbox">
-                  Unresponsive Host
-                  <input
-                    type="checkbox"
-                    id="2.1"
-                    onClick={handleDivClick}
-                    checked={clickedDivId === "2.1"}
-                  />
-                </label>
-                <br />
-                <label className="report-checkbox">
-                  Disrespectful Conduct
-                  <input
-                    type="checkbox"
-                    id="2.2"
-                    onClick={handleDivClick}
-                    checked={clickedDivId === "2.2"}
-                  />
-                </label>
-                <br />
-                <label className="report-checkbox">
-                  Host engages in illegal activity
-                  <input
-                    type="checkbox"
-                    id="2.3"
-                    onClick={handleDivClick}
-                    checked={clickedDivId === "2.3"}
-                  />
-                </label>
+                {Object.entries(ReportOptions)
+                  .filter(([id]) => id.startsWith("2"))
+                  .map(([id, option]) => (
+                    <label key={id} className="report-checkbox">
+                      {option}
+                      <input
+                        type="checkbox"
+                        id={id}
+                        onClick={handleDivClick}
+                        checked={clickedDivId === id}
+                      />
+                    </label>
+                  ))}
               </div>
             )}
             <div className="ReportOptions" onClick={toggleCheckBoxList3}>
@@ -154,7 +155,7 @@ const Reporting = () => {
                     type="text"
                     value={text}
                     className="reviewtext"
-                    id="other"
+                    id="3"
                     onChange={handleTextChange}
                     placeholder="Type your report..."
                     onClick={handleDivClick}
@@ -162,15 +163,13 @@ const Reporting = () => {
                 </label>
               </div>
             )}
-            <p>Clicked Div ID: {clickedDivId}</p>
           </div>
           <button
             className="submit"
-            type="submit"
-            onClick={closeModal}
+            onClick={handleSubmit}
             disabled={!clickedDivId}
           >
-            Submit{" "}
+            Submit
           </button>
           <button className="cancel" onClick={closeModal}>
             Cancel

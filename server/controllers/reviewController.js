@@ -6,7 +6,7 @@ exports.createReview = async (req, res) => {
   try {
     connection = await db.getConnection();
     const { rating, reviewer_id, accommodation_id, review_text } = req.body;
-
+    console.log(req.body);
     const [result] = await connection.query(
       "INSERT INTO reviews (rating, reviewer_id, accommodation_id,review_text) VALUES (?, ?, ?,?)",
       [rating, reviewer_id, accommodation_id, review_text]

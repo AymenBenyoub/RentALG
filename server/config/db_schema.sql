@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS reviews (
 
 CREATE TABLE IF NOT EXISTS reports(
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    report_reason ENUM('inaccurate', 'fake', 'scam', 'offensive', 'unresponsive') NOT NULL,
+    report_reason ENUM('misleading', 'unclean', 'unsafe',  'unresponsive','disrespectful','illegal activity','other') NOT NULL,
     report_text TEXT,
     reporting_user INTEGER NOT NULL,
     reported_accommodation INTEGER NOT NULL,

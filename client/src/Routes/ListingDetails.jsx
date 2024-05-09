@@ -30,7 +30,7 @@ function ListingDetails() {
         const accommodation = await response.json();
 
         setListingInfo(accommodation);
-        console.log(accommodation);
+
         setLoading(false);
       } catch (error) {
         console.error("Couldn't fetch lisiting info:", error);
@@ -47,6 +47,7 @@ function ListingDetails() {
         if (!response.ok)
           throw new Error("Couldn't fetch reviews: Network error");
         const fetchedReviews = await response.json();
+        console.log(fetchedReviews);
         setReviews(fetchedReviews);
       } catch (error) {
         console.error("Couldn't fetch reviews:", error);
@@ -108,13 +109,16 @@ function ListingDetails() {
                       Hosted by {owner.first_name + " " + owner.last_name}
                     </span>
                   </Link>
-                  <Reporting />
+                  <Reporting
+                    accommodationId={id}
+                    host_id={listingInfo.host_id}
+                  />
                 </>
               )}
             </div>
             <div>
               <h3>Reviews</h3>
-              <Review />
+              <Review accommodationId={id} />
               {reviews && reviews.length > 0 ? (
                 <ReviewsList reviews={reviews} />
               ) : (

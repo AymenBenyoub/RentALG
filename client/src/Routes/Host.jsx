@@ -33,7 +33,7 @@ function Host() {
   const { user } = useContext(UserContext);
   const [max_guests, setmax_guests] = useState(1);
   const navigate = useNavigate();
-  const guestInputRef = useRef(null); // Reference to the max_guests input field
+  const guestInputRef = useRef(null);
 
   const incrementGuests = (e) => {
     e.preventDefault(); // Prevent default form submission
@@ -196,435 +196,474 @@ function Host() {
     }
   }, [user, navigate]);
   return (
-    <div>
-      <div className="first_step">
-        <h2>First step: Tell us about your place.</h2>
-        <p>
-          In this step, we&apos;ll ask you which type of property you have and
-          if
-          <br />
-          guests will book the entire place or just a room. Then let us know{" "}
-          <br />
-          the location and how many guests can stay.
-        </p>
-      </div>
-      <form onSubmit={handleSubmit}>
-        <div className="button-container">
-          <h2>What type of place will guests have?</h2>
-          <button
-            type="button"
-            className={`listing-button ${
-              formValues.accommodation_type === "House" ? "active" : ""
-            }`}
-            onClick={() => handleaccommodation_typeChange("House")}
-            required
-          >
-            <img src={houseIcon} alt="House" />
-            <span>House</span>
-          </button>
-          <button
-            type="button"
-            className={`listing-button ${
-              formValues.accommodation_type === "Shared room" ? "active" : ""
-            }`}
-            onClick={() => handleaccommodation_typeChange("Shared room")}
-            required
-          >
-            <img src={sharedroom_Icon} alt="Shared room" />
-            <span>Shared room</span>
-          </button>
-          <button
-            type="button"
-            className={`listing-button ${
-              formValues.accommodation_type === "Room" ? "active" : ""
-            }`}
-            onClick={() => handleaccommodation_typeChange("Room")}
-            required
-          >
-            <img src={roomIcon} alt="Room" />
-            <span>Room</span>
-          </button>
-        </div>
-        <br />
-        <h2>Where&apos;s your place located ?</h2>
-        <p
-          style={{
-            marginLeft: "150px",
-            fontSize: "18px",
-            color: "black",
-            marginTop: "-20px",
-            fontWeight: "bold",
-          }}
-        >
-          Paste your location link here:
-        </p>
-        <div>
-          <input
-            style={{
-              backgroundColor: "white",
-              padding: "0.5rem",
-              width: "250px",
-              textAlign: "center",
-              margin: "0 0.5rem",
-              borderRadius: "8px",
-              color: "black",
-              marginLeft: "400px",
-            }}
-            type="text"
-            id="location"
-            name="location"
-            placeholder="Enter location"
-            value={formValues.location}
-            onChange={(e) =>
-              setformValues({ ...formValues, location: e.target.value })
-            }
-            required
-          />
-        </div>
-        <br />
-        <h2>How much guests can you receive ?</h2>
-        <label>
-          <p style={{ marginLeft: "-30px", fontSize: "18px", color: "black" }}>
-            Max Guests:
+    <div className="host-form">
+      <div className="host-form-content-wrapper">
+        <div className="first_step">
+          <h2>First step: Tell us about your place.</h2>
+          <p>
+            In this step, we&apos;ll ask you which type of property you have and
+            if
+            <br />
+            guests will book the entire place or just a room. Then let us know{" "}
+            <br />
+            the location and how many guests can stay.
           </p>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <button className="decguests" onClick={decrementGuests} required>
-              -
-            </button>
-            <span
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="button-container">
+            <h2>What type of place will guests have?</h2>
+            <div className="listing-types">
+              {" "}
+              <button
+                type="button"
+                className={`listing-button ${
+                  formValues.accommodation_type === "House" ? "active" : ""
+                }`}
+                onClick={() => handleaccommodation_typeChange("House")}
+                required
+              >
+                <img src={houseIcon} alt="House" />
+                <span>House</span>
+              </button>
+              <button
+                type="button"
+                className={`listing-button ${
+                  formValues.accommodation_type === "Shared room"
+                    ? "active"
+                    : ""
+                }`}
+                onClick={() => handleaccommodation_typeChange("Shared room")}
+                required
+              >
+                <img src={sharedroom_Icon} alt="Shared room" />
+                <span>Shared room</span>
+              </button>
+              <button
+                type="button"
+                className={`listing-button ${
+                  formValues.accommodation_type === "Room" ? "active" : ""
+                }`}
+                onClick={() => handleaccommodation_typeChange("Room")}
+                required
+              >
+                <img src={roomIcon} alt="Room" />
+                <span>Room</span>
+              </button>
+            </div>
+          </div>
+          <br />
+          <h2>Where&apos;s your place located ?</h2>
+          <div className="location">
+            <label
               style={{
-                backgroundColor: "gray",
+                marginLeft: "150px",
+                fontSize: "18px",
+                color: "black",
+                marginTop: "2px",
+              }}
+              htmlFor="location"
+            >
+              Paste your location link here:
+            </label>
+
+            <input
+              style={{
+                backgroundColor: "white",
                 padding: "0.5rem",
-                width: "150px",
+                width: "250px",
                 textAlign: "center",
                 margin: "0 0.5rem",
                 borderRadius: "8px",
+                color: "black",
+                marginLeft: "20px",
+              }}
+              id="location"
+              name="location"
+              placeholder="Enter location"
+              value={formValues.location}
+              onChange={(e) =>
+                setformValues({ ...formValues, location: e.target.value })
+              }
+              required
+            />
+          </div>
+          <br />
+          <h2>How much guests can you receive ?</h2>
+          <label>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+
+                paddingRight: "300px",
               }}
             >
-              {max_guests}
-            </span>
-            <button className="incguests" onClick={incrementGuests}>
-              +
-            </button>
-          </div>
-        </label>
-        <br />
-        <div className="second_step">
-          <h2>Second step: Make your place stand out.</h2>
-          <p
-            style={{
-              marginLeft: "50px",
-              fontSize: "18px",
-              color: "black",
-              marginTop: "-20px",
-            }}
-          >
-            In this step, you&apos;ll add some of the amenities your place
-            offers, some pictures. <br />
-            Then, you&apos;ll create a title and description.
-          </p>
-        </div>
-        <br />
-        <h2 style={{ margin: "-10px", marginLeft: "50px" }}>
-          What your place has to offer ?
-        </h2>
-        <br />
-        <br />
-        <div className="amenities">
-          <label>
-            <input
-              type="checkbox"
-              checked={formValues.amenities.wifi}
-              onChange={() => toggleFeature("wifi")}
-            />
-            <p>Wifi</p>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={formValues.amenities.kitchen}
-              onChange={() => toggleFeature("kitchen")}
-            />
-            <p>Kitchen</p>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={formValues.amenities.gym}
-              onChange={() => toggleFeature("gym")}
-            />
-            <p>Gym</p>
-          </label>
-          <br />
-          <br />
-          <label>
-            <input
-              type="checkbox"
-              checked={formValues.amenities.bbqGrill}
-              onChange={() => toggleFeature("bbqGrill")}
-            />
-            <p>BBQ Grill</p>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={formValues.amenities.bathtub}
-              onChange={() => toggleFeature("bathtub")}
-            />
-            <p>Bath tub</p>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={formValues.amenities.tv}
-              onChange={() => toggleFeature("tv")}
-            />
-            <p>TV</p>
-          </label>
-          <br />
-          <br />
-          <label>
-            <input
-              type="checkbox"
-              checked={formValues.amenities.garage}
-              onChange={() => toggleFeature("garage")}
-            />
-            <p>Garage</p>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={formValues.amenities.pool}
-              onChange={() => toggleFeature("pool")}
-            />
-            <p>Pool</p>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={formValues.amenities.beachView}
-              onChange={() => toggleFeature("beachView")}
-            />
-            <p>Beach view</p>
-          </label>
-        </div>
-        <br />
-        <h2>Add some pictures of your house.</h2>
-        <br />
-        <div>
-          <a
-            href="#"
-            onClick={handleAnchorClick}
-            style={{
-              display: "inline-block",
-              marginLeft: "430px",
-              padding: "10px",
-              color: "black",
-              textDecoration: "underline",
-              borderRadius: "5px",
-            }}
-            required
-          >
-            Upload images from your device.
-          </a>
-          <input
-            type="file"
-            ref={fileInputRef}
-            name="pictures"
-            onChange={handleFileChange}
-            accept="image/*"
-            style={{ display: "none" }}
-            multiple
-            required
-          />
-          <br />
-          <br />
-          {pictures.map((file, index) => (
-            <div className="index" key={index}>
-              <img
-                src={URL.createObjectURL(file)}
-                alt={`Preview ${index + 1}`}
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: "200px",
-                  marginRight: "10px",
-                  marginBottom: "10px",
-                }}
-              />
               <p
                 style={{
-                  marginLeft: "-30px",
-                  fontSize: "15px",
+                  margin: "0px 0px 0px -100px",
+                  fontSize: "18px",
                   color: "black",
-                  fontWeight: "1000",
                 }}
               >
-                {file.name}
+                Max Guests:
               </p>
+
+              <button className="decguests" onClick={decrementGuests} required>
+                -
+              </button>
+              <span
+                style={{
+                  backgroundColor: "gray",
+                  padding: "0.5rem",
+                  width: "150px",
+                  textAlign: "center",
+                  margin: "0 0.5rem",
+                  borderRadius: "8px",
+                }}
+              >
+                {max_guests}
+              </span>
+              <button className="incguests" onClick={incrementGuests}>
+                +
+              </button>
             </div>
-          ))}
-        </div>
-        <br />
-        <h2>Now, let&apos;s give your house a title.</h2>
-        <p
-          style={{
-            marginLeft: "50px",
-            fontSize: "18px",
-            color: "gray",
-            marginTop: "-20px",
-          }}
-        >
-          Short titles work best. Have fun with it—you can always change it
-          later.
-        </p>
-        <textarea
-          rows={5}
-          style={{ marginLeft: "100px", height: "150px" }}
-          value={formValues.title}
-          onChange={(e) =>
-            setformValues({ ...formValues, title: e.target.value })
-          }
-          required
-        />
-        <h2>Create your description.</h2>
-        <p
-          style={{
-            marginLeft: "50px",
-            fontSize: "18px",
-            color: "gray",
-            marginTop: "-20px",
-          }}
-        >
-          Share what makes your place special..
-        </p>
-        <textarea
-          className="text2"
-          rows={5}
-          style={{ marginLeft: "100px", height: "250px" }}
-          value={formValues.description}
-          onChange={(e) =>
-            setformValues({ ...formValues, description: e.target.value })
-          }
-          required
-        />
-        <br />
-        <div className="second_step">
-          <h2>Third step: Finish up and publish.</h2>
+          </label>
+          <br />
+          <div className="second_step">
+            <h2>Second step: Make your place stand out.</h2>
+            <p
+              style={{
+                marginLeft: "50px",
+                fontSize: "18px",
+                color: "black",
+                marginTop: "-20px",
+              }}
+            >
+              In this step, you&apos;ll add some of the amenities your place
+              offers, some pictures. <br />
+              Then, you&apos;ll create a title and description.
+            </p>
+          </div>
+          <br />
+          <h2 style={{ margin: "-10px", marginLeft: "50px" }}>
+            What your place has to offer ?
+          </h2>
+
+          <div className="amenities">
+            <div className="row">
+              <label className="amenitiy">
+                <input
+                  type="checkbox"
+                  checked={formValues.amenities.wifi}
+                  onChange={() => toggleFeature("wifi")}
+                />
+                <p>Wifi</p>
+              </label>
+              <label className="amenitiy">
+                <input
+                  type="checkbox"
+                  checked={formValues.amenities.kitchen}
+                  onChange={() => toggleFeature("kitchen")}
+                  style={{ marginLeft: "27px" }}
+                />
+                <p>Kitchen</p>
+              </label>
+              <label className="amenitiy">
+                <input
+                  type="checkbox"
+                  checked={formValues.amenities.gym}
+                  onChange={() => toggleFeature("gym")}
+                />
+                <p>Gym</p>
+              </label>
+            </div>
+            <div className="row">
+              {" "}
+              <label className="amenitiy">
+                <input
+                  type="checkbox"
+                  checked={formValues.amenities.bbqGrill}
+                  onChange={() => toggleFeature("bbqGrill")}
+                />
+                <p>BBQ Grill</p>
+              </label>
+              <label className="amenitiy">
+                <input
+                  type="checkbox"
+                  checked={formValues.amenities.bathtub}
+                  onChange={() => toggleFeature("bathtub")}
+                />
+                <p>Bath tub</p>
+              </label>
+              <label className="amenitiy">
+                <input
+                  type="checkbox"
+                  checked={formValues.amenities.tv}
+                  onChange={() => toggleFeature("tv")}
+                />
+                <p style={{ marginRight: "35px" }}>TV</p>
+              </label>
+            </div>
+            <div className="row">
+              {" "}
+              <label className="amenitiy">
+                <input
+                  type="checkbox"
+                  checked={formValues.amenities.garage}
+                  onChange={() => toggleFeature("garage")}
+                />
+                <p>Garage</p>
+              </label>
+              <label className="amenitiy">
+                <input
+                  type="checkbox"
+                  checked={formValues.amenities.pool}
+                  onChange={() => toggleFeature("pool")}
+                />
+                <p style={{ marginRight: "20px" }}>Pool</p>
+              </label>
+              <label className="amenitiy">
+                <input
+                  type="checkbox"
+                  checked={formValues.amenities.beachView}
+                  onChange={() => toggleFeature("beachView")}
+                  style={{ marginLeft: "30px" }}
+                />
+                <p>Beach view</p>
+              </label>
+            </div>
+          </div>
+
+          <h2>Add some pictures of your house.</h2>
+
+          <div>
+            <a
+              href="#"
+              onClick={handleAnchorClick}
+              style={{
+                display: "inline-block",
+                marginLeft: "430px",
+                padding: "10px",
+                color: "black",
+                textDecoration: "underline",
+                borderRadius: "5px",
+              }}
+              required
+            >
+              Upload images from your device.
+            </a>
+            <input
+              type="file"
+              ref={fileInputRef}
+              name="pictures"
+              onChange={handleFileChange}
+              accept="image/*"
+              style={{ display: "none" }}
+              multiple
+              required
+            />
+            <br />
+            <br />
+            {pictures.map((file, index) => (
+              <div className="index" key={index}>
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt={`Preview ${index + 1}`}
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "200px",
+                    marginRight: "10px",
+                    marginBottom: "10px",
+                  }}
+                />
+                <p
+                  style={{
+                    marginLeft: "-30px",
+                    fontSize: "15px",
+                    color: "black",
+                    fontWeight: "1000",
+                  }}
+                >
+                  {file.name}
+                </p>
+              </div>
+            ))}
+          </div>
+          <br />
+          <h2>Now, let&apos;s give your house a title.</h2>
+          <p
+            style={{
+              marginLeft: "50px",
+              fontSize: "15px",
+
+              marginTop: "-20px",
+            }}
+          >
+            Short titles work best. Have fun with it—you can always change it
+            later.
+          </p>
+          <textarea
+            rows={5}
+            style={{
+              marginLeft: "100px",
+              height: "50px",
+              border: "1.6px solid black",
+              borderRadius: "4px",
+              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+              outline: "none",
+            }}
+            value={formValues.title}
+            onChange={(e) =>
+              setformValues({ ...formValues, title: e.target.value })
+            }
+            required
+          />
+          <h2>Create your description.</h2>
+          <p
+            style={{
+              marginLeft: "50px",
+              fontSize: "15px",
+
+              marginTop: "-20px",
+            }}
+          >
+            Share what makes your place special..
+          </p>
+          <textarea
+            className="text2"
+            rows={5}
+            style={{
+              marginLeft: "100px",
+              height: "180px",
+              outline: "none",
+              border: "1.6px solid black",
+              borderRadius: "4px",
+              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+            }}
+            value={formValues.description}
+            onChange={(e) =>
+              setformValues({ ...formValues, description: e.target.value })
+            }
+            required
+          />
+          <br />
+          <div className="second_step">
+            <h2>Third step: Finish up and publish.</h2>
+            <p
+              style={{
+                marginLeft: "50px",
+                fontSize: "18px",
+                color: "black",
+                marginTop: "-20px",
+              }}
+            >
+              Finally, you&apos;ll set up pricing, choose payment methods, and
+              publish your listing.
+            </p>
+          </div>
+
+          <h2>Now, set your price.</h2>
+          <p
+            style={{
+              margin: "-20px 0 -20px 50px",
+              fontSize: "18px",
+              color: "gray",
+            }}
+          >
+            You can change it anytime..
+          </p>
+
+          <div className="price_per_night">
+            <input
+              inputMode="numeric"
+              type="text"
+              id="price_per_night"
+              value={formValues.price_per_night}
+              onChange={handleprice_per_nightChange}
+              min="1000"
+              max="1000000"
+              placeholder="3000"
+            />
+            <span
+              style={{
+                fontSize: "50px",
+                margin: "5px 0 0 -50px",
+                color: "black",
+              }}
+            >
+              DZD
+            </span>
+          </div>
+          <h2>Now, choose your payment method.</h2>
           <p
             style={{
               marginLeft: "50px",
               fontSize: "18px",
-              color: "black",
+              color: "gray",
               marginTop: "-20px",
             }}
           >
-            Finally, you&apos;ll set up pricing, choose payment methods, and
-            publish your listing.
+            Here, you can choose how your customers make their payment.
           </p>
-        </div>
-        <br />
-        <h2>Now, set your price.</h2>
-        <p
-          style={{
-            marginLeft: "50px",
-            fontSize: "18px",
-            color: "gray",
-            marginTop: "-20px",
-          }}
-        >
-          You can change it anytime..
-        </p>
-        <br />
-        <div className="price_per_night">
-          <input
-            inputMode="numeric"
-            type="text"
-            id="price_per_night"
-            value={formValues.price_per_night}
-            onChange={handleprice_per_nightChange}
-            min="1000"
-            max="1000000"
-            placeholder="3000"
-          />
-          <span
+          <br />
+          <div className="paymentMeth">
+            <button
+              type="button"
+              onClick={() => handlepayment_type("ccp")}
+              className={
+                formValues.payment_type === "paypal"
+                  ? "payment-button active"
+                  : "payment-button"
+              }
+            >
+              <p
+                style={{
+                  fontSize: "18px",
+                  color: "black",
+                  marginTop: "22px",
+                }}
+              >
+                CCP Transfer
+              </p>
+              <img src={virement1} alt="CCP Transfer" />
+            </button>
+            <br />
+            <br />
+            <button
+              type="button"
+              onClick={() => handlepayment_type("credit_card")}
+              className={
+                formValues.payment_type === "credit_card"
+                  ? "payment-button active"
+                  : "payment-button"
+              }
+            >
+              <p
+                style={{
+                  fontSize: "18px",
+                  color: "black",
+                  marginTop: "22px",
+                }}
+              >
+                Credit card
+              </p>
+              <img src={carte1} alt="Credit card" />
+            </button>
+          </div>
+          <br />
+          <br />
+          <button
+            type="submit"
+            className="listing-submit-button"
+            disabled={!isFormValid()}
             style={{
-              fontSize: "70px",
-              marginTop: "50px",
-              color: "black",
+              backgroundColor: isFormValid() ? "#007bff" : "#6c757d",
             }}
           >
-            DZD
-          </span>
-        </div>
-        <h2>Now, choose your payment method.</h2>
-        <p
-          style={{
-            marginLeft: "50px",
-            fontSize: "18px",
-            color: "gray",
-            marginTop: "-20px",
-          }}
-        >
-          Here, you can choose how your customers make their payment.
-        </p>
-        <br />
-        <div className="paymentMeth">
-          <button
-            type="button"
-            onClick={() => handlepayment_type("ccp")}
-            className={
-              formValues.payment_type === "paypal"
-                ? "payment-button active"
-                : "payment-button"
-            }
-          >
-            <p
-              style={{
-                fontSize: "18px",
-                color: "black",
-                marginTop: "22px",
-              }}
-            >
-              CCP Transfer
-            </p>
-            <img src={virement1} alt="CCP Transfer" />
+            Publish
           </button>
-          <br />
-          <br />
-          <button
-            type="button"
-            onClick={() => handlepayment_type("credit_card")}
-            className={
-              formValues.payment_type === "credit_card"
-                ? "payment-button active"
-                : "payment-button"
-            }
-          >
-            <p
-              style={{
-                fontSize: "18px",
-                color: "black",
-                marginTop: "22px",
-              }}
-            >
-              Credit card
-            </p>
-            <img src={carte1} alt="Credit card" />
-          </button>
-        </div>
-        <br />
-        <br />
-        <button
-          type="submit"
-          className="listing-submit-button"
-          disabled={!isFormValid()}
-          style={{
-            backgroundColor: isFormValid() ? "#007bff" : "#6c757d",
-          }}
-        >
-          Publish
-        </button>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }
