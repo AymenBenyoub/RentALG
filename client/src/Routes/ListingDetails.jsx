@@ -96,7 +96,7 @@ function ListingDetails() {
               <h3>What this place offers</h3>
               <AmenitiesList amenities={listingInfo.amenities} />
             </div>
-            <div className="location">
+            <div className="locationDetails">
               <h3>Location</h3>
               <FaLocationDot /> {listingInfo.location}
             </div>

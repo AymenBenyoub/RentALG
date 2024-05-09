@@ -447,7 +447,7 @@ footer p {
 .amenity svg {
   margin-right: 5px;
 }
-.location {
+.locationDetails {
   padding-bottom: 20px;
   border-bottom: solid 1px var(--secondary-color);
 }

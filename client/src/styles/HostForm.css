@@ -231,21 +231,25 @@ textarea {
   height: 100px;
   cursor: pointer; /* Remove cursor hover effect */
   flex-direction: column;
-  margin-right: -270px;
+
   transition: 0.3s ease;
   border-color: gray;
-  margin-left: 350px;
+  margin: 0 50px 0 50px;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
   display: inline-flex;
 }
+.paymentMeth {
+  display: flex;
+  justify-content: center;
+}
 .paymentMeth img {
   width: 45px;
   height: 40px;
   margin-top: -47.5px;
-  margin-left: 170px;
+  margin-left: 150px;
 }
 .payment-button img {
   transform: scale(1.1);
@@ -257,24 +261,23 @@ textarea {
   border: 2px solid black;
 }
 .payment-button.active {
-  border-color: black;
+  border: solid 4px var(--primary-color);
 }
 .listing-submit-button {
   text-align: center;
-  background-color: rgb(0, 0, 0);
+  color: black;
   border: 2px solid transparent;
   border-radius: 8px;
   width: 250px;
   height: 60px;
   cursor: pointer;
   flex-direction: column;
-  margin-right: -270px;
-  margin-top: 50px;
+  margin: 50px 0 50px 400px;
+
   transition: 0.3s ease;
-  /* border-color: gray; */
-  margin-left: 470px;
-  padding-top: 20px;
-  /* padding: 0.6em 1.2em; */
+
+  padding-top: 18px;
+
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;

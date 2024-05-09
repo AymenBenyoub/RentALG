@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const db = require("../config/database");
-
+const path = require("path");
 const generateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "1h" });
 };
@@ -143,6 +143,55 @@ exports.getCurrentUser = async (req, res) => {
     if (error.name === "JsonWebTokenError") {
       return res.status(401).json({ error: "Invalid token" });
     }
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+const fs = require("fs");
+
+exports.addProfilePicture = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const profilePicture = req.files && req.files.profilePicture;
+
+    if (!profilePicture) {
+      return res.status(400).json({ error: "No profile picture provided" });
+    }
+
+    const allowedExtensions = [".jpg", ".jpeg", ".png", ".gif"];
+    const fileExtension = path.extname(profilePicture.name).toLowerCase();
+
+    if (!allowedExtensions.includes(fileExtension)) {
+      return res.status(400).json({ error: "Invalid file type" });
+    }
+
+    const connection = await db.getConnection();
+
+    try {
+      const uploadPath = path.join(
+        __dirname,
+        "../uploads/profiles",
+        `${userId}${fileExtension}`
+      );
+      await profilePicture.mv(uploadPath);
+
+      const [result] = await connection.query(
+        "UPDATE users SET profile_picture = ? WHERE id = ?",
+        [`/uploads/${userId}${fileExtension}`, userId]
+      );
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      res
+        .status(200)
+        .json({ message: "Profile picture uploaded successfully" });
+    } finally {
+      connection.release();
+    }
+  } catch (error) {
+    console.error("Error uploading profile picture:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };

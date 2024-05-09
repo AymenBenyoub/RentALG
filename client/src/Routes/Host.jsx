@@ -36,17 +36,17 @@ function Host() {
   const guestInputRef = useRef(null);
 
   const incrementGuests = (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
     setformValues((prevData) => ({
       ...prevData,
       max_guests: prevData.max_guests + 1,
     }));
     setmax_guests((prevValue) => prevValue + 1);
-    guestInputRef.current.focus(); // Focus on the max_guests input field
+    guestInputRef.current.focus();
   };
 
   const decrementGuests = (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
     if (formValues.max_guests > 1) {
       setformValues((prevData) => ({
         ...prevData,
@@ -54,7 +54,7 @@ function Host() {
       }));
       setmax_guests((prevValue) => prevValue - 1);
     }
-    guestInputRef.current.focus(); // Focus on the max_guests input field
+    guestInputRef.current.focus();
   };
 
   const [pictures, setpictures] = useState([]);
@@ -132,14 +132,12 @@ function Host() {
       for (const picture of pictures) {
         formValuesObj.append("pictures", picture);
       }
-      // const headers = {
-      //   "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
-      // };
+
       const response = await fetch(
         "http://localhost:3000/api/accommodations/create",
         {
           method: "POST",
-          // headers: headers,
+
           body: formValuesObj,
         }
       );
@@ -483,9 +481,7 @@ function Host() {
                     color: "black",
                     fontWeight: "1000",
                   }}
-                >
-                  {file.name}
-                </p>
+                ></p>
               </div>
             ))}
           </div>
@@ -611,7 +607,7 @@ function Host() {
               type="button"
               onClick={() => handlepayment_type("ccp")}
               className={
-                formValues.payment_type === "paypal"
+                formValues.payment_type === "ccp"
                   ? "payment-button active"
                   : "payment-button"
               }
@@ -621,6 +617,7 @@ function Host() {
                   fontSize: "18px",
                   color: "black",
                   marginTop: "22px",
+                  marginLeft: "-70px",
                 }}
               >
                 CCP Transfer
@@ -643,6 +640,7 @@ function Host() {
                   fontSize: "18px",
                   color: "black",
                   marginTop: "22px",
+                  marginLeft: "-70px",
                 }}
               >
                 Credit card
@@ -650,14 +648,15 @@ function Host() {
               <img src={carte1} alt="Credit card" />
             </button>
           </div>
-          <br />
-          <br />
+
           <button
             type="submit"
             className="listing-submit-button"
             disabled={!isFormValid()}
             style={{
-              backgroundColor: isFormValid() ? "#007bff" : "#6c757d",
+              backgroundColor: isFormValid()
+                ? "var(--primary-color)"
+                : "dark grey",
             }}
           >
             Publish
