@@ -14,13 +14,13 @@ const Reporting = ({ accommodationId, host_id }) => {
   const { user } = useContext(UserContext);
 
   const ReportOptions = {
-    1.1: "misleading",
-    1.2: "unclean",
-    1.3: "unsafe",
-    2.1: "unresponsive",
-    2.2: "disrespectful",
-    2.3: "illegal activity",
-    3: "other",
+    1.1: "Misleading",
+    1.2: "Unclean",
+    1.3: "Unsafe",
+    2.1: "Unresponsive",
+    2.2: "Disrespectful",
+    2.3: "Illegal activity",
+    3: "Other",
   };
 
   const toggleCheckBoxList1 = () => {

@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS users(
     first_name VARCHAR(35) NOT NULL,
     last_name VARCHAR(35) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    password VARCHAR(50) NOT NULL,
+    password VARCHAR(1000) NOT NULL,
     phone_number VARCHAR(25) NOT NULL,
     profile_picture VARCHAR(255),
     role ENUM('admin', 'user') NOT NULL
@@ -19,6 +19,8 @@ CREATE TABLE IF NOT EXISTS accommodations (
     max_guests TINYINT(2) NOT NULL,
     pictures VARCHAR(255) NOT NULL,
     amenities json not null,
+    payment_type ENUM('ccp','credit_card') not null,
+    location VARCHAR(255) NOT NULL,
     FOREIGN KEY (host_id) REFERENCES users(id)
 );
 
