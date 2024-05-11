@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import unknown from "../data/Untitled.png";
-const Avatar = ({ size }) => {
+
+const Avatar = ({ size, image }) => {
   return (
     <div
       style={{
@@ -11,7 +11,7 @@ const Avatar = ({ size }) => {
       }}
     >
       <img
-        src={unknown}
+        src={`http://localhost:3000/${image}`}
         style={{ width: "100%", height: "100%", objectFit: "cover" }}
       />
     </div>

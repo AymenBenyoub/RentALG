@@ -20,9 +20,10 @@ const upload = multer({
   storage: storage,
   limits: { files: 10 },
 }).array("pictures");
-
+router.delete("/delete/:id", accommodationController.deleteAccommodation);
 router.get("/", accommodationController.getAllAccommodations);
 router.get("/:id", accommodationController.getAccommodationById);
+router.get("/host/:id", accommodationController.getAccommodationsByUser);
 router.post(
   "/create",
   upload,

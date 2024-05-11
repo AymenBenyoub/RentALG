@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../styles/login-signup.css";
 import { UserContext } from "../context/UserContext";
 function Signup() {
@@ -9,7 +9,7 @@ function Signup() {
   const [signupPassword, setSignupPassword] = useState("");
   const [signupPhoneNumber, setSignupPhoneNumber] = useState("");
   const { user, login } = useContext(UserContext);
-  const navigate = useNavigate();
+
   const handleSignupSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -35,7 +35,7 @@ function Signup() {
       const uid = responseData.userId;
       localStorage.setItem("jwtToken", token);
       login({ ...user, uid, token });
-      navigate("/");
+      window.location.replace("/");
       console.log("Signup successful");
     } catch (error) {
       console.error("Signup error:", error);

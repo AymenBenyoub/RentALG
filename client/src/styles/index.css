@@ -959,3 +959,98 @@ input[type="tel"] {
   position: sticky;
   left: 65%;
 }
+.user-container {
+  width: 380px;
+  height: 200px;
+  border: 1px solid #000;
+  padding: 20px;
+  margin: 50px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  margin-top: 130px;
+  border-radius: 30px;
+}
+.cart_user img {
+  position: relative;
+  top: 40px;
+  left: 10px;
+  height: 110px;
+  width: 110px;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.name {
+  margin-left: 170px;
+  margin-top: -70px;
+  font-size: large;
+  font-weight: 700;
+}
+
+.pn {
+  margin-left: 170px;
+  margin-top: 20px;
+  font-size: large;
+  font-weight: 700;
+}
+.profile-listings {
+  width: 200px;
+  height: 350px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f8f6f6;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+}
+.profile-listings-container {
+  display: inline-flex;
+  flex-wrap: wrap;
+  /* position: absolute; */
+  margin: -250px 0 0 500px;
+
+  width: fit-content;
+  padding: 0 0 20px 0;
+}
+.profileList-image {
+  width: 280px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.profileList-details {
+  padding: 20px;
+}
+
+.profileList-title {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+.removeListing {
+  margin-top: -10px;
+  display: flex;
+  margin-left: 25px;
+  background-color: red;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  height: 35px;
+  width: 150px;
+  transition: 0.3s ease;
+}
+.removeListing:hover {
+  transform: scale(1.1);
+}
+.removeListing-container {
+  margin-left: 37px;
+  margin-top: 7px;
+  font-size: medium;
+  color: white;
+}
+.profile {
+  margin-left: -10px;
+}
+.reviewProfile-container {
+  margin: 100px;
+}

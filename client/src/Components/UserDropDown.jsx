@@ -1,10 +1,14 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
+
 import Avatar from "./Avatar";
+import { UserContext } from "../context/UserContext";
+
 function UserDropDown({ logout }) {
   const [showMenu, setShowMenu] = useState(false);
+  const { user } = useContext(UserContext);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -16,13 +20,19 @@ function UserDropDown({ logout }) {
         <FaBars />
       </div>
       <div className="user-avatar">
-        <Avatar size={28} />
+        {user.profile_picture && (
+          <Avatar
+            key={user.profile_picture}
+            size={28}
+            image={user.profile_picture}
+          />
+        )}
       </div>
       {showMenu && (
         <div className="dropdown-menu">
           <ul>
             <li>
-              <Link to="" className="link-decoration">
+              <Link to={"/profile/" + user.id} className="link-decoration">
                 Profile
               </Link>
             </li>

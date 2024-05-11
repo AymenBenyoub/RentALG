@@ -84,19 +84,6 @@ const ReviewsList = ({ reviews }) => {
 
   return (
     <div className="review-list">
-      <div className="total-summary">
-        <h4>Total Summary Score</h4>
-        <div>
-          Total Score: {reviews.reduce((acc, review) => acc + review.rating, 0)}
-        </div>
-        <div>
-          Average Score:{" "}
-          {(
-            reviews.reduce((acc, review) => acc + review.rating, 0) /
-            reviews.length
-          ).toFixed(1)}
-        </div>
-      </div>
       <div className="review-grid">
         {reviews.map((review, index) => (
           <div key={index} className="review-container">

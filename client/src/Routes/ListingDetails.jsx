@@ -103,8 +103,11 @@ function ListingDetails() {
             <div className="listing-host-avatar">
               {owner && (
                 <>
-                  <Avatar size={50} />
-                  <Link to="" className="link-decoration">
+                  <Avatar size={50} image={owner.profile_picture} />
+                  <Link
+                    to={"/profile/" + listingInfo.host_id}
+                    className="link-decoration"
+                  >
                     <span>
                       Hosted by {owner.first_name + " " + owner.last_name}
                     </span>

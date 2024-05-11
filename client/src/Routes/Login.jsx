@@ -1,12 +1,12 @@
 import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../styles/login-signup.css";
 import { UserContext } from "../context/UserContext";
 const Login = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+
   const { login, user } = useContext(UserContext);
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
@@ -33,7 +33,8 @@ const Login = () => {
       login({ ...user, id, token });
 
       console.log("Login successful");
-      navigate("/");
+
+      window.location.replace("/");
     } catch (error) {
       console.log(error.message);
     }

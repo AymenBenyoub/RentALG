@@ -78,15 +78,6 @@ exports.updateAccommodation = async (req, res) => {
 
     const pictures = req.files.map((file) => file.filename);
     const amenityList = JSON.parse(amenities);
-    // const amenityList = Object.entries(amenities).reduce(
-    //   (acc, [key, value]) => {
-    //     if (value) {
-    //       acc.push(key);
-    //     }
-    //     return acc;
-    //   },
-    //   []
-    // );
 
     await connection.query(
       "UPDATE accommodations SET accommodation_type = ?, title = ?, description = ?, price_per_night = ?, max_guests = ?, pictures = ? , location = ?, payment_method = ?, amenities = ? WHERE id = ?",
@@ -131,12 +122,7 @@ exports.getAccommodationById = async (req, res) => {
     }
 
     const accommodation = rows[0];
-    // try {
-    //   accommodation.pictures = JSON.parse(accommodation.pictures);
-    //   accommodation.amenities = JSON.parse(accommodation.amenities);
-    // } catch (e) {
-    //   console.log(e.message);
-    // }
+
     res.status(200).json(accommodation);
   } catch (error) {
     console.error("Error fetching accommodation:", error);
@@ -153,14 +139,6 @@ exports.getAllAccommodations = async (req, res) => {
   try {
     connection = await db.getConnection();
     const [rows] = await connection.query("SELECT * FROM accommodations");
-    // try {
-    //   rows.forEach((accommodation) => {
-    //     accommodation.pictures = JSON.parse(accommodation.pictures);
-    //     accommodation.amenities = JSON.parse(accommodation.amenities);
-    //   });
-    // } catch (e) {
-    //   console.error("error parsing json: ", e);
-    // }
 
     res.status(200).json(rows);
   } catch (error) {
@@ -177,7 +155,7 @@ exports.getAccommodationsByUser = async (req, res) => {
   let connection;
   try {
     connection = await db.getConnection();
-    const { userId } = req.params;
+    const userId = req.params.id;
 
     const [rows] = await connection.query(
       "SELECT * FROM accommodations WHERE host_id = ?",
@@ -189,18 +167,38 @@ exports.getAccommodationsByUser = async (req, res) => {
         .status(404)
         .json({ error: "Accommodations not found for this user" });
     }
-    try {
-      rows.forEach((accommodation) => {
-        accommodation.pictures = JSON.parse(accommodation.pictures);
-        accommodation.amenities = JSON.parse(accommodation.amenities);
-      });
-    } catch (e) {
-      console.log(e.message);
-    }
 
     res.status(200).json(rows);
   } catch (error) {
     console.error("Error fetching accommodations by user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  } finally {
+    if (connection) {
+      connection.release();
+    }
+  }
+};
+exports.deleteAccommodation = async (req, res) => {
+  let connection;
+
+  try {
+    connection = await db.getConnection();
+    const { id } = req.params;
+
+    const [existingAccommodation] = await connection.query(
+      "SELECT * FROM accommodations WHERE id = ?",
+      [id]
+    );
+
+    if (existingAccommodation.length === 0) {
+      return res.status(404).json({ error: "Accommodation not found" });
+    }
+
+    await connection.query("DELETE FROM accommodations WHERE id = ?", [id]);
+    console.log("listing deleted successfully");
+    res.status(200).json({ message: "Accommodation deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting accommodation:", error);
     res.status(500).json({ error: "Internal server error" });
   } finally {
     if (connection) {
