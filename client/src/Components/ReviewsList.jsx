@@ -87,20 +87,23 @@ const ReviewsList = ({ reviews }) => {
       <div className="review-grid">
         {reviews.map((review, index) => (
           <div key={index} className="review-container">
-            <div className="review-header">
-              <div className="profile-picture">
-                <Avatar size={35} />
-              </div>
-              <Link to="" className="link-decoration">
-                {reviewers[index] && (
+            {reviewers[index] && (
+              <div className="review-header">
+                <div className="profile-picture">
+                  <Avatar size={35} image={reviewers[index].profile_picture} />
+                </div>
+                <Link
+                  to={"/profile/" + reviewers[index].id}
+                  className="link-decoration"
+                >
                   <div>
                     {reviewers[index].first_name +
                       " " +
                       reviewers[index].last_name}
                   </div>
-                )}
-              </Link>
-            </div>
+                </Link>
+              </div>
+            )}
             <div className="star-rating">
               {Array.from({ length: review.rating }).map((_, index) => (
                 <FaStar key={index} color="#ffd700" />

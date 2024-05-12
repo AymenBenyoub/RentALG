@@ -80,7 +80,9 @@ nav {
     var(--secondary-color) 50%
   );
 }
-
+.logo {
+  /* width :  */
+}
 .right-side-nav {
   display: flex;
   justify-content: flex-start;

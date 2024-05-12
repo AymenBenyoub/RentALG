@@ -3,7 +3,7 @@ import UserDropDown from "./UserDropDown";
 import { SecondaryButton } from "./Buttons";
 import { UserContext } from "../context/UserContext";
 import { useContext } from "react";
-
+import logo from "../assets/logo-transparent-png.png";
 export default function Header() {
   const { user, logout } = useContext(UserContext);
 
@@ -11,9 +11,17 @@ export default function Header() {
     <nav>
       {user ? (
         <>
-          <Link to="/" className="link-decoration">
+          <Link to="/" className="link-decoration" style={{ width: "10%" }}>
             <div className="logo">
-              <p>RentALG</p>
+              <img
+                src={logo}
+                alt="RentALG"
+                style={{
+                  width: "100%",
+                  height: "50%",
+                  padding: "16px 0 0 20px ",
+                }}
+              />
             </div>
           </Link>
           <div className="right-side-nav2">
@@ -32,19 +40,30 @@ export default function Header() {
         </>
       ) : (
         <>
-          <Link to="/" className="link-decoration">
+          <Link to="/" className="link-decoration" style={{ width: "10%" }}>
             <div className="logo">
-              <p>RentALG</p>
+              <img
+                src={logo}
+                alt="RentALG"
+                style={{
+                  width: "100%",
+                  height: "50%",
+                  padding: "15px 0 0 20px ",
+                }}
+              />
             </div>
           </Link>
           <div className="right-side-nav">
             <Link to="/login">
-              <SecondaryButton text="Login" style={{ border: "0.5px solid" }} />
+              <SecondaryButton
+                text="Login"
+                style={{ border: "0.5px solid", marginTop: "10px " }}
+              />
             </Link>
             <Link to="/signup">
               <SecondaryButton
                 text="Sign up"
-                style={{ border: "0.5px solid" }}
+                style={{ border: "0.5px solid", marginTop: "10px  " }}
               />
             </Link>
           </div>
