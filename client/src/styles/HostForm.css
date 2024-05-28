@@ -1,0 +1,277 @@
+:root {
+  --primary-color: #1cb0f6;
+  --secondary-color: #a1b7c1;
+}
+.host-form {
+  display: flex;
+  flex-direction: column;
+  padding: 100px;
+}
+.host-form-content-wrapper {
+  padding: 20px 10px 10px 10px;
+  border: solid 1.3px var(--secondary-color);
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+  background-color: whitesmoke;
+}
+.listing-types {
+  display: flex;
+  margin-left: 150px;
+}
+
+.listing-button {
+  background-color: rgb(255, 255, 255);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+
+  transition: 0.3s ease;
+  margin-left: 100px;
+  border-color: #b9afaf;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+}
+
+.listing-button:hover img {
+  transform: scale(1.1);
+}
+.listing-button:hover {
+  transform: scale(1.1);
+}
+.listing-button img {
+  width: 50px;
+  height: 50px;
+}
+
+.listing-button span {
+  margin-top: 5px;
+  color: black;
+}
+
+.listing-button.active {
+  color: black;
+  border-color: black;
+}
+h1 {
+  margin: 60px;
+  margin-left: 260px;
+  margin-top: 20px;
+  color: black;
+}
+
+label {
+  display: inline-flex;
+  margin-left: 350px;
+}
+h2 {
+  font-size: 27px;
+  color: black;
+  margin: 25px;
+  margin-left: 50px;
+}
+.first_step h2 {
+  font-size: 35px;
+  color: black;
+  margin: -5px;
+  margin-left: 50px;
+}
+
+.first_step p {
+  margin-left: 75px;
+  font-size: 18px;
+  color: black;
+}
+.button-container h2 {
+  font-size: 27px;
+  color: black;
+  margin: 25px;
+  margin-left: 50px;
+}
+.location {
+  display: flex;
+}
+.amenities {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 20px 0px 0px 0px;
+}
+.amenities label {
+  align-items: center;
+}
+.amenities input {
+  background-color: #fff;
+}
+.amenities input {
+  width: 25px;
+  height: 25px;
+
+  cursor: pointer;
+}
+.amenities p {
+  font-size: 15px;
+  margin-left: 5px;
+  text-align: center;
+}
+.amenities p {
+  font-size: 15px;
+
+  color: black;
+  font-weight: 600;
+}
+.amenitiy {
+  display: flex;
+  justify-content: center;
+  margin-left: 100px;
+}
+.guests {
+  background-color: gray;
+  padding: 20x;
+  width: 170px;
+  height: 40px;
+  text-align: center;
+  border-radius: 8px;
+  margin: 10px;
+}
+.decguests {
+  height: 40px;
+  margin: 10px;
+  width: 40px;
+  font-size: 10px;
+  background-color: gray;
+  margin-left: 50px;
+  color: #fff;
+  border-color: rgb(193, 193, 193);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.incguests {
+  height: 40px;
+  margin: 10px;
+  width: 40px;
+  font-size: 10px;
+  text-align: center;
+  background-color: gray;
+  color: #fff;
+  border-color: rgb(193, 193, 193);
+  margin-left: 9px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.incguests:hover {
+  border-color: black;
+}
+.decguests:hover {
+  border-color: black;
+}
+.second_step h2 {
+  font-size: 35px;
+  color: black;
+  margin-left: 50px;
+}
+
+.index {
+  flex-direction: column;
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+}
+textarea {
+  color: rgb(0, 0, 0);
+  display: block;
+  width: 700px;
+  margin: 0px;
+  box-sizing: border-box;
+  background-color: transparent;
+  border-color: black;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+    "Helvetica Neue", sans-serif;
+  resize: vertical;
+  padding: 16px;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  overflow-y: hidden;
+  border-radius: 8px;
+}
+.price_per_night {
+  display: inline-flex;
+}
+.price_per_night input {
+  background-color: transparent;
+  color: #000000;
+  border: none;
+  outline: none;
+  height: 80px;
+  font-size: 50px;
+  width: 28%;
+  margin-left: 350px;
+  text-align: center;
+}
+.payment-button {
+  background-color: white;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  width: 250px;
+  height: 100px;
+  cursor: pointer; /* Remove cursor hover effect */
+  flex-direction: column;
+  transition: 0.3s ease;
+  border-color: gray;
+  margin: 0 50px 0 50px;
+  padding: 0.7em 2em 0em 1.5em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  display: inline-flex;
+}
+.paymentMeth {
+  display: flex;
+  justify-content: center;
+}
+.paymentMeth img {
+  width: 45px;
+  height: 40px;
+  margin-top: -47.5px;
+  margin-left: 150px;
+}
+.payment-button img {
+  transform: scale(1.1);
+}
+.payment-button:hover {
+  transform: scale(1.1);
+  border-color: black;
+  outline: none;
+  border: 2px solid black;
+}
+.payment-button.active {
+  border: solid 4px var(--primary-color);
+  margin: 0;
+}
+.listing-submit-button {
+  text-align: center;
+  color: black;
+  border: 2px solid gray;
+  border-radius: 8px;
+  width: 250px;
+  height: 60px;
+  cursor: pointer;
+  flex-direction: column;
+  margin: 50px 0 50px 400px;
+
+  transition: 0.3s ease;
+
+  padding-top: 18px;
+
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  display: inline-flex;
+}
