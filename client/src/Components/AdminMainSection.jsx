@@ -1,9 +1,11 @@
+
 import AdminHouseCard from "./AdminHouseCard";
 import GuestInput from "./GuestInput";
 import TextInput from "./TextInput";
 import PriceFilter from "./PriceFilter";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BiBuildingHouse } from "react-icons/bi";
 import {
   FaWifi,
   FaUtensils,
@@ -14,10 +16,12 @@ import {
 import { PiTelevisionSimpleBold } from "react-icons/pi";
 import { GiBathtub, GiWaveSurfer } from "react-icons/gi";
 import { MdOutdoorGrill } from "react-icons/md";
+
 export default function MainSection() {
   const [accommodations, setAccommodations] = useState([]);
   const [destinationFilter, setDestinationFilter] = useState("");
   const [guestFilter, setGuestFilter] = useState("");
+  const [typeFilter, setTypeFilter] = useState("all"); // Initialize typeFilter state
   const [priceRange, setPriceRange] = useState({ min: "", max: "" });
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const navigate = useNavigate();
@@ -54,38 +58,31 @@ export default function MainSection() {
     setPriceRange({ min: parsedMinPrice, max: parsedMaxPrice });
   };
 
+  const handleTypeChange = (value) => {
+    setTypeFilter(value); // Update typeFilter state when the select value changes
+  };
+
   const filteredAccommodations = accommodations.filter((accommodation) => {
     const matchDestination =
-    
       destinationFilter === "" ||
-      accommodation.title
-        .toLowerCase()
-        .includes(destinationFilter.toLowerCase()) ||
-      accommodation.location
-        .toLowerCase()
-        .includes(destinationFilter.toLowerCase());
-    const matchGuests =
-      guestFilter === "" || accommodation.max_guests >= guestFilter;
+      accommodation.title.toLowerCase().includes(destinationFilter.toLowerCase()) ||
+      accommodation.location.toLowerCase().includes(destinationFilter.toLowerCase());
+    const matchGuests = guestFilter === "" || accommodation.max_guests >= guestFilter;
+    const matchType = typeFilter === "all" || accommodation.accommodation_type === typeFilter; // Check if accommodation type matches
     const matchPrice =
-      (priceRange.min === "" ||
-        accommodation.price_per_night >= priceRange.min) &&
-      (priceRange.max === "" ||
-        accommodation.price_per_night <= priceRange.max);
-        const matchAmenities =
-        selectedAmenities.length === 0 ||
-        selectedAmenities.every((amenity) => accommodation.amenities.includes(amenity));
-    return matchDestination && matchGuests && matchPrice&& matchAmenities;
+      (priceRange.min === "" || accommodation.price_per_night >= priceRange.min) &&
+      (priceRange.max === "" || accommodation.price_per_night <= priceRange.max);
+    const matchAmenities =
+      selectedAmenities.length === 0 ||
+      selectedAmenities.every((amenity) => accommodation.amenities.includes(amenity));
+    return matchDestination && matchGuests && matchPrice && matchAmenities && matchType;
   });
 
   const removeAccommodation = (listingId) => {
     setAccommodations((prevAccommodations) =>
-      prevAccommodations.filter(
-        (accommodation) => accommodation.id !== listingId
-      )
+      prevAccommodations.filter((accommodation) => accommodation.id !== listingId)
     );
   };
-
-
 
   const handleAmenityChange = (amenity) => {
     const updatedAmenities = selectedAmenities.includes(amenity)
@@ -96,14 +93,24 @@ export default function MainSection() {
 
   return (
     <>
+    <div className="filters-bg">
       <div className="SearchSection">
         <p>Filters:</p>
         <TextInput onChange={handleDestinationChange} />
+        <div className="accommondationType-input" >
+          <select onChange={(e) => handleTypeChange(e.target.value)}>
+            <option value="all">All listings type</option>
+            <option value="shared room">Shared room</option>
+            <option value="house">House</option>
+            <option value="room">Room</option>
+          </select>
+          <BiBuildingHouse />
+        </div>
         <GuestInput onChange={handleGuestChange} />
         <PriceFilter onChange={handlePriceChange} />
       </div>
       <div className="SearchAmenities">
-        <div title="Wifi"> 
+      <div title="Wifi"> 
           <input type="checkbox" onChange={() => handleAmenityChange("wifi")} />
           <FaWifi />
         </div>
@@ -140,9 +147,8 @@ export default function MainSection() {
           <GiWaveSurfer />
         </div>
       </div>
-      <p
-        style={{ fontFamily: "Secular One", fontSize: 20, marginLeft: "50px" }}
-      >
+      </div>
+      <p style={{ fontFamily: "Secular One", fontSize: 20, marginLeft: "50px" }}>
         All Listings
       </p>
       <main>
@@ -153,7 +159,7 @@ export default function MainSection() {
             <div
               key={accommodation.id}
               onClick={() => navigate(`/listings/${accommodation.id}`)}
-              style={{width:"min-content"}}
+              style={{ width: "min-content" }}
             >
               <AdminHouseCard
                 id={accommodation.id}

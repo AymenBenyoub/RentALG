@@ -114,7 +114,13 @@ nav {
   width: 20px;
   height: 20px;
 }
-
+.filters-bg {
+  background-image: url(../assets/bg-pic.jpg);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 450px;
+  padding-top: 100px;
+}
 .SearchSection {
   height: 140px;
   margin-top: 65px;
@@ -128,6 +134,7 @@ nav {
   p {
     font-family: Secular One;
     font-size: 20px;
+    color: white;
   }
   input:focus {
     outline-style: outset;
@@ -136,6 +143,7 @@ nav {
 }
 
 .destination-input {
+  background-color: white;
   margin-left: 30px;
   width: 400px;
   border: 1.6px solid #1a76a3;
@@ -151,6 +159,7 @@ nav {
   outline-width: 0px;
 }
 .price-filter-input {
+  background-color: white;
   width: 110px;
   border: 1.6px solid #1a76a3;
   border-radius: 4px;
@@ -238,6 +247,7 @@ input.price-filter-input[type="number"] {
   margin-right: 5;
 }
 .guest-input {
+  background-color: white;
   width: 190px;
   border: 1.6px solid #1a76a3;
   border-radius: 4px;
@@ -1605,12 +1615,17 @@ label {
 }
 
 .SearchAmenities {
+  width: 900px;
+
   height: 35px;
-  margin-right: 40px;
+  margin: 0 10px 0 90px;
   display: flex;
+  justify-content: start;
+  align-items: start;
 }
 
 .SearchAmenities > div {
+  background-color: var(--secondary-color);
   position: relative;
   left: 20%;
   width: 70px;
@@ -1735,4 +1750,25 @@ label {
 }
 .admin_ban:hover {
   background-color: red;
+}
+.accommondationType-input {
+  display: flex;
+  align-items: center;
+  width: 150px;
+  height: 48px;
+  background-color: white;
+  border: 1.5px solid #1a76a3;
+  border-radius: 5px;
+}
+.accommondationType-input > select {
+  width: 120px;
+  height: 30px;
+  background-color: white;
+  border: 0px solid #1a76a3;
+  color: #494848;
+}
+
+.accommondationType-input > svg {
+  width: 20px;
+  height: 20px;
 }

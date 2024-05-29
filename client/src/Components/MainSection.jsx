@@ -5,6 +5,7 @@ import PriceFilter from "./PriceFilter";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import { BiBuildingHouse } from "react-icons/bi";
 import {
   FaWifi,
   FaUtensils,
@@ -22,6 +23,7 @@ export default function MainSection() {
   const [guestFilter, setGuestFilter] = useState("");
   const [priceRange, setPriceRange] = useState({ min: "", max: "" });
   const [selectedAmenities, setSelectedAmenities] = useState([]);
+  const [typeFilter, setTypeFilter] = useState("all");
 
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
@@ -66,78 +68,137 @@ export default function MainSection() {
     setSelectedAmenities(updatedAmenities);
   };
 
+  const handleTypeChange = (value) => {
+    setTypeFilter(value); // Update typeFilter state when the select value changes
+  };
+
   const filteredAccommodations = accommodations.filter((accommodation) => {
     const matchDestination =
       destinationFilter === "" ||
-      accommodation.title.toLowerCase().includes(destinationFilter.toLowerCase()) ||
-      accommodation.location.toLowerCase().includes(destinationFilter.toLowerCase());
+      accommodation.title
+        .toLowerCase()
+        .includes(destinationFilter.toLowerCase()) ||
+      accommodation.location
+        .toLowerCase()
+        .includes(destinationFilter.toLowerCase());
 
-    const matchGuests = guestFilter === "" || accommodation.max_guests >= guestFilter;
+    const matchGuests =
+      guestFilter === "" || accommodation.max_guests >= guestFilter;
+    const matchType =
+      typeFilter === "all" || accommodation.accommodation_type === typeFilter;
 
     const matchPrice =
-      (priceRange.min === "" || accommodation.price_per_night >= priceRange.min) &&
-      (priceRange.max === "" || accommodation.price_per_night <= priceRange.max);
+      (priceRange.min === "" ||
+        accommodation.price_per_night >= priceRange.min) &&
+      (priceRange.max === "" ||
+        accommodation.price_per_night <= priceRange.max);
 
     const matchAmenities =
       selectedAmenities.length === 0 ||
-      selectedAmenities.every((amenity) => accommodation.amenities.includes(amenity));
+      selectedAmenities.every((amenity) =>
+        accommodation.amenities.includes(amenity)
+      );
 
-    return matchDestination && matchGuests && matchPrice && matchAmenities;
+    return (
+      matchDestination &&
+      matchGuests &&
+      matchPrice &&
+      matchAmenities &&
+      matchType
+    );
   });
 
   return (
     <>
       {user && user.is_banned == 1 && (
         <div className="bannedBanner">
-          YOUR ACCOUNT HAS BEEN BANNED FROM RentALG, ALL FUNCTIONALITIES ARE DISABLED
+          YOUR ACCOUNT HAS BEEN BANNED FROM RentALG, ALL FUNCTIONALITIES ARE
+          DISABLED
         </div>
       )}
-      <div className="SearchSection">
-        <p>Filters:</p>
-        <TextInput onChange={handleDestinationChange} />
-        <GuestInput onChange={handleGuestChange} />
-        <PriceFilter onChange={handlePriceChange} />
+      <div className="filters-bg">
+        <div className="SearchSection">
+          <p>Filters:</p>
+          <TextInput onChange={handleDestinationChange} />
+          <div className="accommondationType-input">
+            <select onChange={(e) => handleTypeChange(e.target.value)}>
+              <option value="all">All listings type</option>
+              <option value="shared room">Shared room</option>
+              <option value="house">House</option>
+              <option value="room">Room</option>
+            </select>
+            <BiBuildingHouse />
+          </div>
+          <GuestInput onChange={handleGuestChange} />
+          <PriceFilter onChange={handlePriceChange} />
+        </div>
+        <div className="SearchAmenities">
+          <div title="Wifi">
+            <input
+              type="checkbox"
+              onChange={() => handleAmenityChange("wifi")}
+            />
+            <FaWifi />
+          </div>
+          <div title="Kitchen">
+            <input
+              type="checkbox"
+              onChange={() => handleAmenityChange("utensils")}
+            />
+            <FaUtensils />
+          </div>
+          <div title="TV">
+            <input type="checkbox" onChange={() => handleAmenityChange("tv")} />
+            <PiTelevisionSimpleBold />
+          </div>
+          <div title="Pool">
+            <input
+              type="checkbox"
+              onChange={() => handleAmenityChange("pool")}
+            />
+            <FaSwimmingPool />
+          </div>
+          <div title="Gym">
+            <input
+              type="checkbox"
+              onChange={() => handleAmenityChange("gym")}
+            />
+            <FaDumbbell />
+          </div>
+          <div title="Garage">
+            <input
+              type="checkbox"
+              onChange={() => handleAmenityChange("parking")}
+            />
+            <FaParking />
+          </div>
+          <div title="Bathtub">
+            <input
+              type="checkbox"
+              onChange={() => handleAmenityChange("bathtub")}
+            />
+            <GiBathtub />
+          </div>
+          <div title="BBQ Grill">
+            <input
+              type="checkbox"
+              onChange={() => handleAmenityChange("grill")}
+            />
+            <MdOutdoorGrill />
+          </div>
+          <div title="Beach view">
+            <input
+              type="checkbox"
+              onChange={() => handleAmenityChange("surfing")}
+            />
+            <GiWaveSurfer />
+          </div>
+        </div>
       </div>
-      <div className="SearchAmenities">
-        <div title="Wifi"> 
-          <input type="checkbox" onChange={() => handleAmenityChange("wifi")} />
-          <FaWifi />
-        </div>
-        <div title="Kitchen">
-          <input type="checkbox" onChange={() => handleAmenityChange("utensils")} />
-          <FaUtensils />
-        </div>
-        <div title="TV">
-          <input type="checkbox" onChange={() => handleAmenityChange("tv")} />
-          <PiTelevisionSimpleBold />
-        </div>
-        <div title="Pool">
-          <input type="checkbox" onChange={() => handleAmenityChange("pool")} />
-          <FaSwimmingPool />
-        </div>
-        <div title="Gym">
-          <input type="checkbox" onChange={() => handleAmenityChange("gym")} />
-          <FaDumbbell />
-        </div>
-        <div title="Garage">
-          <input type="checkbox" onChange={() => handleAmenityChange("parking")} />
-          <FaParking />
-        </div>
-        <div title="Bathtub">
-          <input type="checkbox" onChange={() => handleAmenityChange("bathtub")} />
-          <GiBathtub />
-        </div>
-        <div title="BBQ Grill">
-          <input type="checkbox" onChange={() => handleAmenityChange("grill")} />
-          <MdOutdoorGrill />
-        </div>
-        <div title="Beach view">
-          <input type="checkbox" onChange={() => handleAmenityChange("surfing")} />
-          <GiWaveSurfer />
-        </div>
-      </div>
-      <p style={{ fontFamily: "Secular One", fontSize: 20, marginLeft: "50px" }}>
-        Explore top listings
+      <p
+        style={{ fontFamily: "Secular One", fontSize: 20, marginLeft: "50px" }}
+      >
+        Explore listings
       </p>
       <main>
         {filteredAccommodations.length === 0 ? (
