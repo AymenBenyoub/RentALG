@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS accommodations (
     amenities json not null,
     payment_type ENUM('ccp','credit_card') not null,
     location VARCHAR(255) NOT NULL,
-    FOREIGN KEY (host_id) REFERENCES users(id)
+    FOREIGN KEY (host_id) REFERENCES users(id) ON DELETE CASCADE 
 );
 
 CREATE TABLE IF NOT EXISTS reservations (
@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS reservations (
     check_out_date DATE NOT NULL,
     total_price DECIMAL(10, 2) NOT NULL,
     reservation_date DATE NOT NULL,
-    FOREIGN KEY (accommodation_id) REFERENCES accommodations(id),
-    FOREIGN KEY (guest_id) REFERENCES users(id)
+    FOREIGN KEY (accommodation_id) REFERENCES accommodations(id) ON DELETE CASCADE ,
+    FOREIGN KEY (guest_id) REFERENCES users(id) ON DELETE CASCADE 
 );
 
 CREATE TABLE IF NOT EXISTS reviews (
@@ -43,8 +43,8 @@ CREATE TABLE IF NOT EXISTS reviews (
     review_text TEXT,
     reviewer_id INTEGER NOT NULL,
     accommodation_id INTEGER NOT NULL,
-    FOREIGN KEY (reviewer_id) REFERENCES users(id),
-    FOREIGN KEY (accommodation_id) REFERENCES accommodations(id)
+    FOREIGN KEY (reviewer_id) REFERENCES users(id) ON DELETE CASCADE ,
+    FOREIGN KEY (accommodation_id) REFERENCES accommodations(id) ON DELETE CASCADE 
 );
 
 CREATE TABLE IF NOT EXISTS reports(
@@ -54,9 +54,9 @@ CREATE TABLE IF NOT EXISTS reports(
     reporting_user INTEGER NOT NULL,
     reported_accommodation INTEGER NOT NULL,
     reported_user INTEGER NOT NULL,
-    FOREIGN KEY (reporting_user) REFERENCES users(id),
-    FOREIGN KEY (reported_accommodation) REFERENCES accommodations(id),
-    FOREIGN KEY (reported_user) REFERENCES users(id)
+    FOREIGN KEY (reporting_user) REFERENCES users(id) ON DELETE CASCADE ,
+    FOREIGN KEY (reported_accommodation) REFERENCES accommodations(id) ON DELETE CASCADE ,
+    FOREIGN KEY (reported_user) REFERENCES users(id) ON DELETE CASCADE 
 );
 
 
