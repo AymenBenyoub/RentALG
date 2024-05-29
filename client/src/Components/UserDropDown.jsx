@@ -33,26 +33,49 @@ function UserDropDown() {
       </div>
       {showMenu && (
         <div className="dropdown-menu">
-          <ul style={{marginBottom:"5px"}}>
+          <ul style={{ marginBottom: "5px" }}>
             <li>
-              <Link to={"/profile/" + user.id} className="link-decoration"style={{color:"#4e4e4e"}}>
-                <div>Profile</div><LuUser2 />
+              <Link
+                to={"/profile/" + user.id}
+                className="link-decoration"
+                style={{ color: "#4e4e4e" }}
+              >
+                <div>Profile</div>
+                <LuUser2 />
               </Link>
             </li>
             <li>
-              <Link to="/bookings" className="link-decoration"style={{color:"#4e4e4e"}}>
-               <div> My bookings</div><TbHomeHeart />
+              <Link
+                to="/bookings"
+                className="link-decoration"
+                style={{ color: "#4e4e4e" }}
+              >
+                <div> My bookings</div>
+                <TbHomeHeart />
               </Link>
             </li>
             <li>
-              <Link to="/UpcomingGuests" className="link-decoration"style={{color:"#4e4e4e"}}>
-               <div> Upcoming guests</div><TbHomeRibbon />
+              <Link
+                to="/UpcomingGuests"
+                className="link-decoration"
+                style={{ color: "#4e4e4e" }}
+              >
+                <div> Upcoming guests</div>
+                <TbHomeRibbon />
               </Link>
             </li>
 
-            <li style={{borderBottom:"0px",marginBottom:"5px"}}>
-              <Link className="link-decoration" onClick={logout} style={{color:"red"}}>
-               <div> Logout</div><IoLogOutOutline />
+            <li style={{ borderBottom: "0px", marginBottom: "5px" }}>
+              <Link
+                className="link-decoration"
+                onClick={() => {
+                  logout();
+                  window.location.replace("/");
+                }}
+                style={{ color: "red" }}
+              >
+                <div> Logout</div>
+                <IoLogOutOutline />
               </Link>
             </li>
           </ul>

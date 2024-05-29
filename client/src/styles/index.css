@@ -40,7 +40,6 @@ body {
   border-radius: 5px;
   cursor: pointer;
   transition: filter 0.2s ease;
-  
 }
 
 .primary-btn:hover {
@@ -58,10 +57,9 @@ body {
   color: white;
   border: 1.6px solid var(--primary-color);
   border-radius: 5px;
-  box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2);
   text-align: center;
   cursor: pointer;
- 
 }
 
 .secondary-btn:hover {
@@ -93,16 +91,15 @@ nav {
     margin-right: 10px;
   }
 }
-.logo{
+.logo {
   position: relative;
   top: 10%;
-  display:block;
+  display: block;
   width: 250px;
   height: 60px;
 }
 .logoheader {
   position: relative;
- 
 }
 .link-decoration {
   text-decoration: none;
@@ -110,13 +107,12 @@ nav {
   display: flex;
   align-items: center;
 }
-.link-decoration>div{
+.link-decoration > div {
   width: 135px;
 }
-.link-decoration>svg{
+.link-decoration > svg {
   width: 20px;
   height: 20px;
-  
 }
 
 .SearchSection {
@@ -148,7 +144,7 @@ nav {
   display: flex;
   align-items: center;
 }
-.destination-input>input {
+.destination-input > input {
   height: 40px;
   width: 360px;
   border: 0px;
@@ -162,11 +158,11 @@ nav {
   display: flex;
   align-items: center;
 }
-.price-filter-input>svg{
+.price-filter-input > svg {
   width: 20px;
   height: 20px;
 }
-.price-filter-input>input{
+.price-filter-input > input {
   -moz-appearance: textfield;
   width: 70px;
   height: 40px;
@@ -175,7 +171,6 @@ nav {
   border-radius: 4px;
   outline-color: transparent;
   outline-width: 0px;
-  
 }
 
 input.price-filter-input::-webkit-outer-spin-button,
@@ -243,19 +238,21 @@ input.price-filter-input[type="number"] {
   margin-right: 5;
 }
 .guest-input {
- width: 190px;
+  width: 190px;
   border: 1.6px solid #1a76a3;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
 }
-.guest-input>svg{  width: 20px;
-  height: 20px;}
-.guest-input>input {
+.guest-input > svg {
+  width: 20px;
+  height: 20px;
+}
+.guest-input > input {
   height: 40px;
   width: 130px;
-  border:0px;
+  border: 0px;
   outline-width: 0px;
   -moz-appearance: textfield;
 }
@@ -312,9 +309,11 @@ footer p {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  display: flex;
+  justify-content: center;
 }
 .openModal:hover {
-color: var(--primary-color);
+  color: var(--primary-color);
 }
 .modal-content {
   position: relative;
@@ -325,7 +324,6 @@ color: var(--primary-color);
   max-width: 80%;
   min-width: 500px;
   min-height: 50%;
-
 }
 .modalcontent {
   position: relative;
@@ -337,7 +335,7 @@ color: var(--primary-color);
   min-width: 500px;
   min-height: 50%;
 }
-.TOS>h2{
+.TOS > h2 {
   text-align: center;
 }
 
@@ -691,7 +689,7 @@ color: var(--primary-color);
 .centered-container {
   display: flex;
   flex-direction: column;
-  position:relative;
+  position: relative;
   width: 450px;
   top: 80px;
   box-shadow: 0 0 30px rgb(0, 0, 0);
@@ -699,22 +697,22 @@ color: var(--primary-color);
   align-items: center;
   background-color: rgb(223, 236, 243);
 }
-.centered-container>form{
+.centered-container > form {
   display: flex;
   flex-direction: column;
-  position:relative;
+  position: relative;
   width: 400px;
   height: 100%;
   align-items: center;
 }
-.centered-container>h2{
+.centered-container > h2 {
   margin: 35px 0px 10px 0px;
 }
 .form-page-background {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height:900px;
+  height: 900px;
   width: 100%;
   background-color: rgb(223, 236, 243);
 }
@@ -741,9 +739,9 @@ label {
   border: 1px solid #ccc;
   border-radius: 20px;
 }
-.named-input>svg{
-width: 20px;
-height: 20px;
+.named-input > svg {
+  width: 20px;
+  height: 20px;
 }
 .name-input {
   width: 320px;
@@ -751,7 +749,6 @@ height: 20px;
   border: none;
   outline: none;
 }
-
 
 .emailLogin,
 .pwdLogin,
@@ -1340,6 +1337,7 @@ height: 20px;
 }
 
 .report-text {
+  display: flex;
   margin: 5px;
   font-size: 17px;
   width: 300px;
@@ -1448,7 +1446,7 @@ height: 20px;
   border-bottom: 1px solid #e6ecf3;
   align-items: center;
 }
-.profileclick{
+.profileclick {
   position: relative;
   display: flex;
   align-items: center;
@@ -1458,19 +1456,19 @@ height: 20px;
   position: sticky;
   top: 0;
   z-index: 2;
-  font-weight:bold;
+  font-weight: bold;
   height: 130px;
 }
-.statsheader>.userstats>.otherstats{
+.statsheader > .userstats > .otherstats {
   width: 180px;
   margin-right: 0px;
 }
 
-.statsSearch{
+.statsSearch {
   display: flex;
   height: 60px;
 }
-.add_user{
+.add_user {
   font-size: medium;
   background-color: var(--primary-color);
   position: relative;
@@ -1482,10 +1480,10 @@ height: 20px;
   width: 100px;
   border: 1.6px solid var(--primary-color);
   border-radius: 7px;
-  box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.2);
-  outline:none;
+  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2);
+  outline: none;
   text-align: center;
- cursor: pointer;
+  cursor: pointer;
 }
 .otherstats {
   width: 130px;
@@ -1527,7 +1525,7 @@ height: 20px;
 }
 
 .user-input {
-  display:flex;
+  display: flex;
   background-color: #eff8f8;
   position: relative;
   top: 20px;
@@ -1537,31 +1535,30 @@ height: 20px;
   width: 610px;
   border: 1.6px solid #a9b8b8;
   border-radius: 7px;
-  box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.2);
-  outline:none;
+  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2);
+  outline: none;
   align-items: center;
   justify-content: space-evenly;
 }
-.user-input>input{
+.user-input > input {
   background-color: #eff8f8;
   height: 30px;
   color: #56565e;
   font-size: medium;
   width: 550px;
   border: none;
-  outline:none;
+  outline: none;
 }
-.user-input>div{
+.user-input > div {
   background-color: #eff8f8;
   height: 20px;
   color: #56565e;
   width: 30px;
   border: none;
-  outline:none;
+  outline: none;
 }
 
-.the-Stats{
-  
+.the-Stats {
   display: flex;
   width: 400px;
   margin-left: auto;
@@ -1569,7 +1566,7 @@ height: 20px;
   margin-top: 120px;
   justify-content: space-evenly;
 }
-.accommodations-Stats{
+.accommodations-Stats {
   width: 220px;
   cursor: pointer;
   text-align: center;
@@ -1577,7 +1574,7 @@ height: 20px;
   color: #56565e;
   transition: border-color 0.6s ease;
 }
-.users-stats{
+.users-stats {
   width: 120px;
   cursor: pointer;
   text-align: center;
@@ -1585,7 +1582,7 @@ height: 20px;
   color: #56565e;
   transition: border-color 0.6s ease;
 }
-.users-statsA{
+.users-statsA {
   width: 120px;
   cursor: pointer;
   text-align: center;
@@ -1593,7 +1590,7 @@ height: 20px;
   color: #007bff;
 }
 
-.accommodations-StatsB{
+.accommodations-StatsB {
   width: 220px;
   cursor: pointer;
   text-align: center;
@@ -1607,13 +1604,13 @@ height: 20px;
   border-color: #007bff;
 }
 
-.SearchAmenities{
+.SearchAmenities {
   height: 35px;
   margin-right: 40px;
   display: flex;
 }
 
-.SearchAmenities>div {
+.SearchAmenities > div {
   position: relative;
   left: 20%;
   width: 70px;
@@ -1624,43 +1621,41 @@ height: 20px;
   align-items: center;
   cursor: pointer;
 }
-.SearchAmenities>div>input {
-margin: 5px 5px 5px 15px;
-width: 20px;
-height: 20px;
-cursor: pointer;
+.SearchAmenities > div > input {
+  margin: 5px 5px 5px 15px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }
-.SearchAmenities>div:hover{
-background-color: var(--primary-color);
+.SearchAmenities > div:hover {
+  background-color: var(--primary-color);
 }
 
-.l{
+.l {
   width: 1000px;
   height: 300px;
-  position:absolute;
+  position: absolute;
   top: 10%;
   left: 4%;
   background-color: rgb(231, 236, 240);
   z-index: 2;
   border-radius: 7px;
-  box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.3);
-  outline:none;
-  
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.3);
+  outline: none;
 }
-.l1{
+.l1 {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
 }
-.l1>div{
-  width: 50%; 
+.l1 > div {
+  width: 50%;
 }
-.l1>div>p{
+.l1 > div > p {
   margin: 5px 0px 5px 0px;
 }
 
-
-.l1>div>input{
+.l1 > div > input {
   position: relative;
   width: 78%;
   height: 30px;
@@ -1670,10 +1665,10 @@ background-color: var(--primary-color);
   font-size: medium;
   border: 1.6px solid #a9b8b8;
   border-radius: 7px;
-  box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.2);
-  outline:none;
+  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2);
+  outline: none;
 }
-.roles>select{
+.roles > select {
   position: relative;
   width: 78%;
   height: 34px;
@@ -1683,32 +1678,36 @@ background-color: var(--primary-color);
   font-size: medium;
   border: 1.6px solid #a9b8b8;
   border-radius: 7px;
-  box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2);
 }
-.l>form{
-  position:relative;
+.l > form {
+  position: relative;
   left: 4%;
-  top:5%;
-   width: 96%; 
-   height: 100%;
+  top: 5%;
+  width: 96%;
+  height: 100%;
 }
 
-.agreeterms{
+.agreeterms {
   display: flex;
   align-items: center;
   width: 50%;
   height: 40px;
 }
-.agreeterms>input{
-width: 20px;
-height: 20px;
+.agreeterms > input {
+  width: 20px;
+  height: 20px;
 }
-.agreeterms>.openModal{color: var(--primary-color);}
-.agreeterms>.openModal:hover{border-bottom:1px solid var(--primary-color);}
+.agreeterms > .openModal {
+  color: var(--primary-color);
+}
+.agreeterms > .openModal:hover {
+  border-bottom: 1px solid var(--primary-color);
+}
 
-.admin_unban{
+.admin_unban {
   width: 100px;
-  height:30px;
+  height: 30px;
   background-size: contain;
   border: none;
   border-radius: 5px;
@@ -1717,15 +1716,14 @@ height: 20px;
   color: white;
   cursor: pointer;
   background-color: green;
-  
 }
 .admin_unban:hover {
   background-color: rgb(33, 162, 33);
 }
 
-.admin_ban{
+.admin_ban {
   width: 100px;
-  height:30px;
+  height: 30px;
   background-size: contain;
   border: none;
   border-radius: 5px;
@@ -1735,6 +1733,6 @@ height: 20px;
   cursor: pointer;
   background-color: rgb(189, 8, 8);
 }
-.admin_ban:hover{
+.admin_ban:hover {
   background-color: red;
 }

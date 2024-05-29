@@ -3,13 +3,16 @@ import { useState } from "react";
 // eslint-disable-next-line react/prop-types
 export default function TextModal({ modalTitle, children }) {
   const [isOpen, setIsOpen] = useState(false);
-  const handleClick = () => setIsOpen(!isOpen);
+  const handleClick = (e) => {
+    e.stopPropagation();
+    setIsOpen(!isOpen);
+  };
 
   return (
     <>
-      <button onClick={handleClick} className="openModal">
+      <div onClick={handleClick} className="openModal">
         {modalTitle}
-      </button>
+      </div>
       {isOpen && (
         <div className="modal">
           <div className="modalcontent">
