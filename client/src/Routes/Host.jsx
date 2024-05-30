@@ -242,10 +242,9 @@ export default function Host() {
   }, [user]);
   return (
     <>
-    <Header/>
+      <Header />
       <div className="host-form">
         <div className="host-form-content-wrapper">
-         
           <form onSubmit={handleSubmit}>
             <div className="button-container">
               <h2>What type of place will guests have?</h2>
@@ -300,7 +299,7 @@ export default function Host() {
                 }}
                 htmlFor="location"
               >
-                Paste your location link here:
+                Type your home address here
               </label>
 
               <input
@@ -370,7 +369,7 @@ export default function Host() {
               </div>
             </label>
             <br />
-         
+
             <br />
             <h2 style={{ margin: "-10px", marginLeft: "50px" }}>
               What your place has to offer ?
@@ -384,7 +383,10 @@ export default function Host() {
                     checked={formValues.amenities.wifi}
                     onChange={() => toggleFeature("wifi")}
                   />
-                  <p><FaWifi />Wifi</p>
+                  <p>
+                    <FaWifi />
+                    Wifi
+                  </p>
                 </label>
                 <label className="amenitiy">
                   <input
@@ -393,7 +395,10 @@ export default function Host() {
                     onChange={() => toggleFeature("kitchen")}
                     style={{ marginLeft: "27px" }}
                   />
-                  <p><FaUtensils />Kitchen</p>
+                  <p>
+                    <FaUtensils />
+                    Kitchen
+                  </p>
                 </label>
                 <label className="amenitiy">
                   <input
@@ -401,7 +406,9 @@ export default function Host() {
                     checked={formValues.amenities.gym}
                     onChange={() => toggleFeature("gym")}
                   />
-                  <p><FaDumbbell /> Gym</p>
+                  <p>
+                    <FaDumbbell /> Gym
+                  </p>
                 </label>
               </div>
               <div className="row">
@@ -412,7 +419,10 @@ export default function Host() {
                     checked={formValues.amenities.bbqGrill}
                     onChange={() => toggleFeature("bbqGrill")}
                   />
-                  <p><MdOutdoorGrill />BBQ Grill</p>
+                  <p>
+                    <MdOutdoorGrill />
+                    BBQ Grill
+                  </p>
                 </label>
                 <label className="amenitiy">
                   <input
@@ -420,7 +430,9 @@ export default function Host() {
                     checked={formValues.amenities.bathtub}
                     onChange={() => toggleFeature("bathtub")}
                   />
-                  <p><GiBathtub /> Bath tub</p>
+                  <p>
+                    <GiBathtub /> Bath tub
+                  </p>
                 </label>
                 <label className="amenitiy">
                   <input
@@ -428,7 +440,10 @@ export default function Host() {
                     checked={formValues.amenities.tv}
                     onChange={() => toggleFeature("tv")}
                   />
-                  <p style={{ marginRight: "35px" }}><PiTelevisionSimpleBold />TV</p>
+                  <p style={{ marginRight: "35px" }}>
+                    <PiTelevisionSimpleBold />
+                    TV
+                  </p>
                 </label>
               </div>
               <div className="row">
@@ -439,7 +454,10 @@ export default function Host() {
                     checked={formValues.amenities.garage}
                     onChange={() => toggleFeature("garage")}
                   />
-                  <p><FaParking />Garage</p>
+                  <p>
+                    <FaParking />
+                    Garage
+                  </p>
                 </label>
                 <label className="amenitiy">
                   <input
@@ -447,7 +465,10 @@ export default function Host() {
                     checked={formValues.amenities.pool}
                     onChange={() => toggleFeature("pool")}
                   />
-                  <p style={{ marginRight: "20px" }}><FaSwimmingPool />Pool</p>
+                  <p style={{ marginRight: "20px" }}>
+                    <FaSwimmingPool />
+                    Pool
+                  </p>
                 </label>
                 <label className="amenitiy">
                   <input
@@ -456,7 +477,10 @@ export default function Host() {
                     onChange={() => toggleFeature("beachView")}
                     style={{ marginLeft: "30px" }}
                   />
-                  <p><GiWaveSurfer />Beach view</p>
+                  <p>
+                    <GiWaveSurfer />
+                    Beach view
+                  </p>
                 </label>
               </div>
             </div>
@@ -880,7 +904,7 @@ export default function Host() {
           </form>
         </div>
       </div>{" "}
-      <Footer/>
+      <Footer />
     </>
   );
 }

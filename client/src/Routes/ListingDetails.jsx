@@ -12,14 +12,14 @@ import { Link } from "react-router-dom";
 import ReviewsList from "../Components/ReviewsList";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
-import AdminHeader from '../Components/AdminHeader';
-// import { UserContext } from "../context/UserContext";
+
 function ListingDetails() {
   const [listingInfo, setListingInfo] = useState(null);
   const [reviews, setReviews] = useState(null);
   const [loading, setLoading] = useState(true);
   const [owner, setOwner] = useState(null);
   const [hasBooked, setHasBooked] = useState(null);
+  const [canReview, setCanReview] = useState(false);
   const { id } = useParams();
   const { user } = useContext(UserContext) || {};
 
@@ -30,18 +30,17 @@ function ListingDetails() {
           `http://localhost:3000/api/accommodations/${id}`
         );
         if (!response.ok)
-          throw new Error("Couldn't fetch accommodation info: Network error: ");
+          throw new Error("Couldn't fetch accommodation info: Network error");
         const accommodation = await response.json();
-
         setListingInfo(accommodation);
-
         setLoading(false);
       } catch (error) {
-        console.error("Couldn't fetch lisiting info:", error);
+        console.error("Couldn't fetch listing info:", error);
       }
     };
     fetchAccommodationById();
   }, [id]);
+
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -51,7 +50,6 @@ function ListingDetails() {
         if (!response.ok)
           throw new Error("Couldn't fetch reviews: Network error");
         const fetchedReviews = await response.json();
-
         setReviews(fetchedReviews);
       } catch (error) {
         console.error("Couldn't fetch reviews:", error);
@@ -59,6 +57,7 @@ function ListingDetails() {
     };
     fetchReviews();
   }, [id]);
+
   useEffect(() => {
     const fetchOwner = async () => {
       if (listingInfo) {
@@ -77,8 +76,9 @@ function ListingDetails() {
     };
     fetchOwner();
   }, [listingInfo, id]);
+
   useEffect(() => {
-    const hasBooked = async () => {
+    const checkIfHasBooked = async () => {
       if (listingInfo && user) {
         try {
           const response = await fetch(
@@ -86,29 +86,66 @@ function ListingDetails() {
           );
           if (!response.ok)
             throw new Error("Couldn't check if user has booked: Network error");
-          const has_booked = await response.json();
-          setHasBooked(has_booked);
+          const hasBooked = await response.json();
+          setHasBooked(hasBooked);
         } catch (error) {
           console.error("Couldn't check if user has booked:", error);
         }
       }
     };
+    checkIfHasBooked();
+  }, [listingInfo, user, id]);
 
-    hasBooked();
-  }, [listingInfo, id]);
+  useEffect(() => {
+    const transformDateFormat = (dateString) => {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${day}-${month}-${year}`;
+    };
+
+    const checkOutPassed = async () => {
+      if (hasBooked && hasBooked.length > 0) {
+        const today = new Date();
+        const checkOutDateString = transformDateFormat(
+          hasBooked[0].check_out_date
+        );
+        const [checkOutDay, checkOutMonth, checkOutYear] = checkOutDateString
+          .split("-")
+          .map(Number);
+        const checkOutDate = new Date(
+          checkOutYear,
+          checkOutMonth - 1,
+          checkOutDay
+        );
+        return today > checkOutDate;
+      }
+      return false;
+    };
+
+    const determineCanReview = async () => {
+      const result = await checkOutPassed();
+      console.log(result);
+      setCanReview(result);
+    };
+
+    determineCanReview();
+  }, [hasBooked]);
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
     <>
-      {user && user.is_banned == 1 && (
+      {user && user.is_banned === 1 && (
         <div className="bannedBanner">
           YOUR ACCOUNT HAS BEEN BANNED FROM RentALG, ALL FUNCTIONALITIES ARE
           DISABLED
         </div>
       )}
-      {user && user.role === "admin" ? ( <AdminHeader/> ) : ( <Header/>) }
+      <Header />
       <div className="listing-details-page">
         <div className="listing-details-page-images">
           <h2>{listingInfo.title}</h2>
@@ -149,10 +186,12 @@ function ListingDetails() {
             </div>
             <div>
               <h3>Reviews</h3>
-              {!hasBooked ||
-                (hasBooked.length !== 0 && (
-                  <Review accommodationId={id} host_id={listingInfo.host_id} />
-                ))}
+              {hasBooked && hasBooked.length !== 0 && (
+                /*canReview &&*/ <Review
+                  accommodationId={id}
+                  host_id={listingInfo.host_id}
+                />
+              )}
               {user && reviews && reviews.length > 0 ? (
                 <ReviewsList reviews={reviews} />
               ) : (

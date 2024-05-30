@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS users(
     phone_number VARCHAR(25) NOT NULL,
     profile_picture VARCHAR(255),
     role ENUM('admin', 'user') NOT NULL,
-    is_banned TINYINT(1) default(0 ) ,
+    is_banned TINYINT(1) default(0 ) 
 );
 
 CREATE TABLE IF NOT EXISTS accommodations (
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS accommodations (
     description VARCHAR(255) NOT NULL,
     price_per_night DECIMAL(10, 2) NOT NULL,
     max_guests TINYINT(2) NOT NULL,
-    pictures VARCHAR(255) NOT NULL,
+    pictures VARCHAR(1000) NOT NULL,
     amenities json not null,
     payment_type ENUM('ccp','credit_card') not null,
     location VARCHAR(255) NOT NULL,

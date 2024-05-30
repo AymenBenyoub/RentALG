@@ -2,7 +2,7 @@
 import { useState, useContext } from "react";
 import { FaCreditCard, FaLock } from "react-icons/fa";
 import { UserContext } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
+
 export default function Edahabia({
   checkInDate,
   checkOutDate,
@@ -15,7 +15,7 @@ export default function Edahabia({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [cardExpires, setCardExpires] = useState("");
   const [cardNumber, setCardNumber] = useState("");
-  const navigate = useNavigate();
+
   function formatExpires(value) {
     return value
       .replace(/[^0-9]/g, "")
@@ -45,7 +45,7 @@ export default function Edahabia({
   function convertDateToMySQLFormat(dateStr) {
     const parts = dateStr.split("/");
 
-    return `${parts[2]}-${parts[0]}-${parts[1]}`;
+    return `${parts[2]}-${parts[1]}-${parts[0]}`;
   }
 
   const today = convertDateToMySQLFormat(new Date().toLocaleDateString());
@@ -88,9 +88,7 @@ export default function Edahabia({
         if (response.ok) {
           alert("Reservation successful!");
           closeModal();
-          setTimeout(() => {
-            navigate("/bookings");
-          }, 100);
+          window.location.reload();
         } else {
           alert("Failed to make a reservation. Please try again.");
         }
@@ -111,15 +109,15 @@ export default function Edahabia({
 
   return (
     <div>
-      {user && user.role !== "admin"  && 
-      <button
-        className="ReserveButton"
-        onClick={openModal}
-        disabled={!user || user.is_banned === 1 || user.id === host_id}
-      >
-        Reserve
-      </button>
-}
+      {user && user.role !== "admin" && (
+        <button
+          className="ReserveButton"
+          onClick={openModal}
+          disabled={!user || user.is_banned === 1 || user.id === host_id}
+        >
+          Reserve
+        </button>
+      )}
       {isModalOpen && (
         <div className="ReserveModal">
           <div className="ReserveModal-content">

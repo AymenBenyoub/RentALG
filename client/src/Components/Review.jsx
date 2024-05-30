@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 function ButtonWithAttribute({ attribute, onClick, isActive }) {
   return (
     <button
@@ -18,7 +18,7 @@ function Review({ accommodationId, host_id }) {
   const [showCheckBoxList1, setShowCheckBoxList1] = useState(false);
   const [numberOfAttributes, setNumberOfAttributes] = useState(0);
   const { user } = useContext(UserContext);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const toggleCheckBoxList1 = () => {
     setShowCheckBoxList1(true);
   };
@@ -60,6 +60,7 @@ function Review({ accommodationId, host_id }) {
         console.error("error creating review: NETWORK ERROR");
       }
       console.log("created review successfully");
+      window.location.reload();
     } catch (error) {
       console.log("error creating review: ", error);
     }

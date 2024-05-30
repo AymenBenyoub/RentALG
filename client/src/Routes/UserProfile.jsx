@@ -150,6 +150,7 @@ export default function UserProfile() {
             {reviews && (
               <>
                 <h3>What guests say about {fullName}</h3>
+
                 <ReviewList reviews={reviews} />
               </>
             )}
@@ -169,7 +170,9 @@ export default function UserProfile() {
           </h2>
           <div className="profile-listings-container">
             {userListings !== null && userListings.length === 0 ? (
-              <p style={{ textAlign: "center" }}>This user has no listings</p>
+              <p style={{ textAlign: "center" }}>
+                This user has no listings...
+              </p>
             ) : userListings !== null ? (
               userListings.map((accommodation) => (
                 <div

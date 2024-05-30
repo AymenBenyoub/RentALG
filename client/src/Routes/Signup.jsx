@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import "../styles/login-signup.css";
 import { UserContext } from "../context/UserContext";
 import logo from "../assets/logo-transparent-png.png";
-import TOSModal from "../Components/TOSModal"
-import  TOS  from "../data/TOS";
+import TOSModal from "../Components/TOSModal";
+import TOS from "../data/TOS";
 import { FiPhone } from "react-icons/fi";
 import { IoMailOutline } from "react-icons/io5";
 import { RiLockPasswordLine } from "react-icons/ri";
@@ -66,28 +66,29 @@ function Signup() {
   return (
     <>
       <div className="form-page-background">
-      <Link to="/" className="link-decoration"  style={{
-        
-        width: "250px",
-        heigh: "60px",
-        position: "relative",
-        top:"30px",
-      }} >
-      <div className="logo">
-    <img
-      src={logo}
-      alt="RentALG"
-      style={{
-        display:"block",
-        width: "250px",
-        heigh: "60px",
-        
-      }}
-    />
-  </div>
-  </Link>
+        <Link
+          to="/"
+          className="link-decoration"
+          style={{
+            width: "250px",
+            heigh: "60px",
+            position: "relative",
+            top: "30px",
+          }}
+        >
+          <div className="logo">
+            <img
+              src={logo}
+              alt="RentALG"
+              style={{
+                display: "block",
+                width: "250px",
+                heigh: "60px",
+              }}
+            />
+          </div>
+        </Link>
         <div className="centered-container">
-         
           <h2>Sign Up</h2>
           <form onSubmit={handleSignupSubmit}>
             <div>
@@ -95,15 +96,15 @@ function Signup() {
                 First Name:
               </label>
               <div className="named-input">
-              <input
-                type="text"
-                id="signupFirstName"
-                className="name-input"
-                value={signupFirstName}
-                onChange={(e) => setSignupFirstName(e.target.value)}
-                required
-              />
-              <LuUser2 />
+                <input
+                  type="text"
+                  id="signupFirstName"
+                  className="name-input"
+                  value={signupFirstName}
+                  onChange={(e) => setSignupFirstName(e.target.value)}
+                  required
+                />
+                <LuUser2 />
               </div>
             </div>
             <div>
@@ -111,15 +112,15 @@ function Signup() {
                 Last Name:
               </label>
               <div className="named-input">
-              <input
-                type="text"
-                id="signupLastName"
-                className="name-input"
-                value={signupLastName}
-                onChange={(e) => setSignupLastName(e.target.value)}
-                required
-              />
-              <LuUser2 />
+                <input
+                  type="text"
+                  id="signupLastName"
+                  className="name-input"
+                  value={signupLastName}
+                  onChange={(e) => setSignupLastName(e.target.value)}
+                  required
+                />
+                <LuUser2 />
               </div>
             </div>
             <div>
@@ -127,15 +128,15 @@ function Signup() {
                 Email:
               </label>
               <div className="named-input">
-              <input
-                type="email"
-                id="signupEmail"
-                className="name-input"
-                value={signupEmail}
-                onChange={(e) => setSignupEmail(e.target.value)}
-                required
-              />
-              <IoMailOutline />
+                <input
+                  type="email"
+                  id="signupEmail"
+                  className="name-input"
+                  value={signupEmail}
+                  onChange={(e) => setSignupEmail(e.target.value)}
+                  required
+                />
+                <IoMailOutline />
               </div>
             </div>
             <div>
@@ -143,15 +144,15 @@ function Signup() {
                 Password:
               </label>
               <div className="named-input">
-              <input
-                type="password"
-                id="signupPassword"
-                className="name-input"
-                value={signupPassword}
-                onChange={(e) => setSignupPassword(e.target.value)}
-                required
-              />
-              <RiLockPasswordLine />
+                <input
+                  type="password"
+                  id="signupPassword"
+                  className="name-input"
+                  value={signupPassword}
+                  onChange={(e) => setSignupPassword(e.target.value)}
+                  required
+                />
+                <RiLockPasswordLine />
               </div>
             </div>
             <div>
@@ -159,25 +160,29 @@ function Signup() {
                 Phone Number:
               </label>
               <div className="named-input">
-              <input
-                type="tel"
-                id="signupPhoneNumber"
-                className="name-input"
-                value={signupPhoneNumber}
-                onChange={(e) => setSignupPhoneNumber(e.target.value)}
-                required
-              />
-              <FiPhone />
+                <input
+                  type="tel"
+                  id="signupPhoneNumber"
+                  className="name-input"
+                  value={signupPhoneNumber}
+                  onChange={(e) => setSignupPhoneNumber(e.target.value)}
+                  required
+                />
+                <FiPhone />
               </div>
             </div>
-              <div className="agreeterms">
-               <input
+            <div className="agreeterms">
+              <input
                 type="checkbox"
-                
                 onChange={(e) => setAgreeTerms(e.target.value)}
                 required
-              /> I agree to the  <TOSModal modalTitle={"Terms"}><TOS/></TOSModal></div>
-           
+              />{" "}
+              I agree to the{" "}
+              <TOSModal modalTitle={"Terms"}>
+                <TOS />
+              </TOSModal>
+            </div>
+
             <button
               type="submit"
               style={{

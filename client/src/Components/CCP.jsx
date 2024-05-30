@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useContext } from "react";
-import { FaCreditCard, FaLock } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
 import { UserContext } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
 
 export default function CCP({
   checkInDate,
@@ -20,7 +19,7 @@ export default function CCP({
     address: "",
   });
   const { user } = useContext(UserContext);
-  const navigate = useNavigate();
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -39,7 +38,7 @@ export default function CCP({
 
   function convertDateToMySQLFormat(dateStr) {
     const parts = dateStr.split("/");
-    return `${parts[2]}-${parts[0]}-${parts[1]}`;
+    return `${parts[2]}-${parts[1]}-${parts[0]}`;
   }
 
   const today = convertDateToMySQLFormat(new Date().toLocaleDateString());
@@ -82,9 +81,7 @@ export default function CCP({
       if (response.ok) {
         alert("Reservation successful!");
         closeModal();
-        setTimeout(() => {
-          navigate("/bookings");
-        }, 100);
+        window.location.reload();
       } else {
         alert("Failed to make a reservation. Please try again.");
       }
@@ -95,15 +92,15 @@ export default function CCP({
 
   return (
     <div>
-      {user && user.role !== "admin"  &&  
-      <button
-        className="ReserveButton"
-        onClick={openModal}
-        disabled={!user || user.is_banned === 1 || user.id === host_id}
-      >
-        Reserve
-      </button>
-      }
+      {user && user.role !== "admin" && (
+        <button
+          className="ReserveButton"
+          onClick={openModal}
+          disabled={!user || user.is_banned === 1 || user.id === host_id}
+        >
+          Reserve
+        </button>
+      )}
       {isModalOpen && (
         <div className="ReserveModal">
           <div className="ReserveModal-content">
