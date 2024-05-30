@@ -186,11 +186,8 @@ function ListingDetails() {
             </div>
             <div>
               <h3>Reviews</h3>
-              {hasBooked && hasBooked.length !== 0 && (
-                /*canReview &&*/ <Review
-                  accommodationId={id}
-                  host_id={listingInfo.host_id}
-                />
+              {hasBooked && hasBooked.length !== 0 && canReview && (
+                <Review accommodationId={id} host_id={listingInfo.host_id} />
               )}
               {user && reviews && reviews.length > 0 ? (
                 <ReviewsList reviews={reviews} />
