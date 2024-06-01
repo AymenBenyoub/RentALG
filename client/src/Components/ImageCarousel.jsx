@@ -1,6 +1,4 @@
-/* eslint-disable react/prop-types */
-
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 
 const ImageCarousel = ({ images }) => {
@@ -14,6 +12,11 @@ const ImageCarousel = ({ images }) => {
   const prevSlide = () => {
     setSlide(slide === 0 ? parsedImages.length - 1 : slide - 1);
   };
+
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 4500); // Change slide every 5 seconds (adjust as needed)
+    return () => clearInterval(interval);
+  }, [slide]); // Reset interval when slide changes
 
   return (
     <div className="carousel">

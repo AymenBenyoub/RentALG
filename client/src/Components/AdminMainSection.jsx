@@ -16,6 +16,8 @@ import {
 import { PiTelevisionSimpleBold } from "react-icons/pi";
 import { GiBathtub, GiWaveSurfer } from "react-icons/gi";
 import { MdOutdoorGrill } from "react-icons/md";
+import { ImCheckboxChecked } from "react-icons/im";
+import { GrCheckbox } from "react-icons/gr";
 
 export default function MainSection() {
   const [accommodations, setAccommodations] = useState([]);
@@ -24,6 +26,20 @@ export default function MainSection() {
   const [typeFilter, setTypeFilter] = useState("all"); // Initialize typeFilter state
   const [priceRange, setPriceRange] = useState({ min: "", max: "" });
   const [selectedAmenities, setSelectedAmenities] = useState([]);
+
+  const [isActive, setIsActive] = useState({
+    wifi: false,
+    kitchen: false,
+    tv: false,
+    pool: false,
+    gym: false,
+    garage: false,
+    bathtub: false,
+    bbqGrill: false,
+    beachView: false,
+  });
+
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -89,6 +105,11 @@ export default function MainSection() {
       ? selectedAmenities.filter((item) => item !== amenity)
       : [...selectedAmenities, amenity];
     setSelectedAmenities(updatedAmenities);
+    
+    setIsActive(prevState => ({
+      ...prevState,
+      [amenity]: !prevState[amenity],
+    }));
   };
 
   return (
@@ -109,44 +130,53 @@ export default function MainSection() {
         <GuestInput onChange={handleGuestChange} />
         <PriceFilter onChange={handlePriceChange} />
       </div>
-      <div className="SearchAmenities">
-      <div title="Wifi"> 
-          <input type="checkbox" onChange={() => handleAmenityChange("wifi")} />
-          <FaWifi />
+     <div className="SearchAmenities">
+          <div title="Wifi"> 
+            <button onClick={() => handleAmenityChange("wifi")} style={{ backgroundColor: isActive.wifi ? 'var(--primary-color)' : 'var(--secondary-color)' }}>
+            {isActive.wifi ?  <ImCheckboxChecked />: <GrCheckbox />} <FaWifi />
+            </button>
+          </div>
+          <div title="Kitchen">
+            <button onClick={() => handleAmenityChange("kitchen")} style={{ backgroundColor: isActive.kitchen ? 'var(--primary-color)' : 'var(--secondary-color)' }}>
+            {isActive.kitchen ?  <ImCheckboxChecked />: <GrCheckbox />}  <FaUtensils />
+            </button>
+          </div>
+          <div title="TV">
+            <button onClick={() => handleAmenityChange("tv")} style={{ backgroundColor: isActive.tv ? 'var(--primary-color)' : 'var(--secondary-color)'}}>
+            {isActive.tv?  <ImCheckboxChecked />: <GrCheckbox />} <PiTelevisionSimpleBold />
+            </button>
+          </div>
+          <div title="Pool">
+            <button onClick={() => handleAmenityChange("pool")} style={{ backgroundColor: isActive.pool ? 'var(--primary-color)' : 'var(--secondary-color)'}}>
+            {isActive.pool ?  <ImCheckboxChecked />: <GrCheckbox />} <FaSwimmingPool />
+            </button>
+          </div>
+          <div title="Gym">
+            <button onClick={() => handleAmenityChange("gym")} style={{ backgroundColor: isActive.gym ? 'var(--primary-color)' : 'var(--secondary-color)' }}>
+            {isActive.gym ?  <ImCheckboxChecked />: <GrCheckbox />} <FaDumbbell />
+            </button>
+          </div>
+          <div title="Garage">
+            <button onClick={() => handleAmenityChange("garage")} style={{ backgroundColor: isActive.garage ? 'var(--primary-color)' : 'var(--secondary-color)' }}>
+            {isActive.garage?  <ImCheckboxChecked />: <GrCheckbox />} <FaParking />
+            </button>
+          </div>
+          <div title="Bathtub">
+            <button onClick={() => handleAmenityChange("bathtub")} style={{ backgroundColor: isActive.bathtub ? 'var(--primary-color)' : 'var(--secondary-color)'}}>
+            {isActive.bathtub ?  <ImCheckboxChecked />: <GrCheckbox />}  <GiBathtub />
+            </button>
+          </div>
+          <div title="BBQ Grill">
+            <button onClick={() => handleAmenityChange("bbqGrill")} style={{ backgroundColor: isActive.bbqGrill ? 'var(--primary-color)' : 'var(--secondary-color)' }}>
+            {isActive.bbqGrill ?  <ImCheckboxChecked />: <GrCheckbox />}  <MdOutdoorGrill />
+            </button>
+          </div>
+          <div title="Beach view">
+            <button onClick={() => handleAmenityChange("beachView")} style={{ backgroundColor: isActive.beachView ? 'var(--primary-color)' : 'var(--secondary-color)' }}>
+            {isActive.beachView ?  <ImCheckboxChecked />: <GrCheckbox />}  <GiWaveSurfer />
+            </button>
+          </div>
         </div>
-        <div title="Kitchen">
-          <input type="checkbox" onChange={() => handleAmenityChange("utensils")} />
-          <FaUtensils />
-        </div>
-        <div title="TV">
-          <input type="checkbox" onChange={() => handleAmenityChange("tv")} />
-          <PiTelevisionSimpleBold />
-        </div>
-        <div title="Pool">
-          <input type="checkbox" onChange={() => handleAmenityChange("pool")} />
-          <FaSwimmingPool />
-        </div>
-        <div title="Gym">
-          <input type="checkbox" onChange={() => handleAmenityChange("gym")} />
-          <FaDumbbell />
-        </div>
-        <div title="Garage">
-          <input type="checkbox" onChange={() => handleAmenityChange("parking")} />
-          <FaParking />
-        </div>
-        <div title="Bathtub">
-          <input type="checkbox" onChange={() => handleAmenityChange("bathtub")} />
-          <GiBathtub />
-        </div>
-        <div title="BBQ Grill">
-          <input type="checkbox" onChange={() => handleAmenityChange("grill")} />
-          <MdOutdoorGrill />
-        </div>
-        <div title="Beach view">
-          <input type="checkbox" onChange={() => handleAmenityChange("surfing")} />
-          <GiWaveSurfer />
-        </div>
-      </div>
       </div>
       <p style={{ fontFamily: "Secular One", fontSize: 20, marginLeft: "50px" }}>
         All Listings

@@ -40,6 +40,7 @@ body {
   border-radius: 5px;
   cursor: pointer;
   transition: filter 0.2s ease;
+  
 }
 
 .primary-btn:hover {
@@ -57,9 +58,10 @@ body {
   color: white;
   border: 1.6px solid var(--primary-color);
   border-radius: 5px;
-  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.2);
   text-align: center;
   cursor: pointer;
+ 
 }
 
 .secondary-btn:hover {
@@ -91,15 +93,16 @@ nav {
     margin-right: 10px;
   }
 }
-.logo {
+.logo{
   position: relative;
   top: 10%;
-  display: block;
+  display:block;
   width: 250px;
   height: 60px;
 }
 .logoheader {
   position: relative;
+ 
 }
 .link-decoration {
   text-decoration: none;
@@ -107,20 +110,15 @@ nav {
   display: flex;
   align-items: center;
 }
-.link-decoration > div {
+.link-decoration>div{
   width: 135px;
 }
-.link-decoration > svg {
+.link-decoration>svg{
   width: 20px;
   height: 20px;
+  
 }
-.filters-bg {
-  background-image: url(../assets/bg-pic.jpg);
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  height: 450px;
-  padding-top: 100px;
-}
+
 .SearchSection {
   height: 140px;
   margin-top: 65px;
@@ -128,18 +126,23 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  * {
-    margin: 3px;
-  }
-  p {
-    font-family: Secular One;
-    font-size: 20px;
-    color: white;
-  }
-  input:focus {
-    outline-style: outset;
-    outline-color: var(--secondary-color);
-  }
+  
+*{
+  margin: 3px;}
+p {
+  font-family: Secular One;
+  font-size: 20px;
+  color: white;}input:focus {
+  outline-style: outset;
+  outline-color: var(--secondary-color);}
+}
+
+.filters-bg {
+  background-image: url(../assets/bg-pic.jpg);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 450px;
+  padding-top: 100px;
 }
 
 .destination-input {
@@ -152,7 +155,7 @@ nav {
   display: flex;
   align-items: center;
 }
-.destination-input > input {
+.destination-input>input {
   height: 40px;
   width: 360px;
   border: 0px;
@@ -167,11 +170,11 @@ nav {
   display: flex;
   align-items: center;
 }
-.price-filter-input > svg {
+.price-filter-input>svg{
   width: 20px;
   height: 20px;
 }
-.price-filter-input > input {
+.price-filter-input>input{
   -moz-appearance: textfield;
   width: 70px;
   height: 40px;
@@ -180,6 +183,7 @@ nav {
   border-radius: 4px;
   outline-color: transparent;
   outline-width: 0px;
+  
 }
 
 input.price-filter-input::-webkit-outer-spin-button,
@@ -255,14 +259,12 @@ input.price-filter-input[type="number"] {
   display: flex;
   align-items: center;
 }
-.guest-input > svg {
-  width: 20px;
-  height: 20px;
-}
-.guest-input > input {
+.guest-input>svg{  width: 20px;
+  height: 20px;}
+.guest-input>input {
   height: 40px;
   width: 130px;
-  border: 0px;
+  border:0px;
   outline-width: 0px;
   -moz-appearance: textfield;
 }
@@ -323,7 +325,7 @@ footer p {
   justify-content: center;
 }
 .openModal:hover {
-  color: var(--primary-color);
+color: var(--primary-color);
 }
 .modal-content {
   position: relative;
@@ -334,6 +336,7 @@ footer p {
   max-width: 80%;
   min-width: 500px;
   min-height: 50%;
+
 }
 .modalcontent {
   position: relative;
@@ -345,14 +348,13 @@ footer p {
   min-width: 500px;
   min-height: 50%;
 }
-.TOS > h2 {
+.TOS>h2{
   text-align: center;
 }
 
 .modals-container {
   width: 150px;
   display: flex;
-  flex-direction: column;
   justify-content: space-around;
 }
 .footer-icons {
@@ -416,6 +418,11 @@ footer p {
   margin: 10px 0 0;
   font-size: 16px;
 }
+
+.slides-container {
+  display: flex;
+  overflow: hidden;
+}
 .carousel {
   position: relative;
   display: flex;
@@ -428,16 +435,21 @@ footer p {
   transform: translateX(30%);
 }
 
+
 .slide {
   border-radius: 0.5rem;
   box-shadow: 0px 0px 7px #666;
   width: 100%;
   height: 100%;
+  flex-shrink: 1;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .slide-hidden {
   display: none;
 }
+
 
 .arrow {
   position: absolute;
@@ -445,6 +457,7 @@ footer p {
   width: 2rem;
   height: 2rem;
   color: white;
+ 
 }
 
 .arrow:hover {
@@ -699,7 +712,7 @@ footer p {
 .centered-container {
   display: flex;
   flex-direction: column;
-  position: relative;
+  position:relative;
   width: 450px;
   top: 80px;
   box-shadow: 0 0 30px rgb(0, 0, 0);
@@ -707,22 +720,22 @@ footer p {
   align-items: center;
   background-color: rgb(223, 236, 243);
 }
-.centered-container > form {
+.centered-container>form{
   display: flex;
   flex-direction: column;
-  position: relative;
+  position:relative;
   width: 400px;
   height: 100%;
   align-items: center;
 }
-.centered-container > h2 {
+.centered-container>h2{
   margin: 35px 0px 10px 0px;
 }
 .form-page-background {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 900px;
+  height:900px;
   width: 100%;
   background-color: rgb(223, 236, 243);
 }
@@ -749,9 +762,9 @@ label {
   border: 1px solid #ccc;
   border-radius: 20px;
 }
-.named-input > svg {
-  width: 20px;
-  height: 20px;
+.named-input>svg{
+width: 20px;
+height: 20px;
 }
 .name-input {
   width: 320px;
@@ -759,6 +772,7 @@ label {
   border: none;
   outline: none;
 }
+
 
 .emailLogin,
 .pwdLogin,
@@ -1318,6 +1332,9 @@ label {
   pointer-events: none;
   cursor: none !;
   color: white;
+  z-index: 1;
+  position: sticky;
+  top: 1px;
 }
 .admin {
   margin-top: 50px;
@@ -1347,7 +1364,6 @@ label {
 }
 
 .report-text {
-  display: flex;
   margin: 5px;
   font-size: 17px;
   width: 300px;
@@ -1456,7 +1472,7 @@ label {
   border-bottom: 1px solid #e6ecf3;
   align-items: center;
 }
-.profileclick {
+.profileclick{
   position: relative;
   display: flex;
   align-items: center;
@@ -1466,19 +1482,19 @@ label {
   position: sticky;
   top: 0;
   z-index: 2;
-  font-weight: bold;
+  font-weight:bold;
   height: 130px;
 }
-.statsheader > .userstats > .otherstats {
+.statsheader>.userstats>.otherstats{
   width: 180px;
   margin-right: 0px;
 }
 
-.statsSearch {
+.statsSearch{
   display: flex;
   height: 60px;
 }
-.add_user {
+.add_user{
   font-size: medium;
   background-color: var(--primary-color);
   position: relative;
@@ -1490,15 +1506,16 @@ label {
   width: 100px;
   border: 1.6px solid var(--primary-color);
   border-radius: 7px;
-  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2);
-  outline: none;
+  box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.2);
+  outline:none;
   text-align: center;
-  cursor: pointer;
+ cursor: pointer;
 }
 .otherstats {
   width: 130px;
   position: relative;
   left: 50px;
+  height: 28px;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-right: 50px;
@@ -1506,6 +1523,7 @@ label {
 }
 .emailstats {
   width: 150px;
+  height: 28px;
   position: relative;
   left: 20px;
   overflow: hidden;
@@ -1515,6 +1533,7 @@ label {
 }
 .idstats {
   width: 100px;
+  height: 30px;
   position: relative;
   left: 50px;
   overflow: hidden;
@@ -1535,7 +1554,7 @@ label {
 }
 
 .user-input {
-  display: flex;
+  display:flex;
   background-color: #eff8f8;
   position: relative;
   top: 20px;
@@ -1545,30 +1564,31 @@ label {
   width: 610px;
   border: 1.6px solid #a9b8b8;
   border-radius: 7px;
-  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2);
-  outline: none;
+  box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.2);
+  outline:none;
   align-items: center;
   justify-content: space-evenly;
 }
-.user-input > input {
+.user-input>input{
   background-color: #eff8f8;
   height: 30px;
   color: #56565e;
   font-size: medium;
   width: 550px;
   border: none;
-  outline: none;
+  outline:none;
 }
-.user-input > div {
+.user-input>div{
   background-color: #eff8f8;
   height: 20px;
   color: #56565e;
   width: 30px;
   border: none;
-  outline: none;
+  outline:none;
 }
 
-.the-Stats {
+.the-Stats{
+  
   display: flex;
   width: 400px;
   margin-left: auto;
@@ -1576,7 +1596,7 @@ label {
   margin-top: 120px;
   justify-content: space-evenly;
 }
-.accommodations-Stats {
+.accommodations-Stats{
   width: 220px;
   cursor: pointer;
   text-align: center;
@@ -1584,7 +1604,7 @@ label {
   color: #56565e;
   transition: border-color 0.6s ease;
 }
-.users-stats {
+.users-stats{
   width: 120px;
   cursor: pointer;
   text-align: center;
@@ -1592,7 +1612,7 @@ label {
   color: #56565e;
   transition: border-color 0.6s ease;
 }
-.users-statsA {
+.users-statsA{
   width: 120px;
   cursor: pointer;
   text-align: center;
@@ -1600,7 +1620,7 @@ label {
   color: #007bff;
 }
 
-.accommodations-StatsB {
+.accommodations-StatsB{
   width: 220px;
   cursor: pointer;
   text-align: center;
@@ -1625,52 +1645,66 @@ label {
 }
 
 .SearchAmenities > div {
-  background-color: var(--secondary-color);
+  
   position: relative;
   left: 20%;
   width: 70px;
   margin-right: 10px;
-  transition: background-color 0.6s ease;
   border-radius: 10px;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
-.SearchAmenities > div > input {
-  margin: 5px 5px 5px 15px;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
+.SearchAmenities>div>button {
+background-color:whitesmoke;
+border-radius: 10px;
+transition: background-color 0.6s ease;
+width: 100%;
+height: 30px;
+cursor: pointer;
+border: 0px solid #1a76a3;
+display: flex;
+align-items: center;
+justify-content: space-evenly;
 }
-.SearchAmenities > div:hover {
-  background-color: var(--primary-color);
+.SearchAmenities>div>button:hover{
+background-color: var(--primary-color);
 }
 
-.l {
+.SearchAmenities>div>button>svg{
+ color:rgb(16, 16, 74);
+width: 16px;
+height: 18px;
+}
+
+
+.l{
   width: 1000px;
   height: 300px;
-  position: absolute;
+  position:absolute;
   top: 10%;
   left: 4%;
   background-color: rgb(231, 236, 240);
   z-index: 2;
   border-radius: 7px;
-  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.3);
-  outline: none;
+  box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.3);
+  outline:none;
+  
 }
-.l1 {
+.l1{
   display: flex;
   align-items: center;
   justify-content: space-evenly;
 }
-.l1 > div {
-  width: 50%;
+.l1>div{
+  width: 50%; 
 }
-.l1 > div > p {
+.l1>div>p{
   margin: 5px 0px 5px 0px;
 }
 
-.l1 > div > input {
+
+.l1>div>input{
   position: relative;
   width: 78%;
   height: 30px;
@@ -1680,10 +1714,10 @@ label {
   font-size: medium;
   border: 1.6px solid #a9b8b8;
   border-radius: 7px;
-  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2);
-  outline: none;
+  box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.2);
+  outline:none;
 }
-.roles > select {
+.roles>select{
   position: relative;
   width: 78%;
   height: 34px;
@@ -1693,36 +1727,32 @@ label {
   font-size: medium;
   border: 1.6px solid #a9b8b8;
   border-radius: 7px;
-  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.2);
 }
-.l > form {
-  position: relative;
+.l>form{
+  position:relative;
   left: 4%;
-  top: 5%;
-  width: 96%;
-  height: 100%;
+  top:5%;
+   width: 96%; 
+   height: 100%;
 }
 
-.agreeterms {
+.agreeterms{
   display: flex;
   align-items: center;
   width: 50%;
   height: 40px;
 }
-.agreeterms > input {
-  width: 20px;
-  height: 20px;
+.agreeterms>input{
+width: 20px;
+height: 20px;
 }
-.agreeterms > .openModal {
-  color: var(--primary-color);
-}
-.agreeterms > .openModal:hover {
-  border-bottom: 1px solid var(--primary-color);
-}
+.agreeterms>.openModal{color: var(--primary-color);}
+.agreeterms>.openModal:hover{border-bottom:1px solid var(--primary-color);}
 
-.admin_unban {
+.admin_unban{
   width: 100px;
-  height: 30px;
+  height:30px;
   background-size: contain;
   border: none;
   border-radius: 5px;
@@ -1731,14 +1761,15 @@ label {
   color: white;
   cursor: pointer;
   background-color: green;
+  
 }
 .admin_unban:hover {
   background-color: rgb(33, 162, 33);
 }
 
-.admin_ban {
+.admin_ban{
   width: 100px;
-  height: 30px;
+  height:30px;
   background-size: contain;
   border: none;
   border-radius: 5px;
@@ -1748,27 +1779,27 @@ label {
   cursor: pointer;
   background-color: rgb(189, 8, 8);
 }
-.admin_ban:hover {
+.admin_ban:hover{
   background-color: red;
 }
-.accommondationType-input {
+.accommondationType-input{
   display: flex;
   align-items: center;
   width: 150px;
   height: 48px;
   background-color: white;
-  border: 1.5px solid #1a76a3;
+  border: 1.6px solid #1a76a3;
   border-radius: 5px;
 }
-.accommondationType-input > select {
-  width: 120px;
+.accommondationType-input>select{
+   width: 120px;
   height: 30px;
   background-color: white;
   border: 0px solid #1a76a3;
-  color: #494848;
-}
+  color:#494848;
+  }
 
-.accommondationType-input > svg {
-  width: 20px;
-  height: 20px;
-}
+  .accommondationType-input>svg{
+    width: 20px;
+    height: 20px;
+  }

@@ -137,6 +137,34 @@ function ListingDetails() {
     return <div>Loading...</div>;
   }
 
+
+  const removeAccommodation = async (accommodationId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/accommodations/delete/${accommodationId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) {
+        alert(
+          "You cannot remove a listing if it has pending reports or upcoming reservations"
+        );
+        throw new Error("ERROR DELETING LISTING: NETWORK ERROR\n ");
+      }
+      console.log("Listing deleted");
+      navigate('/');
+    } catch (error) {
+      console.error("Error deleting listing: " + error);
+    }
+  };
+
+  const handleRemove = (id) => {
+  
+       removeAccommodation(id);
+    
+  };
+
   return (
     <>
       {user && user.is_banned === 1 && (
@@ -150,6 +178,17 @@ function ListingDetails() {
         <div className="listing-details-page-images">
           <h2>{listingInfo.title}</h2>
           <ImageCarousel images={listingInfo.pictures} />
+          {user && user.role === "admin" && (
+            <Link className="link-decoration">
+              <button
+                className="remove-report"
+                style={{ position: "relative", left: "35%", height: "50px", width: "400px" }}
+                onClick={() =>{window.location.replace("/"); handleRemove(listingInfo.id);}}
+              >
+                REMOVE
+              </button>
+            </Link>
+          )}
         </div>
         <div className="listing-details-container">
           <div className="details">

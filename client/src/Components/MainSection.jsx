@@ -16,6 +16,9 @@ import {
 import { PiTelevisionSimpleBold } from "react-icons/pi";
 import { GiBathtub, GiWaveSurfer } from "react-icons/gi";
 import { MdOutdoorGrill } from "react-icons/md";
+import { ImCheckboxChecked } from "react-icons/im";
+import { GrCheckbox } from "react-icons/gr";
+
 
 export default function MainSection() {
   const [accommodations, setAccommodations] = useState([]);
@@ -24,6 +27,18 @@ export default function MainSection() {
   const [priceRange, setPriceRange] = useState({ min: "", max: "" });
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [typeFilter, setTypeFilter] = useState("all");
+
+  const [isActive, setIsActive] = useState({
+    wifi: false,
+    kitchen: false,
+    tv: false,
+    pool: false,
+    gym: false,
+    garage: false,
+    bathtub: false,
+    bbqGrill: false,
+    beachView: false,
+  });
 
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
@@ -66,6 +81,10 @@ export default function MainSection() {
       ? selectedAmenities.filter((item) => item !== amenity)
       : [...selectedAmenities, amenity];
     setSelectedAmenities(updatedAmenities);
+    setIsActive(prevState => ({
+      ...prevState,
+      [amenity]: !prevState[amenity],
+    }));
   };
 
   const handleTypeChange = (value) => {
@@ -75,130 +94,97 @@ export default function MainSection() {
   const filteredAccommodations = accommodations.filter((accommodation) => {
     const matchDestination =
       destinationFilter === "" ||
-      accommodation.title
-        .toLowerCase()
-        .includes(destinationFilter.toLowerCase()) ||
-      accommodation.location
-        .toLowerCase()
-        .includes(destinationFilter.toLowerCase());
+      accommodation.title.toLowerCase().includes(destinationFilter.toLowerCase()) ||
+      accommodation.location.toLowerCase().includes(destinationFilter.toLowerCase());
 
-    const matchGuests =
-      guestFilter === "" || accommodation.max_guests >= guestFilter;
-    const matchType =
-      typeFilter === "all" || accommodation.accommodation_type === typeFilter;
+    const matchGuests = guestFilter === "" || accommodation.max_guests >= guestFilter;
+    const matchType = typeFilter === "all" || accommodation.accommodation_type === typeFilter;
 
     const matchPrice =
-      (priceRange.min === "" ||
-        accommodation.price_per_night >= priceRange.min) &&
-      (priceRange.max === "" ||
-        accommodation.price_per_night <= priceRange.max);
+      (priceRange.min === "" || accommodation.price_per_night >= priceRange.min) &&
+      (priceRange.max === "" || accommodation.price_per_night <= priceRange.max);
 
     const matchAmenities =
       selectedAmenities.length === 0 ||
-      selectedAmenities.every((amenity) =>
-        accommodation.amenities.includes(amenity)
-      );
+      selectedAmenities.every((amenity) => accommodation.amenities.includes(amenity));
 
-    return (
-      matchDestination &&
-      matchGuests &&
-      matchPrice &&
-      matchAmenities &&
-      matchType
-    );
+    return matchDestination && matchGuests && matchPrice && matchAmenities && matchType;
   });
 
   return (
     <>
       {user && user.is_banned == 1 && (
         <div className="bannedBanner">
-          YOUR ACCOUNT HAS BEEN BANNED FROM RentALG, ALL FUNCTIONALITIES ARE
-          DISABLED
+          YOUR ACCOUNT HAS BEEN BANNED FROM RentALG, ALL FUNCTIONALITIES ARE DISABLED
         </div>
       )}
       <div className="filters-bg">
-        <div className="SearchSection">
-          <p>Filters:</p>
-          <TextInput onChange={handleDestinationChange} />
-          <div className="accommondationType-input">
-            <select onChange={(e) => handleTypeChange(e.target.value)}>
-              <option value="all">All listings type</option>
-              <option value="shared room">Shared room</option>
-              <option value="house">House</option>
-              <option value="room">Room</option>
-            </select>
-            <BiBuildingHouse />
-          </div>
-          <GuestInput onChange={handleGuestChange} />
-          <PriceFilter onChange={handlePriceChange} />
+        
+      <div className="SearchSection">
+        <p>Filters:</p>
+        <TextInput onChange={handleDestinationChange} />
+        <div className="accommondationType-input" >
+          <select onChange={(e) => handleTypeChange(e.target.value)}>
+            <option value="all">All listings type</option>
+            <option value="shared room">Shared room</option>
+            <option value="house">House</option>
+            <option value="room">Room</option>
+          </select>
+          <BiBuildingHouse />
         </div>
-        <div className="SearchAmenities">
-          <div title="Wifi">
-            <input
-              type="checkbox"
-              onChange={() => handleAmenityChange("wifi")}
-            />
-            <FaWifi />
+        <GuestInput onChange={handleGuestChange} />
+        <PriceFilter onChange={handlePriceChange} />
+      </div>
+      <div className="SearchAmenities">
+          <div title="Wifi"> 
+            <button onClick={() => handleAmenityChange("wifi")} style={{ backgroundColor: isActive.wifi ? 'var(--primary-color)' : 'var(--secondary-color)' }}>
+            {isActive.wifi ?  <ImCheckboxChecked />: <GrCheckbox />} <FaWifi />
+            </button>
           </div>
           <div title="Kitchen">
-            <input
-              type="checkbox"
-              onChange={() => handleAmenityChange("utensils")}
-            />
-            <FaUtensils />
+            <button onClick={() => handleAmenityChange("kitchen")} style={{ backgroundColor: isActive.kitchen ? 'var(--primary-color)' : 'var(--secondary-color)' }}>
+            {isActive.kitchen ?  <ImCheckboxChecked />: <GrCheckbox />}  <FaUtensils />
+            </button>
           </div>
           <div title="TV">
-            <input type="checkbox" onChange={() => handleAmenityChange("tv")} />
-            <PiTelevisionSimpleBold />
+            <button onClick={() => handleAmenityChange("tv")} style={{ backgroundColor: isActive.tv ? 'var(--primary-color)' : 'var(--secondary-color)'}}>
+            {isActive.tv?  <ImCheckboxChecked />: <GrCheckbox />} <PiTelevisionSimpleBold />
+            </button>
           </div>
           <div title="Pool">
-            <input
-              type="checkbox"
-              onChange={() => handleAmenityChange("pool")}
-            />
-            <FaSwimmingPool />
+            <button onClick={() => handleAmenityChange("pool")} style={{ backgroundColor: isActive.pool ? 'var(--primary-color)' : 'var(--secondary-color)'}}>
+            {isActive.pool ?  <ImCheckboxChecked />: <GrCheckbox />} <FaSwimmingPool />
+            </button>
           </div>
           <div title="Gym">
-            <input
-              type="checkbox"
-              onChange={() => handleAmenityChange("gym")}
-            />
-            <FaDumbbell />
+            <button onClick={() => handleAmenityChange("gym")} style={{ backgroundColor: isActive.gym ? 'var(--primary-color)' : 'var(--secondary-color)' }}>
+            {isActive.gym ?  <ImCheckboxChecked />: <GrCheckbox />} <FaDumbbell />
+            </button>
           </div>
           <div title="Garage">
-            <input
-              type="checkbox"
-              onChange={() => handleAmenityChange("parking")}
-            />
-            <FaParking />
+            <button onClick={() => handleAmenityChange("garage")} style={{ backgroundColor: isActive.garage ? 'var(--primary-color)' : 'var(--secondary-color)' }}>
+            {isActive.garage?  <ImCheckboxChecked />: <GrCheckbox />} <FaParking />
+            </button>
           </div>
           <div title="Bathtub">
-            <input
-              type="checkbox"
-              onChange={() => handleAmenityChange("bathtub")}
-            />
-            <GiBathtub />
+            <button onClick={() => handleAmenityChange("bathtub")} style={{ backgroundColor: isActive.bathtub ? 'var(--primary-color)' : 'var(--secondary-color)'}}>
+            {isActive.bathtub ?  <ImCheckboxChecked />: <GrCheckbox />}  <GiBathtub />
+            </button>
           </div>
           <div title="BBQ Grill">
-            <input
-              type="checkbox"
-              onChange={() => handleAmenityChange("grill")}
-            />
-            <MdOutdoorGrill />
+            <button onClick={() => handleAmenityChange("bbqGrill")} style={{ backgroundColor: isActive.bbqGrill ? 'var(--primary-color)' : 'var(--secondary-color)' }}>
+            {isActive.bbqGrill ?  <ImCheckboxChecked />: <GrCheckbox />}  <MdOutdoorGrill />
+            </button>
           </div>
           <div title="Beach view">
-            <input
-              type="checkbox"
-              onChange={() => handleAmenityChange("surfing")}
-            />
-            <GiWaveSurfer />
+            <button onClick={() => handleAmenityChange("beachView")} style={{ backgroundColor: isActive.beachView ? 'var(--primary-color)' : 'var(--secondary-color)' }}>
+            {isActive.beachView ?  <ImCheckboxChecked />: <GrCheckbox />}  <GiWaveSurfer />
+            </button>
           </div>
         </div>
       </div>
-      <p
-        style={{ fontFamily: "Secular One", fontSize: 20, marginLeft: "50px" }}
-      >
-        Explore listings
+      <p style={{ fontFamily: "Secular One", fontSize: 20, marginLeft: "50px" }}>
+        Explore top listings
       </p>
       <main>
         {filteredAccommodations.length === 0 ? (
